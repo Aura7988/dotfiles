@@ -1,0 +1,24 @@
+set hintchars=asdfghjkl
+set editor="/usr/local/bin/mvim -f"
+set nextpattern=\s*下一页|下一封|下一张|下一篇|下页|后页\s*,^\bnext\b,\\bnext|Next\\b,^>$,^(>>|»)$,^(>|»),(>|»)$,\\bmore\\b
+set previouspattern=\s*上一页|上一封|上一张|上一篇|上页|前页\s*,^\bprev|previous\b,\\bprev|previous|Previous\\b,^<$,^(<<|«)$,^(<|«),(<|«)$
+cnoremap <S-Return> <End>.org<Home><C-Right>www.<CR>
+cnoremap <C-Return> <End>.com<Home><C-Right>www.<CR>
+map = zi
+"map - zo
+"noremap [ [[
+"noremap ] ]]
+"map s <C-d>
+"map a <C-u>
+noremap y Y
+noremap Y y
+noremap j 11j
+noremap k 11k
+noremap J j
+noremap K k
+noremap h H
+noremap l L
+"noremap H <C-p>
+"noremap L <C-n>
+noremap H h
+noremap L l
