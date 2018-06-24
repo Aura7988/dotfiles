@@ -1,7 +1,5 @@
 #. /usr/local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh
 . /usr/local/share/bash-completion/bash_completion
-#. /usr/local/opt/fzf/shell/completion.bash 2> /dev/null
-#. /usr/local/opt/fzf/shell/key-bindings.bash
 . ~/.shell_prompt.sh
 . /usr/local/etc/profile.d/z.sh
 
@@ -37,7 +35,7 @@ alias brew='hp brew'
 alias vi='hp vi'
 alias git='hp git'
 alias go='hp go'
-alias dotfiles='git --git-dir=$HOME/.files/ --work-tree=$HOME'
+alias .f='git --git-dir=$HOME/.files/ --work-tree=$HOME'
 
 sp(){ f=$(rg $@ | fzf -m | cut -d: -f1); [[ -n $f ]] && vi -- $f; }
 ww(){ curl wttr.in/${1:-南京}; }
