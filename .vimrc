@@ -118,7 +118,7 @@ let g:airline_powerline_fonts = 1
 let g:airline_extensions = ['branch', 'tabline']
 " let g:airline_section_c = '%<%{tagbar#currenttag("%s", "", "s")}'
 let g:airline_section_z = '%l,%c%V / %L -%p%%-'
-let g:airline#extensions#tabline#buffer_idx_mode = 1
+" let g:airline#extensions#tabline#buffer_idx_mode = 1
 
 " let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf = 0
