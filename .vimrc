@@ -27,7 +27,7 @@ set backspace=start,indent,eol
 set whichwrap=b,s,h,l,<,>,~,[,]
 set ru
 set nu
-" set relativenumber
+set relativenumber
 set cindent shiftwidth=4
 set ts=4
 set clipboard=unnamed
