@@ -86,6 +86,8 @@ nnoremap <F6> :Dox<CR>
 nnoremap <F7> :CtrlSFToggle<CR>
 nnoremap <F8> :call Header()<CR>
 
+vnoremap < <gv
+vnoremap > >gv
 nnoremap <C-j> <C-w>j "Ctrl-j to move down a split
 nnoremap <C-k> <C-w>k "Ctrl-k to move up a split
 nnoremap <C-l> <C-w>l "Ctrl-l to move right a split
@@ -112,10 +114,6 @@ nmap <Leader>n :bn<CR>
 nmap <Leader>p :bp<CR>
 nmap <Leader>s <Plug>CtrlSFCwordPath
 xmap <Leader>s <Plug>CtrlSFVwordExec
-nmap gb <Plug>(EasyAlign)
-xmap gb <Plug>(EasyAlign)
-vnoremap < <gv
-vnoremap > >gv
 
 let g:airline_powerline_fonts = 1
 let g:airline_extensions = ['branch', 'tabline']
@@ -171,6 +169,8 @@ let g:tagbar_type_go = {
 	\ 'ctagsargs' : '-sort -silent'
 \ }
 
+nmap gb <Plug>(EasyAlign)
+xmap gb <Plug>(EasyAlign)
 cabbrev dd EasyAlign / \ze\S\+\s*[;=]/ {'rm': 0, 'lm': 0}
 
 let g:ctrlsf_context = '-C 1'
