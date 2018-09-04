@@ -4,7 +4,6 @@ au FileType go nnoremap <Leader>g :GoDef<CR>
 " au FileType go,vim,c,cpp,python nested :TagbarOpen
 au FileType crontab setlocal nobackup nowritebackup
 " au FileType * setlocal formatoptions-=cro " Disable automatic comment insertion
-au FileType markdown nnoremap <F5> :!open %<CR><CR>
 
 if has('gui')
 	set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h16
@@ -51,7 +50,7 @@ let mapleader = "\<Space>"	"default value is backslash(\).
 
 call plug#begin('~/.vim/plugged')
 Plug 'vim-airline/vim-airline'
-Plug 'fatih/vim-go', {'for': 'go', 'do': ':GoInstallBinaries'}
+Plug 'fatih/vim-go', {'for': 'go', 'do': ':GoUpdateBinaries'}
 Plug 'Valloric/YouCompleteMe', {'for': ['c', 'cpp', 'go'], 'do': './install.py --clang-completer --go-completer'}
 Plug 'w0rp/ale', {'for': 'go'}
 Plug 'tpope/vim-fugitive'
@@ -76,14 +75,16 @@ Plug 'mhinz/vim-signify'
 " Plug 'ludovicchabant/vim-gutentags'
 " Plug 'Yggdroot/LeaderF', {'do': './install.sh'}
 " Plug 'dbeniamine/cheat.sh-vim'
+Plug 'vim-scripts/DoxygenToolkit.vim', {'for': ['c', 'cpp']}
 call plug#end()
 
 nnoremap <F2> :q<CR>
 set pastetoggle=<F3>
 nnoremap <F4> :set hls!<Bar>set hls?<CR>
-" nnoremap <F5> :botright lw<CR>
-" nnoremap <F6> :botright cw<CR>
+nnoremap <F5> :!open %<CR><CR>
+nnoremap <F6> :Dox<CR>
 nnoremap <F7> :CtrlSFToggle<CR>
+nnoremap <F8> :call Header()<CR>
 
 nnoremap <C-j> <C-w>j "Ctrl-j to move down a split
 nnoremap <C-k> <C-w>k "Ctrl-k to move up a split
@@ -188,3 +189,16 @@ highlight DiffChange        cterm=bold ctermbg=none ctermfg=197
 highlight SignifySignAdd    cterm=bold ctermbg=237  ctermfg=14
 highlight SignifySignDelete cterm=bold ctermbg=237  ctermfg=167
 highlight SignifySignChange cterm=bold ctermbg=237  ctermfg=197
+
+function! Header()
+	call append(0, "/*")
+	call append(1, " * Copyright ".strftime("%Y")." Aura. All rights reserved.")
+	call append(2, " *")
+	call append(3, " * @file   : ".expand("%:t"))
+	call append(4, " * @brief  : ")
+	call append(5, " *")
+	call append(6, " * @created: ".strftime("%Y-%m-%d %a %H:%M:%S"))
+	call append(7, " * @author : Aura, aura8897@gmail.com")
+	call append(8, " */")
+	call append(9, "")
+endfunction
