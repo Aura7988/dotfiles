@@ -4,6 +4,7 @@ au FileType go nnoremap <Leader>g :GoDef<CR>
 " au FileType go,vim,c,cpp,python nested :TagbarOpen
 au FileType crontab setlocal nobackup nowritebackup
 " au FileType * setlocal formatoptions-=cro " Disable automatic comment insertion
+au FileType markdown nnoremap <F5> :!open %<CR><CR>
 
 if has('gui')
 	set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h16
@@ -60,7 +61,7 @@ Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 Plug 'dyng/ctrlsf.vim'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/goyo.vim', {'for': 'markdown'}
+" Plug 'junegunn/goyo.vim', {'for': 'markdown'}
 " Plug 'junegunn/limelight.vim', {'for': 'markdown'}
 Plug 'junegunn/vim-easy-align'
 " Plug 'terryma/vim-multiple-cursors'
@@ -74,7 +75,7 @@ Plug 'tpope/vim-surround'
 Plug 'mhinz/vim-signify'
 " Plug 'ludovicchabant/vim-gutentags'
 " Plug 'Yggdroot/LeaderF', {'do': './install.sh'}
-Plug 'dbeniamine/cheat.sh-vim'
+" Plug 'dbeniamine/cheat.sh-vim'
 call plug#end()
 
 nnoremap <F2> :q<CR>
@@ -187,6 +188,3 @@ highlight DiffChange        cterm=bold ctermbg=none ctermfg=197
 highlight SignifySignAdd    cterm=bold ctermbg=237  ctermfg=14
 highlight SignifySignDelete cterm=bold ctermbg=237  ctermfg=167
 highlight SignifySignChange cterm=bold ctermbg=237  ctermfg=197
-
-let g:CheatSheetDefaultMode = 3
-" let g:CheatSheetProviders = ['ale', 'quickfix']
