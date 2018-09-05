@@ -84,7 +84,7 @@ nnoremap <F4> :set hls!<Bar>set hls?<CR>
 nnoremap <F5> :!open %<CR><CR>
 nnoremap <F6> :Dox<CR>
 nnoremap <F7> :CtrlSFToggle<CR>
-nnoremap <F8> :call Header()<CR>
+nnoremap <F8> :call <SID>Header()<CR>
 
 vnoremap < <gv
 vnoremap > >gv
@@ -190,7 +190,7 @@ highlight SignifySignAdd    cterm=bold ctermbg=237  ctermfg=14
 highlight SignifySignDelete cterm=bold ctermbg=237  ctermfg=167
 highlight SignifySignChange cterm=bold ctermbg=237  ctermfg=197
 
-function! Header()
+function! <SID>Header()
 	call append(0, "/*")
 	call append(1, " * Copyright ".strftime("%Y")." Aura. All rights reserved.")
 	call append(2, " *")
@@ -201,4 +201,6 @@ function! Header()
 	call append(7, " * @author : Aura, aura8897@gmail.com")
 	call append(8, " */")
 	call append(9, "")
+	exec "normal 5G"
+	startinsert!
 endfunction
