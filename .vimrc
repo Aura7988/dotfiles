@@ -1,9 +1,25 @@
 colorscheme jellybeans
 au BufReadPost * if line("'\"") > 0 && line ("'\"") <= line("$") | exe "normal! g'\"" | endif " jump to the last position
-au FileType go nnoremap <Leader>g :GoDef<CR>
 " au FileType go,vim,c,cpp,python nested :TagbarOpen
 au FileType crontab setlocal nobackup nowritebackup
 " au FileType * setlocal formatoptions-=cro " Disable automatic comment insertion
+au VimEnter * call <SID>OnceADay()
+
+augroup NoSimultaneousEdits
+    au!
+    au SwapExists ~/*    :let v:swapchoice = 'q'
+    au SwapExists /etc/* :let v:swapchoice = 'o'
+augroup END
+
+function! <SID>OnceADay()
+	let s:vimrc = '/Users/aura/.vimrc'
+	let s:vimrcDate = strftime("%Y%m%d", getftime(s:vimrc))
+	let s:currDate = strftime("%Y%m%d")
+	if s:vimrcDate != s:currDate
+		:PlugUpdate | PlugUpgrade
+		execute "silent !touch" s:vimrc
+	endif
+endfunction
 
 if has('gui')
 	set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h16
@@ -50,7 +66,7 @@ let mapleader = "\<Space>"	"default value is backslash(\).
 
 call plug#begin('~/.vim/plugged')
 Plug 'vim-airline/vim-airline'
-Plug 'fatih/vim-go', {'for': 'go', 'do': ':GoUpdateBinaries'}
+Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries'}
 Plug 'Valloric/YouCompleteMe', {'for': ['c', 'cpp', 'go'], 'do': './install.py --clang-completer --go-completer'}
 Plug 'w0rp/ale', {'for': 'go'}
 Plug 'tpope/vim-fugitive'
@@ -93,6 +109,7 @@ nnoremap <C-k> <C-w>k "Ctrl-k to move up a split
 nnoremap <C-l> <C-w>l "Ctrl-l to move right a split
 nnoremap <C-h> <C-w>h "Ctrl-h to move left a split
 
+au FileType go nnoremap <Leader>g :GoDef<CR>
 nnoremap <Leader>g :YcmCompleter GoTo<CR>
 nnoremap <Leader>t :TagbarToggle<CR>
 nnoremap <Leader>f :Files<CR>
