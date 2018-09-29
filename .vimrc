@@ -11,16 +11,6 @@ augroup NoSimultaneousEdits
     au SwapExists /etc/* :let v:swapchoice = 'o'
 augroup END
 
-function! <SID>OnceADay()
-	let s:vimrc = '/Users/aura/.vimrc'
-	let s:vimrcDate = strftime("%Y%m%d", getftime(s:vimrc))
-	let s:currDate = strftime("%Y%m%d")
-	if s:vimrcDate != s:currDate
-		:PlugUpdate | PlugUpgrade
-		execute "silent !touch" s:vimrc
-	endif
-endfunction
-
 if has('gui')
 	set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h16
 endif
@@ -91,16 +81,17 @@ Plug 'mhinz/vim-signify'
 " Plug 'ludovicchabant/vim-gutentags'
 " Plug 'Yggdroot/LeaderF', {'do': './install.sh'}
 " Plug 'dbeniamine/cheat.sh-vim'
-Plug 'vim-scripts/DoxygenToolkit.vim', {'for': ['c', 'cpp']}
+Plug '~/.vim/plugged/doxygenTool', {'for': ['c', 'cpp']}
 call plug#end()
 
 nnoremap <F2> :q<CR>
 set pastetoggle=<F3>
 nnoremap <F4> :set hls!<Bar>set hls?<CR>
 nnoremap <F5> :!open %<CR><CR>
-nnoremap <F6> :Dox<CR>
+" nnoremap <F6> :Dox<CR>
 nnoremap <F7> :CtrlSFToggle<CR>
-nnoremap <F8> :call <SID>Header()<CR>
+" nnoremap <F8> :match StatusLineTerm /<C-R><C-W>/<CR>
+nnoremap <F8> :call HlWord()<CR>
 
 vnoremap < <gv
 vnoremap > >gv
@@ -131,6 +122,10 @@ nmap <Leader>n :bn<CR>
 nmap <Leader>p :bp<CR>
 nmap <Leader>s <Plug>CtrlSFCwordPath
 xmap <Leader>s <Plug>CtrlSFVwordExec
+
+let g:go_template_autocreate = 0
+" let g:go_auto_sameids = 1
+let g:go_addtags_transform = 'camelcase'
 
 let g:airline_powerline_fonts = 1
 let g:airline_extensions = ['branch', 'tabline']
@@ -207,17 +202,22 @@ highlight SignifySignAdd    cterm=bold ctermbg=237  ctermfg=14
 highlight SignifySignDelete cterm=bold ctermbg=237  ctermfg=167
 highlight SignifySignChange cterm=bold ctermbg=237  ctermfg=197
 
-function! <SID>Header()
-	call append(0, "/*")
-	call append(1, " * Copyright ".strftime("%Y")." Aura. All rights reserved.")
-	call append(2, " *")
-	call append(3, " * @file   : ".expand("%:t"))
-	call append(4, " * @brief  : ")
-	call append(5, " *")
-	call append(6, " * @created: ".strftime("%Y-%m-%d %a %H:%M:%S"))
-	call append(7, " * @author : Aura, aura8897@gmail.com")
-	call append(8, " */")
-	call append(9, "")
-	exec "normal 5G"
-	startinsert!
+function! <SID>OnceADay()
+	let s:vimrc = '/Users/aura/.vimrc'
+	let s:vimrcDate = strftime("%Y%m%d", getftime(s:vimrc))
+	let s:currDate = strftime("%Y%m%d")
+	if s:vimrcDate != s:currDate
+		:PlugUpdate | PlugUpgrade
+		execute "silent !touch" s:vimrc
+	endif
+endfunction
+
+function! HlWord()
+	let w:hlword = exists('w:hlword') ? !w:hlword : 1
+	if w:hlword
+		let l:cmd = 'match StatusLineTerm /\<'.expand("<cword>").'\>/'
+		exec l:cmd
+	else
+		match none
+	endif
 endfunction
