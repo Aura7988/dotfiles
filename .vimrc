@@ -2,7 +2,7 @@ colorscheme jellybeans
 au BufReadPost * if line("'\"") > 0 && line ("'\"") <= line("$") | exe "normal! g'\"" | endif " jump to the last position
 " au FileType go,vim,c,cpp,python nested :TagbarOpen
 au FileType crontab setlocal nobackup nowritebackup
-" au FileType * setlocal formatoptions-=cro " Disable automatic comment insertion
+au BufEnter * set fo-=c fo-=r fo-=o " Disable automatic comment insertion
 au VimEnter * call <SID>OnceADay()
 
 augroup NoSimultaneousEdits
