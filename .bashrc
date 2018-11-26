@@ -3,6 +3,8 @@
 . ~/.shell_prompt.sh
 . /usr/local/etc/profile.d/z.sh
 
+stty discard undef # enable ^O
+
 alias ls='ls --color=auto'
 alias la='ls -A'
 alias ll='ls -lh --time-style=long-iso'

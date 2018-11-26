@@ -1,12 +1,5 @@
 [ -f ~/.bashrc ] && . ~/.bashrc
-stty discard undef # enable ^O
 
-#export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
-#export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
-#export http_proxy=http://127.0.0.1:7777
-#export https_proxy=http://127.0.0.1:7777
-#export ALL_PROXY=socks5://127.0.0.1:1086
-export SHELL_SESSION_HISTORY=0
 export GOPATH=$HOME/Go
 export PATH=$PATH:$GOPATH/bin:/usr/local/sbin
 export EDITOR=vim
