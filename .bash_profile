@@ -1,7 +1,8 @@
 [ -f ~/.bashrc ] && . ~/.bashrc
 
 export GOPATH=$HOME/Go
-export PATH=$PATH:$GOPATH/bin:/usr/local/sbin
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOBIN:/usr/local/sbin
 export EDITOR=vim
 export BROWSER=w3m
 export GOOGLER_COLORS=bjdxxy
