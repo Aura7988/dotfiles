@@ -14,5 +14,5 @@ export FZF_DEFAULT_COMMAND='fd --hidden --exclude .git --type f'
 export FZF_DEFAULT_OPTS='--height 33% --reverse --inline-info -e -0'
 export _Z_DATA=~/.zd
 export HISTSIZE=1600
-export HISTIGNORE='ls:la:ll:pwd:cd'
+export HISTIGNORE='pwd:cd'
 export HISTCONTROL=ignoredups
