@@ -1,15 +1,15 @@
-colorscheme jellybeans
+colorscheme delek
 au BufReadPost * if line("'\"") > 0 && line ("'\"") <= line("$") | exe "normal! g'\"" | endif " jump to the last position
 " au FileType go,vim,c,cpp,python nested :TagbarOpen
 au FileType crontab setlocal nobackup nowritebackup
 au BufEnter * set fo-=c fo-=r fo-=o " Disable automatic comment insertion
 au VimEnter * call <SID>OnceADay()
 
-augroup NoSimultaneousEdits
-    au!
-    au SwapExists ~/*    :let v:swapchoice = 'q'
-    au SwapExists /etc/* :let v:swapchoice = 'o'
-augroup END
+" augroup NoSimultaneousEdits
+"     au!
+"     au SwapExists ~/*    :let v:swapchoice = 'q'
+"     au SwapExists /etc/* :let v:swapchoice = 'o'
+" augroup END
 
 if has('gui')
 	set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h16
@@ -56,6 +56,7 @@ let mapleader = "\<Space>"	"default value is backslash(\).
 
 call plug#begin('~/.vim/plugged')
 Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
 Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries'}
 Plug 'Valloric/YouCompleteMe', {'for': ['c', 'cpp', 'go'], 'do': './install.py --clang-completer --go-completer'}
 Plug 'w0rp/ale', {'for': 'go'}
