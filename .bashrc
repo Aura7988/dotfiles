@@ -5,6 +5,7 @@
 
 stty discard undef # enable ^O
 
+alias gd='git difftool'
 alias ls='ls --color=auto'
 alias la='ls -A'
 alias ll='ls -lh --time-style=long-iso'

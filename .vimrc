@@ -42,7 +42,7 @@ set hlsearch
 set incsearch
 set mouse=a
 set completeopt=menu,longest,menuone
-set cursorline
+" set cursorline
 set history=126
 " set listchars=tab:>>,trail:!,eol:$
 " set expandtab
