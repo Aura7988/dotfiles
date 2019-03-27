@@ -31,7 +31,7 @@ alias @r='gg -w reddit.com'
 alias @we='gg -w en.wikipedia.org'
 alias @wz='gg -w zh.wikipedia.org'
 alias @n='gg -N --url-handler ~/Bash/reader.sh'
-alias rg='rg --smart-case'
+alias rg='rg --smart-case --hidden'
 alias t='ydcv'
 alias brew='hp brew'
 alias vi='hp vi'
@@ -39,7 +39,7 @@ alias git='hp git'
 alias go='hp go'
 alias .f='git --git-dir=$HOME/.files/ --work-tree=$HOME'
 
-sp(){ f=$(rg $@ | fzf -m | cut -d: -f1); [[ -n $f ]] && vi -- $f; }
+ss(){ f=$(rg -n $@ | fzf +m | cut -d: --output-delimiter=' +' -f1-2); [[ -n $f ]] && vi $f; }
 ww(){ curl wttr.in/${1:-南京}; }
 zz(){ cd "$(z 2>&1 | fzf +s --tac | sed 's/[^/]*//')"; }
 v(){ f=$(fzf -m); [[ -n $f ]] && vi -- $f; }
