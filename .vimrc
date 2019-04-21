@@ -43,7 +43,7 @@ set incsearch
 set mouse=a
 set completeopt=menu,longest,menuone
 " set cursorline
-set history=126
+set history=1024
 " set listchars=tab:>>,trail:!,eol:$
 " set expandtab
 " set smarttab
@@ -61,14 +61,10 @@ Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries'}
 Plug 'Valloric/YouCompleteMe', {'for': ['c', 'cpp', 'go'], 'do': './install.py --clang-completer --go-completer'}
 Plug 'w0rp/ale', {'for': 'go'}
 Plug 'tpope/vim-fugitive'
-" Plug 'godlygeek/csapprox'
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
-"Plug 'rking/ag.vim'
 Plug 'dyng/ctrlsf.vim'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
-" Plug 'junegunn/goyo.vim', {'for': 'markdown'}
-" Plug 'junegunn/limelight.vim', {'for': 'markdown'}
 Plug 'junegunn/vim-easy-align'
 " Plug 'terryma/vim-multiple-cursors'
 " Plug 'scrooloose/nerdcommenter'
@@ -125,14 +121,13 @@ nmap <Leader>s <Plug>CtrlSFCwordPath
 xmap <Leader>s <Plug>CtrlSFVwordExec
 
 let g:go_template_autocreate = 0
+let g:go_auto_type_info = 1
 " let g:go_auto_sameids = 1
 let g:go_addtags_transform = 'camelcase'
 
 let g:airline_powerline_fonts = 1
 let g:airline_extensions = ['branch', 'tabline']
-" let g:airline_section_c = '%<%{tagbar#currenttag("%s", "", "s")}'
-let g:airline_section_z = '%l,%c%V / %L -%p%%-'
-" let g:airline#extensions#tabline#buffer_idx_mode = 1
+let g:airline_section_z = '%l,%c%V %p%%'
 
 " let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf = 0
@@ -186,10 +181,12 @@ nmap gb <Plug>(EasyAlign)
 xmap gb <Plug>(EasyAlign)
 cabbrev dd EasyAlign / \ze\S\+\s*[;=]/ {'rm': 0, 'lm': 0}
 
-let g:ctrlsf_context = '-C 1'
-let g:ctrlsf_default_root = 'project+fw'
+let g:ctrlsf_ackprg = '/usr/local/bin/rg'
+let g:ctrlsf_context = '-C 0'
+let g:ctrlsf_default_root = 'project'
 let g:ctrlsf_indent = 2
-let g:ctrlsf_position = 'right'
+let g:ctrlsf_position = 'top'
+let g:ctrlsf_default_view_mode = 'compact'
 
 " let g:UltiSnipsExpandTrigger="<tab>"
 " let g:UltiSnipsJumpForwardTrigger="<c-b>"
