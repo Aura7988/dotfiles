@@ -1,6 +1,6 @@
-colorscheme delek
+colorscheme jellybeans
 au BufReadPost * if line("'\"") > 0 && line ("'\"") <= line("$") | exe "normal! g'\"" | endif " jump to the last position
-" au FileType go,vim,c,cpp,python nested :TagbarOpen
+au FileType c,cpp setlocal commentstring=//\ %s
 au FileType crontab setlocal nobackup nowritebackup
 au BufEnter * set fo-=c fo-=r fo-=o " Disable automatic comment insertion
 au VimEnter * call <SID>OnceADay()
@@ -67,7 +67,6 @@ Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 " Plug 'terryma/vim-multiple-cursors'
-" Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 " Plug 'tpope/vim-abolish'
@@ -76,9 +75,8 @@ Plug 'tpope/vim-surround'
 " Plug 'honza/vim-snippets'
 Plug 'mhinz/vim-signify'
 " Plug 'ludovicchabant/vim-gutentags'
-" Plug 'Yggdroot/LeaderF', {'do': './install.sh'}
 " Plug 'dbeniamine/cheat.sh-vim'
-Plug '~/.vim/plugged/doxygenTool', {'for': ['c', 'cpp']}
+Plug '~/.vim/plugged/DoxygenTool', {'for': ['c', 'cpp']}
 call plug#end()
 
 nnoremap <F2> :q<CR>
@@ -87,7 +85,6 @@ nnoremap <F4> :set hls!<Bar>set hls?<CR>
 nnoremap <F5> :!open %<CR><CR>
 " nnoremap <F6> :Dox<CR>
 nnoremap <F7> :CtrlSFToggle<CR>
-" nnoremap <F8> :match StatusLineTerm /<C-R><C-W>/<CR>
 nnoremap <F8> :call HlWord()<CR>
 
 vnoremap < <gv
