@@ -55,12 +55,13 @@ set history=1024
 let mapleader = "\<Space>"	"default value is backslash(\).
 
 call plug#begin('~/.vim/plugged')
-Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
+Plug '~/.vim/plugged/gitbranch'
+" Plug 'ap/vim-buftabline'
 Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries'}
 Plug 'Valloric/YouCompleteMe', {'for': ['c', 'cpp', 'go'], 'do': './install.py --clang-completer --go-completer'}
 Plug 'w0rp/ale', {'for': 'go'}
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 Plug 'dyng/ctrlsf.vim'
 Plug '/usr/local/opt/fzf'
@@ -102,15 +103,6 @@ nnoremap <Leader>F :Files
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>h :History:<CR>
 nnoremap <Leader>/ :History/<CR>
-nmap <Leader>1 <Plug>AirlineSelectTab1
-nmap <Leader>2 <Plug>AirlineSelectTab2
-nmap <Leader>3 <Plug>AirlineSelectTab3
-nmap <Leader>4 <Plug>AirlineSelectTab4
-nmap <Leader>5 <Plug>AirlineSelectTab5
-nmap <Leader>6 <Plug>AirlineSelectTab6
-nmap <Leader>7 <Plug>AirlineSelectTab7
-nmap <Leader>8 <Plug>AirlineSelectTab8
-nmap <Leader>9 <Plug>AirlineSelectTab9
 nmap <Leader>- :b#<CR>
 nmap <Leader>n :bn<CR>
 nmap <Leader>p :bp<CR>
@@ -122,9 +114,29 @@ let g:go_auto_type_info = 1
 " let g:go_auto_sameids = 1
 let g:go_addtags_transform = 'camelcase'
 
-let g:airline_powerline_fonts = 1
-let g:airline_extensions = ['branch', 'tabline']
-let g:airline_section_z = '%l,%c%V %p%%'
+let g:lightline = {
+	\ 'colorscheme': 'landscape',
+	\ 'separator': { 'left': '', 'right': '' },
+	\ 'subseparator': { 'left': '', 'right': '' },
+	\ 'component': {
+		\ 'lineinfo': '%l,%c%V %p%%',
+		\ 'ft_fenc_ff': '%{&ft!=""?&ft."  ":""}%{&fenc!=#""?&fenc:&enc}[%{&ff}]',
+		\ 'filename': '%{&ro?" ":""}%t%m',
+		\ 'branch': ' %{gitbranch#name()}',
+		\ },
+	\ 'component_visible_condition': {
+		\ 'paste': '&paste',
+		\ 'branch': 'g:gitbranch',
+		\ },
+	\ 'active': {
+		\ 'left': [ [ 'mode', 'paste', 'branch' ], [ 'filename' ] ],
+		\ 'right': [ [ 'lineinfo' ], [ 'ft_fenc_ff' ] ],
+		\ },
+	\ 'inactive': {
+		\ 'left': [ [ 'filename' ] ],
+		\ 'right': [ [ 'lineinfo' ] ],
+		\ },
+	\ }
 
 " let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf = 0
@@ -189,13 +201,6 @@ let g:ctrlsf_default_view_mode = 'compact'
 " let g:UltiSnipsJumpForwardTrigger="<c-b>"
 " let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " let g:UltiSnipsEditSplit="vertical"
-
-highlight DiffAdd           cterm=bold ctermbg=none ctermfg=14
-highlight DiffDelete        cterm=bold ctermbg=none ctermfg=167
-highlight DiffChange        cterm=bold ctermbg=none ctermfg=197
-highlight SignifySignAdd    cterm=bold ctermbg=237  ctermfg=14
-highlight SignifySignDelete cterm=bold ctermbg=237  ctermfg=167
-highlight SignifySignChange cterm=bold ctermbg=237  ctermfg=197
 
 function! <SID>OnceADay()
 	let s:vimrc = '/Users/aura/.vimrc'
