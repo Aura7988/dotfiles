@@ -55,8 +55,7 @@ set history=1024
 let mapleader = "\<Space>"	"default value is backslash(\).
 
 call plug#begin('~/.vim/plugged')
-Plug 'itchyny/lightline.vim'
-Plug '~/.vim/plugged/gitbranch'
+Plug '~/.vim/plugged/anyline'
 " Plug 'ap/vim-buftabline'
 Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries'}
 Plug 'Valloric/YouCompleteMe', {'for': ['c', 'cpp', 'go'], 'do': './install.py --clang-completer --go-completer'}
@@ -113,30 +112,6 @@ let g:go_template_autocreate = 0
 let g:go_auto_type_info = 1
 " let g:go_auto_sameids = 1
 let g:go_addtags_transform = 'camelcase'
-
-let g:lightline = {
-	\ 'colorscheme': 'landscape',
-	\ 'separator': { 'left': '', 'right': '' },
-	\ 'subseparator': { 'left': '', 'right': '' },
-	\ 'component': {
-		\ 'lineinfo': '%l,%c%V %p%%',
-		\ 'ft_fenc_ff': '%{&ft!=""?&ft."  ":""}%{&fenc!=#""?&fenc:&enc}[%{&ff}]',
-		\ 'filename': '%{&ro?" ":""}%t%m',
-		\ 'branch': ' %{gitbranch#name()}',
-		\ },
-	\ 'component_visible_condition': {
-		\ 'paste': '&paste',
-		\ 'branch': 'g:gitbranch',
-		\ },
-	\ 'active': {
-		\ 'left': [ [ 'mode', 'paste', 'branch' ], [ 'filename' ] ],
-		\ 'right': [ [ 'lineinfo' ], [ 'ft_fenc_ff' ] ],
-		\ },
-	\ 'inactive': {
-		\ 'left': [ [ 'filename' ] ],
-		\ 'right': [ [ 'lineinfo' ] ],
-		\ },
-	\ }
 
 " let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf = 0
