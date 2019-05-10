@@ -8,7 +8,7 @@ function __promptline_cwd {
 	local first_char
 	local part_count=0
 	local formatted_cwd=""
-	local dir_sep="  "
+	local dir_sep="  "
 	local tilde="~"
 
 	local cwd="${PWD/#$HOME/$tilde}"
@@ -85,7 +85,7 @@ function __promptline_wrapper {
 }
 
 function __promptline {
-	local sep=''
+	local sep=''
 	local space=" "
 	local reset='\[\e[0m\]'
 	local reset_bg='\[\e[49m\]'
