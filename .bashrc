@@ -1,7 +1,6 @@
-#. /usr/local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh
 . /usr/local/share/bash-completion/bash_completion
 . ~/.shell_prompt.sh
-. /usr/local/etc/profile.d/z.sh
+eval "$(lua ~/github/z.lua/z.lua --init bash enhanced once fzf)"
 
 stty discard undef # enable ^O
 
@@ -39,14 +38,15 @@ alias git='hp git'
 alias go='hp go'
 alias .f='git --git-dir=$HOME/.files/ --work-tree=$HOME'
 
-ss(){ f=$(rg -n $@ | fzf +m | cut -d: --output-delimiter=' +' -f1-2); [[ -n $f ]] && vi $f; }
+# s(){ f=$(rg -n $@ | fzf +m -d: $FZF_PREVIEW_OPTS 'let e={2}+5 && bat -n --color=always --line-range :$e {1} | tac | head | tac' | cut -d: --output-delimiter=' +' -f1-2); [[ -n $f ]] && vi $f; }
+s(){ f=$(rg -n $@ | fzf -m -d: $FZF_PREVIEW_OPTS 'let s={2}-3 && let e={2}+5 && bat -n --color=always --line-range $s:$e {1}' | cut -d: -f1); [[ -n $f ]] && vi -- $f; }
 ww(){ curl wttr.in/${1:-南京}; }
-zz(){ cd "$(z 2>&1 | fzf +s --tac | sed 's/[^/]*//')"; }
-v(){ f=$(fzf -m); [[ -n $f ]] && vi -- $f; }
-fzf_cd(){ d="$(fd -HE.git -td | fzf)" && echo -n "cd $d"; }
+zz(){ d=$(z -s | fzf +s --tac) && cd $d; }
+v(){ f=$(fzf -m $FZF_PREVIEW_OPTS 'bat -n --color=always {} | head -300'); [[ -n $f ]] && vi -- $f; }
+fzf_cd(){ d=$(fd -HE.git -td | fzf $FZF_PREVIEW_OPTS 'tree -C {} | head -300') && echo -n "cd $d"; }
 fzf_history() { h=$(history | fzf +s --tac --bind=ctrl-r:toggle-sort | sed 's/^ *[0-9]* *//') && echo -n $h; }
-fzf_select() { fd -HE.git | fzf -m | while read -r p; do echo -n ' '$p; done; }
+fzf_select() { i=$(fd -HE.git | fzf -m) && echo -n $i; }
 bind '"\ea": redraw-current-line'
 bind '"\C-g": "`fzf_select`\e\C-e\ea"'
-bind '"\C-r": "\C-a\C-k`fzf_history`\e\C-e\ea \C-h"'
+bind '"\C-r": "\C-a\C-k`fzf_history`\e\C-e\ea"'
 bind '"\C-j": "\C-e\C-u`fzf_cd`\e\C-e\ea\C-m"'
