@@ -41,10 +41,10 @@ alias .f='git --git-dir=$HOME/.files/ --work-tree=$HOME'
 # s(){ f=$(rg -n $@ | fzf +m -d: $FZF_PREVIEW_OPTS 'let e={2}+5 && bat -n --color=always --line-range :$e {1} | tac | head | tac' | cut -d: --output-delimiter=' +' -f1-2); [[ -n $f ]] && vi $f; }
 s(){ f=$(rg -n $@ | fzf -m -d: $FZF_PREVIEW_OPTS 'let s={2}-3 && let e={2}+5 && bat -n --color=always --line-range $s:$e {1}' | cut -d: -f1); [[ -n $f ]] && vi -- $f; }
 ww(){ curl wttr.in/${1:-南京}; }
-zz(){ d=$(z -s | fzf +s --tac) && cd $d; }
+zz(){ d=$(z -s | fzf +s --tac) && echo $d && cd $d; }
 v(){ f=$(fzf -m $FZF_PREVIEW_OPTS 'bat -n --color=always {} | head -300'); [[ -n $f ]] && vi -- $f; }
 fzf_cd(){ d=$(fd -HE.git -td | fzf $FZF_PREVIEW_OPTS 'tree -C {} | head -300') && echo -n "cd $d"; }
-fzf_history() { h=$(history | fzf +s --tac --bind=ctrl-r:toggle-sort | sed 's/^ *[0-9]* *//') && echo -n $h; }
+fzf_history() { h=$(history | fzf +s --tac | sed 's/^ *[0-9]* *//') && echo -n $h; }
 fzf_select() { i=$(fd -HE.git | fzf -m) && echo -n $i; }
 bind '"\ea": redraw-current-line'
 bind '"\C-g": "`fzf_select`\e\C-e\ea"'
