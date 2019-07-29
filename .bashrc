@@ -39,13 +39,14 @@ alias fd='fd --hidden --exclude .git'
 alias go='hp go'
 alias .f='git --git-dir=$HOME/.files/ --work-tree=$HOME'
 alias bu='brew cu -yaq && brew upgrade && (cd ~/Library/Caches/Homebrew/; rm downloads/*; fd -tl -x rm {})'
+alias y='pbcopy'
 
 # s(){ f=$(rg -n $@ | fzf +m -d: $FZF_PREVIEW_OPTS 'let e={2}+5 && bat -n --color=always --line-range :$e {1} | tac | head | tac' | cut -d: --output-delimiter=' +' -f1-2); [[ -n $f ]] && vi $f; }
 s(){ f=$(rg --color always $@ | fzf --ansi -m -d: $FZF_PREVIEW_OPTS 'let s={2}-3 && let e={2}+5 && bat -n --color=always --line-range $s:$e {1}' | cut -d: -f1); [[ -n $f ]] && vi -- $f; }
 ww(){ curl wttr.in/${1:-南京}; }
-zz(){ d=$(z -s | fzf +s --tac) && echo $d && cd $d; }
+zz(){ d=$(z -s | fzf +s --tac) && echo $d && cd "$d"; }
 v(){ f=$(fzf -m $FZF_PREVIEW_OPTS 'bat -n --color=always {} | head -300'); [[ -n $f ]] && vi -- $f; }
-fzf_cd(){ d=$(fd -td | fzf $FZF_PREVIEW_OPTS 'tree -C {} | head -300') && echo -n "cd $d"; }
+fzf_cd(){ d=$(fd -td | fzf $FZF_PREVIEW_OPTS 'tree -C {} | head -300') && echo -n "cd '$d'"; }
 fzf_history() { h=$(history | fzf +s --tac | sed 's/^ *[0-9]* *//') && echo -n $h; }
 fzf_select() { i=$(fd | fzf -m) && echo -n $i; }
 _fzf_complete_kill() {
