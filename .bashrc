@@ -41,17 +41,19 @@ alias .f='git --git-dir=$HOME/.files/ --work-tree=$HOME'
 alias bu='brew cu -yaq && brew upgrade && (cd ~/Library/Caches/Homebrew/; rm downloads/*; fd -tl -x rm {})'
 alias y='pbcopy'
 
-# s(){ f=$(rg -n $@ | fzf +m -d: $FZF_PREVIEW_OPTS 'let e={2}+5 && bat -n --color=always --line-range :$e {1} | tac | head | tac' | cut -d: --output-delimiter=' +' -f1-2); [[ -n $f ]] && vi $f; }
-s(){ f=$(rg --color always $@ | fzf --ansi -m -d: $FZF_PREVIEW_OPTS 'let s={2}-3 && let e={2}+5 && bat -n --color=always --line-range $s:$e {1}' | cut -d: -f1); [[ -n $f ]] && vi -- $f; }
 ww(){ curl wttr.in/${1:-南京}; }
-zz(){ d=$(z -s | fzf +s --tac) && echo $d && cd "$d"; }
-v(){ f=$(fzf -m $FZF_PREVIEW_OPTS 'bat -n --color=always {} | head -300'); [[ -n $f ]] && vi -- $f; }
-fzf_cd(){ d=$(fd -td | fzf $FZF_PREVIEW_OPTS 'tree -C {} | head -300') && echo -n "cd '$d'"; }
-fzf_history() { h=$(history | fzf +s --tac | sed 's/^ *[0-9]* *//') && echo -n $h; }
-fzf_select() { i=$(fd | fzf -m) && echo -n $i; }
+
+# s(){ f=$(rg -n $@ | fzf +m -d: $FZF_PREVIEW_OPTS 'let e={2}+5 && bat -n --color=always --line-range :$e {1} | tac | head | tac' | cut -d: --output-delimiter=' +' -f1-2); [[ -n $f ]] && vi $f; }
+s(){ f=$(rg --color always "$@" | fzf --ansi -m -d: $FZF_PREVIEW_OPTS 'let s={2}-3 && let e={2}+5 && bat -n --color=always --line-range $s:$e {1}' | cut -d: -f1); [[ -n $f ]] && vi -- $f; }
+
+_fzf_cd(){ d=$(fd -td | fzf $FZF_PREVIEW_OPTS 'tree -C {} | head -300') && ([[ $d =~ ' ' ]] && echo -n "cd '$d'" || echo -n "cd $d"); }
+
+_fzf_history(){ h=$(history | sed 's/^ *[0-9]* *//' | fzf +s --tac) && echo -n "$h"; }
+
+_fzf_select(){ i=$(fzf -m $FZF_PREVIEW_OPTS '(bat -n --color=always {} || tree -C {}) 2> /dev/null | head -300') && echo -n $i; }
+
 _fzf_complete_kill() {
-	local selected
-	selected=$(command ps -ef | sed 1d | fzf -m -q "${COMP_WORDS[COMP_CWORD]}" --preview 'echo {}' --preview-window up:3:wrap | awk '{print $2}' | tr '\n' ' ')
+	local selected=$(command ps -ef | sed 1d | fzf -m -q "${COMP_WORDS[COMP_CWORD]}" --preview 'echo {}' --preview-window up:3:wrap | awk '{print $2}' | tr '\n' ' ')
 	printf '\e[5n'
 	if [ -n "$selected" ]; then
 		COMPREPLY=("$selected")
@@ -60,7 +62,7 @@ _fzf_complete_kill() {
 }
 
 bind '"\ea": redraw-current-line'
-bind '"\C-g": "`fzf_select`\e\C-e\ea"'
-bind '"\C-r": "\C-a\C-k`fzf_history`\e\C-e\ea"'
-bind '"\C-j": "\C-e\C-u`fzf_cd`\e\C-e\ea\C-m"'
+bind '"\C-g": "`_fzf_select`\e\C-e\ea"'
+bind '"\C-r": "\C-a\C-k`_fzf_history`\e\C-e\ea"'
+bind '"\C-j": "\C-e\C-u`_fzf_cd`\e\C-e\ea\C-m"'
 complete -F _fzf_complete_kill -o nospace -o default -o bashdefault kill
