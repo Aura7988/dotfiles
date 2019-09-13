@@ -38,13 +38,15 @@ alias rg='rg -SnHg !.git/* --hidden'
 alias fd='fd --hidden --exclude .git'
 alias go='hp go'
 alias .f='git --git-dir=$HOME/.files/ --work-tree=$HOME'
-alias bu='brew cu -yaq && brew upgrade && (cd ~/Library/Caches/Homebrew/; rm downloads/*; fd -tl -x rm {})'
+alias bu='brew cu -yaq; brew upgrade; brew cleanup'
 alias y='pbcopy'
 
 ww(){ curl wttr.in/${1:-南京}; }
 
 # s(){ f=$(rg -n $@ | fzf +m -d: $FZF_PREVIEW_OPTS 'let e={2}+5 && bat -n --color=always --line-range :$e {1} | tac | head | tac' | cut -d: --output-delimiter=' +' -f1-2); [[ -n $f ]] && vi $f; }
 s(){ f=$(rg --color always "$@" | fzf --ansi -m -d: $FZF_PREVIEW_OPTS 'let s={2}-3 && let e={2}+5 && bat -n --color=always --line-range $s:$e {1}' | cut -d: -f1); [[ -n $f ]] && vi -- $f; }
+
+d(){ diff -raq "$@" | fzf -m --bind "ctrl-o:execute(vi {4} -c 'vert diffs {2}' < /dev/tty > /dev/tty)" | sed -nE 's,^Only in (.*): (.*)$,\1/\2,p; s,^Files (.*) and (.*) differ$,\1 \2,p' | sed 's,//,/,'; }
 
 _fzf_cd(){ d=$(fd -td | fzf $FZF_PREVIEW_OPTS 'tree -C {} | head -300') && ([[ $d =~ ' ' ]] && echo -n "cd '$d'" || echo -n "cd $d"); }
 
