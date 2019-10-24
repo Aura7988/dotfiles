@@ -35,6 +35,7 @@ function __promptline_cwd {
 
 function jobsnum {
 	local num=`jobs -p | wc -l`
+	jobs | grep '_zlua --add' &> /dev/null && let num--
 	[[ $num -gt 0 ]] || return 1
 	echo -n "${num}"
 }
