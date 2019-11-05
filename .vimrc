@@ -1,25 +1,10 @@
-colorscheme jellybeans
+colorscheme seoul256
 au BufReadPost * if line("'\"") > 0 && line ("'\"") <= line("$") | exe "normal! g'\"" | endif " jump to the last position
 au FileType c,cpp setlocal commentstring=//\ %s
 au FileType crontab setlocal nobackup nowritebackup
 au BufEnter * set fo-=c fo-=r fo-=o " Disable automatic comment insertion
-au VimEnter * call <SID>OnceADay()
+au ColorScheme * highlight VertSplit cterm=NONE ctermfg=226 ctermbg=NONE
 
-" augroup NoSimultaneousEdits
-"     au!
-"     au SwapExists ~/*    :let v:swapchoice = 'q'
-"     au SwapExists /etc/* :let v:swapchoice = 'o'
-" augroup END
-
-if has('gui')
-	set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h16
-endif
-" set directory=.,$TEMP
-" set termencoding=cp936
-" set langmenu=zh_CN.UTF-8
-" language message zh_CN.UTF-8
-" set ambiwidth=double
-" set go=
 " filetype plugin indent on
 " syntax enable
 set nocompatible
@@ -41,95 +26,74 @@ set ignorecase smartcase
 set hlsearch
 set incsearch
 set mouse=a
-set completeopt=menu,longest,menuone
-" set cursorline
-set history=1024
-" set listchars=tab:>>,trail:!,eol:$
-" set expandtab
-" set smarttab
-" set nowrap
-" set colorcolumn=80
-" set shortmess=atI
-" set cmdheight=2
-" let regexpengine = 1
-let mapleader = "\<Space>"	"default value is backslash(\).
+set history=10000
+set hidden
+set cmdheight=2
+set shortmess+=c
+set pastetoggle=<F3>
+set fillchars=vert:│
+set listchars=tab:>>,trail:!,eol:$
+set updatetime=300
+let mapleader = " "
 
 call plug#begin('~/.vim/plugged')
+" Plug 'lfv89/vim-interestingwords'
+" Plug 'kshenoy/vim-signature'
+Plug 'justinmk/vim-sneak'
 Plug '~/.vim/plugged/anyline'
-" Plug 'ap/vim-buftabline'
-Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries'}
-Plug 'Valloric/YouCompleteMe', {'for': ['c', 'cpp', 'go'], 'do': './install.py --clang-completer --go-completer'}
-Plug 'w0rp/ale', {'for': 'go'}
-" Plug 'tpope/vim-fugitive'
+" Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries'}
+Plug 'neoclide/coc.nvim', {'for': ['c', 'cpp', 'go'], 'branch': 'release'}
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
-Plug 'dyng/ctrlsf.vim'
-Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf.vim'
+Plug '~/.vim/plugged/fuzzy'
 Plug 'junegunn/vim-easy-align'
-" Plug 'terryma/vim-multiple-cursors'
+" Plug 'Olical/vim-enmasse'
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-" Plug 'tpope/vim-abolish'
-" Plug 'vim-scripts/c.vim'
-" Plug 'SirVer/ultisnips'
-" Plug 'honza/vim-snippets'
-Plug 'mhinz/vim-signify'
-" Plug 'ludovicchabant/vim-gutentags'
-" Plug 'dbeniamine/cheat.sh-vim'
-Plug '~/.vim/plugged/DoxygenTool', {'for': ['c', 'cpp']}
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-abolish'
+Plug 'airblade/vim-gitgutter'
+Plug 'honza/vim-snippets'
 call plug#end()
 
 nnoremap <F2> :q<CR>
-set pastetoggle=<F3>
-nnoremap <F4> :set hls!<Bar>set hls?<CR>
-nnoremap <F5> :!open %<CR><CR>
-" nnoremap <F6> :Dox<CR>
-nnoremap <F7> :CtrlSFToggle<CR>
-nnoremap <F8> :call HlWord()<CR>
-
+nnoremap <C-l> :nohlsearch<CR><C-l>
+" nnoremap <F4> :set hls!<Bar>set hls?<CR>
 vnoremap < <gv
 vnoremap > >gv
-nnoremap <C-j> <C-w>j "Ctrl-j to move down a split
-nnoremap <C-k> <C-w>k "Ctrl-k to move up a split
-nnoremap <C-l> <C-w>l "Ctrl-l to move right a split
-nnoremap <C-h> <C-w>h "Ctrl-h to move left a split
-
-au FileType go nnoremap <Leader>g :GoDef<CR>
-nnoremap <Leader>g :YcmCompleter GoTo<CR>
+inoremap <expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <C-z> coc#refresh()
+nmap <C-k> <Plug>(coc-diagnostic-prev)
+nmap <C-j> <Plug>(coc-diagnostic-next)
+nmap <Leader>g <Plug>(coc-definition)
+nmap <Leader>r <Plug>(coc-references)
 nnoremap <Leader>t :TagbarToggle<CR>
 nnoremap <Leader>f :Files<CR>
-nnoremap <Leader>F :Files 
+nnoremap <Leader>F :Files! 
 nnoremap <Leader>b :Buffers<CR>
-nnoremap <Leader>h :History:<CR>
+nnoremap <Leader>c :History:<CR>
 nnoremap <Leader>/ :History/<CR>
+nnoremap <Leader>l :History<CR>
 nmap <Leader>- :b#<CR>
 nmap <Leader>n :bn<CR>
 nmap <Leader>p :bp<CR>
-nmap <Leader>s <Plug>CtrlSFCwordPath
-xmap <Leader>s <Plug>CtrlSFVwordExec
+nmap <Leader>s :Rg <C-r><C-w>
+xmap <Leader>s y:Rg -F '<C-r>"'<CR>
+nmap gb <Plug>(EasyAlign)
+xmap gb <Plug>(EasyAlign)
+cabbrev dd EasyAlign / \ze\S\+\s*[;=]/ {'rm': 0, 'lm': 0}
 
-let g:go_template_autocreate = 0
-let g:go_auto_type_info = 1
+" let g:go_template_autocreate = 0
+" let g:go_auto_type_info = 1
 " let g:go_auto_sameids = 1
-let g:go_addtags_transform = 'camelcase'
-
-" let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-let g:ycm_confirm_extra_conf = 0
-" let g:ycm_min_num_of_chars_for_completion = 3
-" let g:ycm_disable_for_files_larger_than_kb = 0
-" let g:ycm_always_populate_location_list = 1
-let g:ycm_show_diagnostics_ui = 0
-" let g:ycm_semantic_triggers = {'c,cpp,go': ['re!\w{2}']}
-let g:ycm_key_invoke_completion = '<C-z>'
-
-let g:ale_echo_delay = 20
-let g:ale_lint_on_text_changed = 'normal'
-let g:ale_lint_on_insert_leave = 1
+" let g:go_addtags_transform = 'camelcase'
 
 let g:tagbar_left = 1
 let g:tagbar_width = 24
 let g:tagbar_zoomwidth = 0
 let g:tagbar_sort = 0
+let g:tagbar_autoclose = 1
 let g:tagbar_compact = 1
 let g:tagbar_iconchars = ['▶', '▽']
 let g:tagbar_indent = 1
@@ -161,38 +125,8 @@ let g:tagbar_type_go = {
 	\ 'ctagsargs' : '-sort -silent'
 \ }
 
-nmap gb <Plug>(EasyAlign)
-xmap gb <Plug>(EasyAlign)
-cabbrev dd EasyAlign / \ze\S\+\s*[;=]/ {'rm': 0, 'lm': 0}
-
-let g:ctrlsf_ackprg = '/usr/local/bin/rg'
-let g:ctrlsf_context = '-C 0'
-let g:ctrlsf_default_root = 'project'
-let g:ctrlsf_indent = 2
-let g:ctrlsf_position = 'top'
-let g:ctrlsf_default_view_mode = 'compact'
-
-" let g:UltiSnipsExpandTrigger="<tab>"
-" let g:UltiSnipsJumpForwardTrigger="<c-b>"
-" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-" let g:UltiSnipsEditSplit="vertical"
-
-function! <SID>OnceADay()
-	let s:vimrc = '/Users/aura/.vimrc'
-	let s:vimrcDate = strftime("%Y%m%d", getftime(s:vimrc))
-	let s:currDate = strftime("%Y%m%d")
-	if s:vimrcDate != s:currDate
-		:PlugUpdate | PlugUpgrade
-		execute "silent !touch" s:vimrc
-	endif
-endfunction
-
-function! HlWord()
-	let w:hlword = exists('w:hlword') ? !w:hlword : 1
-	if w:hlword
-		let l:cmd = 'match StatusLineTerm /\<'.expand("<cword>").'\>/'
-		exec l:cmd
-	else
-		match none
-	endif
+xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
+function! ExecuteMacroOverVisualRange()
+	echo "@".getcmdline()
+	execute ":'<,'>normal @".nr2char(getchar())
 endfunction

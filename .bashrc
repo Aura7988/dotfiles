@@ -17,7 +17,7 @@ shopt -s checkwinsize
 # shopt -s globstar
 
 # enable ^O
-stty discard undef
+# stty discard undef
 
 . /usr/local/share/bash-completion/bash_completion
 . ~/.shell_prompt.sh
