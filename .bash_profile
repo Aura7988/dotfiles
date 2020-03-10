@@ -2,7 +2,7 @@
 
 export GOPATH=$HOME/Go
 export GOBIN=$GOPATH/bin
-export PATH=$PATH:$GOBIN:/usr/local/sbin:$HOME/.cargo/bin
+export PATH=/usr/local/opt/llvm/bin:$PATH:$GOBIN:/usr/local/sbin:$HOME/.cargo/bin
 export EDITOR=vim
 export BROWSER=w3m
 export GOOGLER_COLORS=bjdxxy

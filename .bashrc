@@ -19,7 +19,7 @@ shopt -s checkwinsize
 # enable ^O
 # stty discard undef
 
-. /usr/local/share/bash-completion/bash_completion
+. /usr/local/etc/profile.d/bash_completion.sh
 . ~/.shell_prompt.sh
 eval "$(lua ~/github/z.lua/z.lua --init bash enhanced once fzf)"
 
