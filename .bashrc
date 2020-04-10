@@ -22,7 +22,9 @@ shopt -s checkwinsize
 . /usr/local/etc/profile.d/bash_completion.sh
 . ~/.shell_prompt.sh
 eval "$(lua ~/github/z.lua/z.lua --init bash enhanced once fzf)"
+eval "$(dircolors -b)"
 
+alias vi='nvim'
 alias gd='git difftool'
 alias ls='ls --color=auto'
 alias la='ls -A'

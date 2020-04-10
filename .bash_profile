@@ -3,7 +3,7 @@
 export GOPATH=$HOME/Go
 export GOBIN=$GOPATH/bin
 export PATH=/usr/local/opt/llvm/bin:$PATH:$GOBIN:/usr/local/sbin:$HOME/.cargo/bin
-export EDITOR=vim
+export EDITOR=nvim
 export BROWSER=w3m
 export GOOGLER_COLORS=bjdxxy
 export FZF_DEFAULT_COMMAND='fd --hidden --exclude .git'
