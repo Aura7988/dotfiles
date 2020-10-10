@@ -43,6 +43,7 @@ alias .f='git --git-dir=$HOME/.files/ --work-tree=$HOME'
 alias bu='brew cu -yaq; brew upgrade; brew cleanup'
 alias y='pbcopy'
 alias p='pbpaste'
+alias git='LANG=en_US.UTF-8 git'
 
 ww(){ curl wttr.in/${1:-南京}; }
 
