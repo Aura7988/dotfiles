@@ -41,8 +41,10 @@ function jobsnum {
 }
 
 function git_branch {
-	local branch=`git symbolic-ref --short -q HEAD 2> /dev/null`
-	[ $branch ] || return 1
+	git rev-parse 2> /dev/null || return 1
+	local branch=`git symbolic-ref --short -q HEAD || \
+		git describe --tags --exact-match HEAD 2> /dev/null || \
+		(sha=$(git rev-parse HEAD); echo ${sha::7})`
 	echo -n " ${branch}"
 }
 
