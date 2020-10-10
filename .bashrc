@@ -20,7 +20,7 @@ shopt -s checkwinsize
 # stty discard undef
 
 . /usr/local/etc/profile.d/bash_completion.sh
-. ~/.shell_prompt.sh
+. ~/.prompt.sh
 eval "$(lua ~/github/z.lua/z.lua --init bash enhanced once fzf)"
 eval "$(dircolors -b)"
 
