@@ -1,0 +1,30 @@
+{
+	"suggest.minTriggerInputLength": 2,
+	"coc.preferences.currentFunctionSymbolAutoUpdate": true,
+	"coc.preferences.timeout": 5000,
+	"diagnostic.errorSign": ">>",
+	"diagnostic.warningSign": "!!",
+	"diagnostic.infoSign": "--",
+	"diagnostic.hintSign": "··",
+	"languageserver": {
+		"clangd": {
+			"command": "/usr/local/opt/llvm/bin/clangd",
+			"args": ["--completion-style=detailed"],
+			"rootPatterns": ["compile_flags.txt", "compile_commands.json"],
+			"filetypes": ["c", "cpp", "objc", "objcpp"]
+		},
+		"golang": {
+			"command": "gopls",
+			"rootPatterns": ["go.mod"],
+			"filetypes": ["go"]
+		},
+		"rust": {
+			"command": "rust-analyzer",
+			"rootPatterns": ["Cargo.toml"],
+			"filetypes": ["rust"]
+		}
+	},
+	"snippets.extends": {
+		"cpp": ["c"]
+	}
+}
