@@ -27,8 +27,8 @@ set updatetime=300
 let mapleader = " "
 
 call plug#begin()
-" Plug 'lfv89/vim-interestingwords'
-" Plug 'kshenoy/vim-signature'
+Plug 'lfv89/vim-interestingwords'
+Plug 'kshenoy/vim-signature'
 Plug 'justinmk/vim-sneak'
 Plug 'neoclide/coc.nvim', {'for': ['c', 'rust', 'cpp', 'go'], 'branch': 'release'}
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -36,9 +36,9 @@ Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 Plug 'aura7988/fuzzy'
 Plug 'aura7988/anyline'
 Plug 'junegunn/vim-easy-align'
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-abolish'
+" Plug 'tpope/vim-abolish'
 Plug 'machakann/vim-sandwich'
 Plug 'airblade/vim-gitgutter'
 Plug 'honza/vim-snippets'
