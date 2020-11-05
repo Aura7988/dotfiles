@@ -87,6 +87,8 @@ let g:tagbar_compact = 1
 let g:tagbar_iconchars = ['▶', '▽']
 let g:tagbar_indent = 1
 
+command! -bang -nargs=* -complete=file Rg call fzf#vim#grep("rg -SnHg !.git/* --hidden --column --color=always ".<q-args>, 1, {'options': ['--bind=ctrl-n:preview-page-down,ctrl-p:preview-page-up,ctrl-/:toggle-preview', '--preview-window=right:64%:wrap:hidden', '-d:', '--preview=bat --color=always --pager=never -nH {2} {1}']}, <bang>0)
+
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 function! ExecuteMacroOverVisualRange()
 	echo "@".getcmdline()
