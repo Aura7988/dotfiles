@@ -37,6 +37,7 @@ alias ..='cd ../'
 alias -- -='cd -'
 alias b='z -b'
 alias hp='http_proxy=http://127.0.0.1:1087 https_proxy=http://127.0.0.1:1087'
+alias tt='http_proxy=socks5://127.0.0.1:9150 https_proxy=socks5://127.0.0.1:9150'
 alias rg='rg -SnHg !.git/* --hidden'
 alias fd='fd --hidden --exclude .git'
 alias .f='git --git-dir=$HOME/.files/ --work-tree=$HOME'
@@ -51,11 +52,11 @@ s(){ f=$(rg --color always "$@" | fzf --ansi -m -d: $FZF_PREVIEW_OPTS 'let s={2}
 
 d(){ diff -raq "$@" | fzf -m --bind "ctrl-o:execute(vi {4} -c 'vert diffs {2}' < /dev/tty > /dev/tty)" | sed -nE 's,^Only in (.*): (.*)$,\1/\2,p; s,^Files (.*) and (.*) differ$,\1 \2,p' | sed 's,//,/,'; }
 
-_fzf_cd(){ d=$(fd -td | fzf $FZF_PREVIEW_OPTS 'tree -C {} | head -300') && ([[ $d =~ ' ' ]] && echo -n "cd '$d'" || echo -n "cd $d"); }
+_fzf_cd(){ d=$(fd -td | fzf $FZF_PREVIEW_OPTS 'tree -C {}') && printf 'cd %q' "$d"; }
 
 _fzf_history(){ h=$(history | sed 's/^ *[0-9]* *//' | fzf +s --tac) && echo -n "$h"; }
 
-_fzf_select(){ i=$(fzf -m $FZF_PREVIEW_OPTS '(bat -n --color=always {} || tree -C {}) 2> /dev/null | head -300') && echo -n $i; }
+_fzf_select(){ fzf -m $FZF_PREVIEW_OPTS '(bat -n --color=always {} || tree -C {}) 2> /dev/null' | while read -r i; do printf '%q ' "$i"; done; }
 
 _fzf_complete_kill() {
 	local selected=$(command ps -ef | sed 1d | fzf -m -q "${COMP_WORDS[COMP_CWORD]}" --preview 'echo {}' --preview-window up:3:wrap | awk '{print $2}' | tr '\n' ' ')
