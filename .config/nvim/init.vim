@@ -1,11 +1,4 @@
 colorscheme seoul256
-au BufReadPost * if line("'\"") > 0 && line ("'\"") <= line("$") | exe "normal! g'\"" | endif " jump to the last position
-au FileType c,cpp setlocal commentstring=//\ %s
-au FileType crontab setlocal nobackup nowritebackup
-au BufEnter * set fo-=c fo-=r fo-=o " Disable automatic comment insertion
-au ColorScheme * highlight VertSplit cterm=NONE ctermfg=226 ctermbg=NONE
-" au CursorHold * silent call CocActionAsync('doHover')
-" au CursorHoldI * silent call CocActionAsync('showSignatureHelp')
 
 set noshowmode
 set fileencodings=ucs-bom,utf-8,cp936,gb18030,gbk,big5,euc-jp,euc-kr,latin1
@@ -94,3 +87,13 @@ function! ExecuteMacroOverVisualRange()
 	echo "@".getcmdline()
 	execute ":'<,'>normal @".nr2char(getchar())
 endfunction
+
+" jump to the last position
+au BufReadPost * if line("'\"") > 0 && line ("'\"") <= line("$") | exe "normal! g'\"" | endif
+" Disable automatic comment insertion
+au BufEnter * set fo-=c fo-=r fo-=o
+au ColorScheme * highlight VertSplit cterm=NONE ctermfg=226 ctermbg=NONE
+" au CursorHold * silent call CocActionAsync('doHover')
+" au CursorHoldI * silent call CocActionAsync('showSignatureHelp')
+au FileType c,cpp setlocal commentstring=//\ %s
+au FileType crontab setlocal nobackup nowritebackup
