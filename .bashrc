@@ -30,7 +30,7 @@ alias ls='ls --color=auto'
 alias la='ls -A'
 alias ll='ls -lh --time-style=long-iso'
 alias grep='grep --color=auto'
-alias g++='g++ -Wall -std=c++11'
+alias g++='g++ -Wall -std=c++14'
 alias gcc='gcc -Wall -std=c11'
 alias ...='cd ../..'
 alias ..='cd ../'
@@ -45,7 +45,11 @@ alias bu='brew cu -yaq; brew upgrade; brew cleanup'
 alias y='pbcopy'
 alias p='pbpaste'
 alias git='LANG=en_US.UTF-8 git'
+alias bison='/usr/local/opt/bison/bin/bison'
+alias flex='/usr/local/opt/flex/bin/flex'
+
+FLEXIL="-I/usr/local/opt/flex/include -L/usr/local/opt/flex/lib -lfl"
 
 ww(){ curl wttr.in/${1:-Nanjing}; }
 
-. .fzf.bash
+. ~/.fzf.bash
