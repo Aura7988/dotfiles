@@ -46,7 +46,7 @@ inoremap <expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr> <S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <expr> <C-z> coc#refresh()
-nmap <C-e> :call CocActionAsync('doHover')<CR>
+nmap <Leader>j :call CocActionAsync('doHover')<CR>
 nmap <C-k> <Plug>(coc-diagnostic-prev)
 nmap <C-j> <Plug>(coc-diagnostic-next)
 nmap <Leader>g <Plug>(coc-definition)
