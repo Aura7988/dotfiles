@@ -65,6 +65,7 @@ nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>c :History:<CR>
 nnoremap <Leader>/ :History/<CR>
 nnoremap <Leader>l :History<CR>
+nnoremap <Leader>e :CocCommand explorer<CR>
 nnoremap <Leader>x :cclose <Bar> lclose<CR>
 nnoremap [q :cprev<CR>zz
 nnoremap ]q :cnext<CR>zz
