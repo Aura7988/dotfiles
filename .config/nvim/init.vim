@@ -39,7 +39,9 @@ Plug 'airblade/vim-gitgutter'
 Plug 'honza/vim-snippets'
 call plug#end()
 
-nnoremap <F2> :q<CR>
+" nnoremap <F2> :q<CR>
+nnoremap <Leader>q :q<CR>
+nnoremap <Leader>Q :qa!<CR>
 nnoremap <C-l> :nohlsearch<CR><C-l>
 vnoremap < <gv
 vnoremap > >gv
@@ -63,9 +65,18 @@ nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>c :History:<CR>
 nnoremap <Leader>/ :History/<CR>
 nnoremap <Leader>l :History<CR>
+nnoremap <Leader>x :cclose <Bar> lclose<CR>
+nnoremap [q :cprev<CR>zz
+nnoremap ]q :cnext<CR>zz
+nnoremap [l :lprev<CR>zz
+nnoremap ]l :lnext<CR>zz
+nnoremap [b :bprev<CR>
+nnoremap ]b :bnext<CR>
+nnoremap <TAB> <C-w>w
+nnoremap <S-TAB> <C-w>W
 " nmap <Leader>- :b#<CR>
-nmap <Leader>n :bn<CR>
-nmap <Leader>p :bp<CR>
+" nmap <Leader>n :bn<CR>
+" nmap <Leader>p :bp<CR>
 nmap <Leader>s :Rg <C-r><C-w>
 xmap <Leader>s y:Rg -F '<C-r>"'<CR>
 nmap gb <Plug>(EasyAlign)

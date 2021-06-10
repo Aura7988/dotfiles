@@ -1,6 +1,7 @@
 {
 	"suggest.minTriggerInputLength": 2,
 	"coc.preferences.currentFunctionSymbolAutoUpdate": true,
+	"coc.preferences.useQuickfixForLocations": true,
 	"diagnostic.errorSign": ">>",
 	"diagnostic.warningSign": "!!",
 	"diagnostic.infoSign": "--",
