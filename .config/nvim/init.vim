@@ -1,5 +1,34 @@
-colorscheme seoul256
+let mapleader = " "
 
+call plug#begin()
+Plug 'lfv89/vim-interestingwords'
+Plug 'kshenoy/vim-signature'
+Plug 'justinmk/vim-sneak'
+" Plug 'neoclide/coc.nvim', {'for': ['c', 'rust', 'cpp', 'go'], 'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
+	let g:tagbar_left = 1
+	let g:tagbar_width = 24
+	let g:tagbar_zoomwidth = 0
+	let g:tagbar_sort = 0
+	let g:tagbar_autoclose = 1
+	let g:tagbar_compact = 1
+	let g:tagbar_iconchars = ['▶', '▽']
+	let g:tagbar_indent = 1
+Plug 'aura7988/anyline'
+" Plug 'junegunn/fzf'
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-commentary'
+" Plug 'tpope/vim-abolish'
+Plug 'machakann/vim-sandwich'
+Plug 'airblade/vim-gitgutter'
+Plug 'honza/vim-snippets'
+call plug#end()
+
+colorscheme seoul256
 set noshowmode
 set fileencodings=ucs-bom,utf-8,cp936,gb18030,gbk,big5,euc-jp,euc-kr,latin1
 set backspace=start,indent,eol
@@ -17,29 +46,8 @@ set cmdheight=2
 set pastetoggle=<F3>
 set fillchars=vert:│
 set updatetime=300
-let mapleader = " "
+set undofile
 
-call plug#begin()
-Plug 'lfv89/vim-interestingwords'
-Plug 'kshenoy/vim-signature'
-Plug 'justinmk/vim-sneak'
-" Plug 'neoclide/coc.nvim', {'for': ['c', 'rust', 'cpp', 'go'], 'branch': 'release'}
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
-Plug 'aura7988/anyline'
-" Plug 'junegunn/fzf'
-Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf.vim'
-Plug 'junegunn/vim-easy-align'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-commentary'
-" Plug 'tpope/vim-abolish'
-Plug 'machakann/vim-sandwich'
-Plug 'airblade/vim-gitgutter'
-Plug 'honza/vim-snippets'
-call plug#end()
-
-" nnoremap <F2> :q<CR>
 nnoremap <Leader>q :q<CR>
 nnoremap <Leader>Q :qa!<CR>
 nnoremap <C-l> :nohlsearch<CR><C-l>
@@ -84,15 +92,6 @@ nmap gb <Plug>(EasyAlign)
 xmap gb <Plug>(EasyAlign)
 cabbrev dd EasyAlign / \ze\S\+\s*[;=]/ {'rm': 0, 'lm': 0}
 
-let g:tagbar_left = 1
-let g:tagbar_width = 24
-let g:tagbar_zoomwidth = 0
-let g:tagbar_sort = 0
-let g:tagbar_autoclose = 1
-let g:tagbar_compact = 1
-let g:tagbar_iconchars = ['▶', '▽']
-let g:tagbar_indent = 1
-
 command! -bang -nargs=* -complete=file Rg call fzf#vim#grep("rg -SnHg !.git/* --hidden --column --color=always ".<q-args>, 1, {'options': ['--bind=ctrl-n:preview-page-down,ctrl-p:preview-page-up,ctrl-/:toggle-preview', '--preview-window=right:64%:wrap:hidden', '-d:', '--preview=bat --color=always --pager=never -nH {2} {1}']}, <bang>0)
 
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
@@ -102,7 +101,7 @@ function! ExecuteMacroOverVisualRange()
 endfunction
 
 " jump to the last position
-au BufReadPost * if line("'\"") > 0 && line ("'\"") <= line("$") | exe "normal! g'\"" | endif
+au BufReadPost * if line ("'\"") <= line("$") | exe "normal! g`\"" | endif
 " Disable automatic comment insertion
 au BufEnter * set fo-=c fo-=r fo-=o
 au ColorScheme * highlight VertSplit cterm=NONE ctermfg=226 ctermbg=NONE
