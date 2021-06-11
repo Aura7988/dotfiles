@@ -6,6 +6,10 @@
 	"diagnostic.warningSign": "!!",
 	"diagnostic.infoSign": "--",
 	"diagnostic.hintSign": "··",
+	"explorer.position": "right",
+	"explorer.width": 28,
+	"explorer.icon.enableNerdfont": true,
+	"explorer.previewAction.onHover": "labeling",
 	"languageserver": {
 		"clangd": {
 			"command": "/usr/local/opt/llvm/bin/clangd",
@@ -15,7 +19,7 @@
 		},
 //		"ccls": {
 //			"command": "ccls",
-//			"filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"],
+//			"filetypes": ["c", "cpp", "objc", "objcpp"],
 //			"rootPatterns": [".ccls", "compile_commands.json", ".git/"],
 //			"initializationOptions": {
 //				"cache": {
