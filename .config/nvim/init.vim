@@ -47,6 +47,7 @@ set pastetoggle=<F3>
 set fillchars=vert:│
 set updatetime=300
 set undofile
+set matchpairs+=<:>
 
 nnoremap <Leader>q :q<CR>
 nnoremap <Leader>Q :qa!<CR>
