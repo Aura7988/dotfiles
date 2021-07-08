@@ -48,6 +48,7 @@ set fillchars=vert:│
 set updatetime=300
 set undofile
 set matchpairs+=<:>
+set jumpoptions=stack
 
 nnoremap <Leader>q :q<CR>
 nnoremap <Leader>Q :qa!<CR>
