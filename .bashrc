@@ -26,6 +26,7 @@ eval "$(dircolors -b)"
 
 alias vi='nvim'
 alias gd='git difftool'
+alias gs='git status'
 alias ls='ls --color=auto'
 alias la='ls -A'
 alias ll='ls -lh --time-style=long-iso'
