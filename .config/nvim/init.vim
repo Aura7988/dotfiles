@@ -46,7 +46,7 @@ set cmdheight=2
 set pastetoggle=<F3>
 set fillchars=vert:│
 set updatetime=300
-set undofile
+" set undofile
 set matchpairs+=<:>
 set jumpoptions=stack
 
