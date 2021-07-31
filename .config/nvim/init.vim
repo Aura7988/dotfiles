@@ -4,6 +4,8 @@ call plug#begin()
 Plug 'lfv89/vim-interestingwords'
 Plug 'kshenoy/vim-signature'
 Plug 'justinmk/vim-sneak'
+	let g:sneak#label = 1
+	let g:sneak#use_ic_scs = 1
 " Plug 'neoclide/coc.nvim', {'for': ['c', 'rust', 'cpp', 'go'], 'branch': 'release'}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
