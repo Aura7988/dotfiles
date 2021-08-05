@@ -1,6 +1,9 @@
 let mapleader = " "
 
 call plug#begin()
+" Plug 'akinsho/nvim-bufferline.lua'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'kevinhwang91/nvim-bqf'
 Plug 'lfv89/vim-interestingwords'
 Plug 'kshenoy/vim-signature'
 Plug 'justinmk/vim-sneak'
@@ -113,3 +116,13 @@ au ColorScheme * highlight VertSplit cterm=NONE ctermfg=226 ctermbg=NONE
 " au CursorHoldI * silent call CocActionAsync('showSignatureHelp')
 au FileType c,cpp setlocal commentstring=//\ %s
 au FileType crontab setlocal nobackup nowritebackup
+
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+ensure_installed = {'bash', 'c', 'cmake', 'cpp', 'go', 'json', 'lua', 'python', 'rust'},
+  highlight = {
+    enable = true,
+  },
+}
+-- require("bufferline").setup {}
+EOF
