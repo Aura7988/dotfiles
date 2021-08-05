@@ -1,0 +1,51 @@
+[user]
+	name = Aura
+	email = aura8897@gmail.com
+[commit]
+	template = ~/.commit-template
+[merge]
+	tool = vimdiff
+[mergetool "vimdiff"]
+	path = nvim
+[difftool]
+	prompt = false
+[alias]
+	co = checkout
+	d = difftool
+	df = diff
+	s = status
+	ss = status -sb
+	st = stash
+	sp = stash pop
+	l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci @%cn)%Creset'
+	permission-reset = !git diff -p -R --no-ext-diff --no-color | grep -E \"^(diff|(old|new) mode)\" --color=never | git apply
+	rl = reflog --pretty=format:\"%h %Cblue%ad%Creset %an %Cgreen%s%Creset\" --date=format:\"%Y-%m-%d %H:%M:%S\"
+	pr = pull --rebase
+	br = branch
+	bd = branch -d
+	sw = switch
+	ca = commit --amend --no-edit
+	cm = commit -m
+	c = commit
+	a = add
+	rs = restore
+	rb = rebase
+	fa = fetch --all
+	mfh = merge FETCH_HEAD
+	m = merge
+	mt = mergetool
+	cp = cherry-pick
+	p = push
+	po = push origin
+	pf = push -f
+	pd = push origin --delete
+; [http]
+	; proxy = socks5://127.0.0.1:1080
+	; proxy = http://127.0.0.1:1087
+; [https]
+	; proxy = socks5://127.0.0.1:1080
+	; proxy = http://127.0.0.1:1087
+[pull]
+	rebase = true
+[init]
+	defaultBranch = master
