@@ -2,7 +2,7 @@
 # See bash(1) for more options
 HISTCONTROL=ignoreboth:erasedups
 HISTIGNORE='pwd:cd'
-HISTSIZE=1000
+HISTSIZE=3000
 HISTFILESIZE=9000
 
 # append to the history file, don't overwrite it
