@@ -1,6 +1,13 @@
 let mapleader = " "
 
 call plug#begin()
+Plug 'skywind3000/asyncrun.vim'
+Plug 'voldikss/vim-floaterm'
+Plug 'kkoomen/vim-doge', {'do': { -> doge#install() }}
+Plug 'mbbill/undotree'
+Plug 'wellle/targets.vim'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+" Plug 'gelguy/wilder.nvim', {'do': ':UpdateRemotePlugins'}
 " Plug 'akinsho/nvim-bufferline.lua'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'kevinhwang91/nvim-bqf'
@@ -26,12 +33,15 @@ Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-fugitive'
+Plug 'rbong/vim-flog'
+Plug 'rhysd/git-messenger.vim'
 Plug 'tpope/vim-commentary'
 " Plug 'tpope/vim-abolish'
 Plug 'machakann/vim-sandwich'
 Plug 'airblade/vim-gitgutter'
 Plug 'honza/vim-snippets'
 call plug#end()
+" call wilder#setup({'modes': [':', '/', '?']})
 
 colorscheme seoul256
 set noshowmode
@@ -54,6 +64,8 @@ set updatetime=300
 " set undofile
 set matchpairs+=<:>
 set jumpoptions=stack
+set signcolumn=auto:2
+set virtualedit=block
 
 nnoremap <Leader>q :q<CR>
 nnoremap <Leader>Q :qa!<CR>
@@ -116,6 +128,7 @@ au ColorScheme * highlight VertSplit cterm=NONE ctermfg=226 ctermbg=NONE
 " au CursorHoldI * silent call CocActionAsync('showSignatureHelp')
 au FileType c,cpp setlocal commentstring=//\ %s
 au FileType crontab setlocal nobackup nowritebackup
+au TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=300}
 
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
