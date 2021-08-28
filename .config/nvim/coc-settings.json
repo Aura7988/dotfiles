@@ -2,6 +2,7 @@
 	"suggest.minTriggerInputLength": 2,
 	"coc.preferences.currentFunctionSymbolAutoUpdate": true,
 	"coc.preferences.useQuickfixForLocations": true,
+	"suggest.triggerCompletionWait": 50,
 	"diagnostic.errorSign": ">>",
 	"diagnostic.warningSign": "!!",
 	"diagnostic.infoSign": "--",
@@ -9,7 +10,6 @@
 	"explorer.position": "right",
 	"explorer.width": 28,
 	"explorer.icon.enableNerdfont": true,
-	"explorer.previewAction.onHover": "labeling",
 	"languageserver": {
 		"clangd": {
 			"command": "/usr/local/opt/llvm/bin/clangd",
