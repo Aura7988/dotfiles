@@ -1,14 +1,14 @@
 let mapleader = " "
 
 call plug#begin()
+Plug 'andymass/vim-matchup'
+Plug 'mizlan/iswap.nvim'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'voldikss/vim-floaterm'
 Plug 'kkoomen/vim-doge', {'do': { -> doge#install() }}
 Plug 'mbbill/undotree'
 Plug 'wellle/targets.vim'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-" Plug 'gelguy/wilder.nvim', {'do': ':UpdateRemotePlugins'}
-" Plug 'akinsho/nvim-bufferline.lua'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'kevinhwang91/nvim-bqf'
 Plug 'lfv89/vim-interestingwords'
@@ -36,12 +36,11 @@ Plug 'tpope/vim-fugitive'
 Plug 'rbong/vim-flog'
 Plug 'rhysd/git-messenger.vim'
 Plug 'tpope/vim-commentary'
-" Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-abolish'
 Plug 'machakann/vim-sandwich'
 Plug 'airblade/vim-gitgutter'
 Plug 'honza/vim-snippets'
 call plug#end()
-" call wilder#setup({'modes': [':', '/', '?']})
 
 colorscheme seoul256
 set noshowmode
@@ -66,6 +65,7 @@ set matchpairs+=<:>
 set jumpoptions=stack
 set signcolumn=auto:2
 set virtualedit=block
+" set lazyredraw
 
 nnoremap <Leader>q :q<CR>
 nnoremap <Leader>Q :qa!<CR>
@@ -136,6 +136,9 @@ ensure_installed = {'bash', 'c', 'cmake', 'cpp', 'go', 'json', 'lua', 'python', 
   highlight = {
     enable = true,
   },
+  matchup = {
+    enable = true,
+  },
 }
--- require("bufferline").setup {}
+require('iswap').setup {}
 EOF
