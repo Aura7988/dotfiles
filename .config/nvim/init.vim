@@ -18,15 +18,8 @@ Plug 'justinmk/vim-sneak'
 	let g:sneak#use_ic_scs = 1
 " Plug 'neoclide/coc.nvim', {'for': ['c', 'rust', 'cpp', 'go'], 'branch': 'release'}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
-	let g:tagbar_left = 1
-	let g:tagbar_width = 24
-	let g:tagbar_zoomwidth = 0
-	let g:tagbar_sort = 0
-	let g:tagbar_autoclose = 1
-	let g:tagbar_compact = 1
-	let g:tagbar_iconchars = ['▶', '▽']
-	let g:tagbar_indent = 1
+Plug 'liuchengxu/vista.vim', {'on': 'Vista'}
+	let g:vista#renderer#enable_icon = 0
 Plug 'aura7988/anyline'
 " Plug 'junegunn/fzf'
 Plug '/usr/local/opt/fzf'
@@ -85,7 +78,7 @@ xmap if <Plug>(coc-funcobj-i)
 xmap af <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
-nnoremap <Leader>t :TagbarToggle<CR>
+nnoremap <Leader>t :Vista!!<CR>
 nnoremap <Leader>f :Files<CR>
 nnoremap <Leader>F :Files! 
 nnoremap <Leader>b :Buffers<CR>
