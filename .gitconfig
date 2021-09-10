@@ -20,7 +20,6 @@
 	l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci @%cn)%Creset'
 	permission-reset = !git diff -p -R --no-ext-diff --no-color | grep -E \"^(diff|(old|new) mode)\" --color=never | git apply
 	rl = reflog --pretty=format:\"%h %Cblue%ad%Creset %an %Cgreen%s%Creset\" --date=format:\"%Y-%m-%d %H:%M:%S\"
-	pr = pull --rebase
 	br = branch
 	bd = branch -d
 	sw = switch
@@ -35,7 +34,9 @@
 	m = merge
 	mt = mergetool
 	cp = cherry-pick
-	p = push
+	pl = pull
+	pr = pull --rebase
+	ps = push
 	po = push origin
 	pf = push -f
 	pd = push origin --delete
