@@ -5,6 +5,9 @@ Plug 'andymass/vim-matchup'
 Plug 'mizlan/iswap.nvim'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'voldikss/vim-floaterm'
+	let g:floaterm_title = ''
+	let g:floaterm_borderchars = '─│─│╭╮╯╰'
+	let g:floaterm_keymap_toggle = '<F2>'
 Plug 'kkoomen/vim-doge', {'do': { -> doge#install() }}
 Plug 'mbbill/undotree'
 Plug 'wellle/targets.vim'
@@ -104,7 +107,9 @@ nmap gb <Plug>(EasyAlign)
 xmap gb <Plug>(EasyAlign)
 cabbrev dd EasyAlign / \ze\S\+\s*[;=]/ {'rm': 0, 'lm': 0}
 
-command! -bang -nargs=* -complete=file Rg call fzf#vim#grep("rg -SnHg !.git/* --hidden --column --color=always ".<q-args>, 1, {'options': ['--bind=ctrl-n:preview-page-down,ctrl-p:preview-page-up,ctrl-/:toggle-preview', '--preview-window=right:64%:wrap:hidden', '-d:', '--preview=bat --color=always --pager=never -nH {2} {1}']}, <bang>0)
+command! -nargs=0 NNN FloatermNew nnn
+command! -nargs=0 Format :call CocAction('format')
+command! -nargs=? Fold :call CocAction('fold', <f-args>)
 
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 function! ExecuteMacroOverVisualRange()
@@ -122,6 +127,7 @@ au ColorScheme * highlight VertSplit cterm=NONE ctermfg=226 ctermbg=NONE
 au FileType c,cpp setlocal commentstring=//\ %s
 au FileType crontab setlocal nobackup nowritebackup
 au TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=300}
+highlight FloatermBorder guibg=NONE guifg=Blue
 
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
