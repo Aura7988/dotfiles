@@ -10,6 +10,12 @@
 	"explorer.position": "right",
 	"explorer.width": 28,
 	"explorer.icon.enableNerdfont": true,
+	"tree.closedIcon": "",
+	"tree.openedIcon": "",
+	"tree.key.toggle": "o",
+	"tree.key.actions": "l",
+	"tree.key.collapseAll": "O",
+	"tree.key.close": "q",
 	"languageserver": {
 		"clangd": {
 			"command": "/usr/local/opt/llvm/bin/clangd",
