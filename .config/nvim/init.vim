@@ -15,10 +15,13 @@ Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'kevinhwang91/nvim-bqf'
 Plug 'lfv89/vim-interestingwords'
-Plug 'kshenoy/vim-signature'
 Plug 'justinmk/vim-sneak'
 	let g:sneak#label = 1
 	let g:sneak#use_ic_scs = 1
+	map f <Plug>Sneak_s
+	map F <Plug>Sneak_S
+	map t <Plug>Sneak_t
+	map T <Plug>Sneak_T
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'liuchengxu/vista.vim', {'on': 'Vista'}
 	let g:vista#renderer#enable_icon = 0
@@ -71,10 +74,12 @@ inoremap <expr> <S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <expr> <C-z> coc#refresh()
 nmap <Leader>j :call CocActionAsync('doHover')<CR>
+imap <C-l> <Plug>(coc-snippets-expand)
 nmap <C-k> <Plug>(coc-diagnostic-prev)
 nmap <C-j> <Plug>(coc-diagnostic-next)
 nmap <Leader>g <Plug>(coc-definition)
 nmap <Leader>r <Plug>(coc-references)
+nmap <leader>R <Plug>(coc-rename)
 xmap if <Plug>(coc-funcobj-i)
 xmap af <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-i)
