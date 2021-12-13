@@ -1,6 +1,7 @@
 let mapleader = " "
 
 call plug#begin()
+Plug 'nvim-lualine/lualine.nvim'
 Plug 'andymass/vim-matchup'
 Plug 'mizlan/iswap.nvim'
 Plug 'skywind3000/asyncrun.vim'
@@ -25,7 +26,6 @@ Plug 'justinmk/vim-sneak'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'liuchengxu/vista.vim', {'on': 'Vista'}
 	let g:vista#renderer#enable_icon = 0
-Plug '~/.config/nvim/plugged/anyline'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
@@ -142,5 +142,6 @@ ensure_installed = {'bash', 'c', 'cmake', 'cpp', 'go', 'json', 'lua', 'python', 
     enable = true,
   },
 }
+require'lualine'.setup()
 require('iswap').setup {}
 EOF
