@@ -1,6 +1,6 @@
 let mapleader = " "
 
-call plug#begin()
+call plug#begin('~/.config/nvim/plugged')
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'sainnhe/everforest'
 	let g:everforest_better_performance = 1
