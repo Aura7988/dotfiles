@@ -2,12 +2,9 @@ let mapleader = " "
 
 call plug#begin('~/.config/nvim/plugged')
 Plug 'nvim-lualine/lualine.nvim'
-Plug 'sainnhe/everforest'
-	let g:everforest_better_performance = 1
-" Plug 'sainnhe/edge'
-" 	let g:edge_style = 'aura'
-" 	let g:edge_disable_italic_comment = 1
-" 	let g:edge_better_performance = 1
+Plug 'sainnhe/edge'
+	let g:edge_style = 'aura'
+	let g:edge_better_performance = 1
 Plug 'andymass/vim-matchup'
 Plug 'mizlan/iswap.nvim'
 Plug 'skywind3000/asyncrun.vim'
@@ -45,8 +42,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'honza/vim-snippets'
 call plug#end()
 
-colorscheme everforest
-" colorscheme edge
+colorscheme edge
 set termguicolors
 set background=light
 set noshowmode
@@ -153,7 +149,7 @@ ensure_installed = {'bash', 'c', 'cmake', 'cpp', 'go', 'json', 'lua', 'python', 
 }
 require'lualine'.setup {
   options = {
-    theme = 'everforest'
+    theme = 'edge'
   },
 }
 require('iswap').setup {}
