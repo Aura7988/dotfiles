@@ -72,7 +72,7 @@ set virtualedit=block
 
 nnoremap <Leader>q :q<CR>
 nnoremap <Leader>Q :qa!<CR>
-nnoremap <C-l> :nohlsearch<CR><C-l>
+nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 vnoremap < <gv
 vnoremap > >gv
 inoremap <expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
