@@ -37,6 +37,7 @@ Plug 'rbong/vim-flog'
 Plug 'rhysd/git-messenger.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-repeat'
 Plug 'machakann/vim-sandwich'
 Plug 'airblade/vim-gitgutter'
 Plug 'honza/vim-snippets'
@@ -138,7 +139,7 @@ au TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout
 highlight FloatermBorder guibg=NONE guifg=Blue
 
 lua <<EOF
-require'nvim-treesitter.configs'.setup {
+require('nvim-treesitter.configs').setup {
 ensure_installed = {'bash', 'c', 'cmake', 'cpp', 'go', 'json', 'lua', 'python', 'rust'},
   highlight = {
     enable = true,
@@ -147,7 +148,7 @@ ensure_installed = {'bash', 'c', 'cmake', 'cpp', 'go', 'json', 'lua', 'python', 
     enable = true,
   },
 }
-require'lualine'.setup {
+require('lualine').setup {
   options = {
     theme = 'edge'
   },
