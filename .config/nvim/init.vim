@@ -5,7 +5,6 @@ Plug 'nvim-lualine/lualine.nvim'
 Plug 'sainnhe/edge'
 	let g:edge_style = 'aura'
 	let g:edge_better_performance = 1
-Plug 'andymass/vim-matchup'
 Plug 'mizlan/iswap.nvim'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'voldikss/vim-floaterm'
@@ -142,9 +141,6 @@ lua <<EOF
 require('nvim-treesitter.configs').setup {
 ensure_installed = {'bash', 'c', 'cmake', 'cpp', 'go', 'json', 'lua', 'python', 'rust'},
   highlight = {
-    enable = true,
-  },
-  matchup = {
     enable = true,
   },
 }
