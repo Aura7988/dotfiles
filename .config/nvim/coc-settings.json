@@ -16,6 +16,7 @@
 	"tree.key.actions": "l",
 	"tree.key.collapseAll": "O",
 	"tree.key.close": "q",
+	"semanticTokens.filetypes": ["c", "cpp", "go", "rust"],
 	"languageserver": {
 		"clangd": {
 			"command": "/usr/local/opt/llvm/bin/clangd",
