@@ -1,6 +1,8 @@
 let mapleader = " "
 
 call plug#begin('~/.config/nvim/plugged')
+Plug 'nvim-lua/plenary.nvim'
+Plug 'lewis6991/gitsigns.nvim'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'sainnhe/edge'
 	let g:edge_style = 'aura'
@@ -9,6 +11,7 @@ Plug 'mizlan/iswap.nvim'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'voldikss/vim-floaterm'
 	let g:floaterm_title = ''
+	let g:floaterm_position = 'topright'
 	let g:floaterm_borderchars = '─│─│╭╮╯╰'
 	let g:floaterm_keymap_toggle = '<F2>'
 Plug 'kkoomen/vim-doge', {'do': { -> doge#install() }}
@@ -38,7 +41,6 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-repeat'
 Plug 'machakann/vim-sandwich'
-Plug 'airblade/vim-gitgutter'
 Plug 'honza/vim-snippets'
 call plug#end()
 
@@ -150,4 +152,35 @@ require('lualine').setup {
   },
 }
 require('iswap').setup {}
+require('gitsigns').setup {
+  signs = {
+    add          = {hl = 'GitSignsAdd'   , text = '+', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
+    change       = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+    delete       = {hl = 'GitSignsDelete', text = '-', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+    topdelete    = {hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+    changedelete = {hl = 'GitSignsChange', text = 'Ξ', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+  },
+  on_attach = function(bufnr)
+    local gs = package.loaded.gitsigns
+    local function map(mode, l, r, opts)
+      opts = opts or {}
+      opts.buffer = bufnr
+      vim.keymap.set(mode, l, r, opts)
+    end
+    map('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", {expr=true})
+    map('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", {expr=true})
+    map({'n', 'v'}, '<leader>hs', ':Gitsigns stage_hunk<CR>')
+    map({'n', 'v'}, '<leader>hr', ':Gitsigns reset_hunk<CR>')
+    map('n', '<leader>hS', gs.stage_buffer)
+    map('n', '<leader>hu', gs.undo_stage_hunk)
+    map('n', '<leader>hR', gs.reset_buffer)
+    map('n', '<leader>hp', gs.preview_hunk)
+    map('n', '<leader>hb', function() gs.blame_line{full=true} end)
+    map('n', '<leader>tb', gs.toggle_current_line_blame)
+    map('n', '<leader>hd', gs.diffthis)
+    map('n', '<leader>hD', function() gs.diffthis('~') end)
+    map('n', '<leader>td', gs.toggle_deleted)
+    map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+  end
+}
 EOF
