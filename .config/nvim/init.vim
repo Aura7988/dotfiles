@@ -1,9 +1,9 @@
 let mapleader = " "
 
 call plug#begin('~/.config/nvim/plugged')
+Plug 'Aura7988/anyline'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'lewis6991/gitsigns.nvim'
-Plug 'nvim-lualine/lualine.nvim'
 Plug 'sainnhe/edge'
 	let g:edge_style = 'aura'
 	let g:edge_better_performance = 1
@@ -108,9 +108,6 @@ nnoremap [b :bprev<CR>
 nnoremap ]b :bnext<CR>
 nnoremap <TAB> <C-w>w
 nnoremap <S-TAB> <C-w>W
-" nmap <Leader>- :b#<CR>
-" nmap <Leader>n :bn<CR>
-" nmap <Leader>p :bp<CR>
 nmap <Leader>s :Rg <C-r><C-w>
 xmap <Leader>s y:Rg -F '<C-r>"'<CR>
 nmap gb <Plug>(EasyAlign)
@@ -144,11 +141,6 @@ require('nvim-treesitter.configs').setup {
 ensure_installed = {'bash', 'c', 'cmake', 'cpp', 'go', 'json', 'lua', 'python', 'rust'},
   highlight = {
     enable = true,
-  },
-}
-require('lualine').setup {
-  options = {
-    theme = 'edge'
   },
 }
 require('iswap').setup {}
