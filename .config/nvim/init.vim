@@ -14,6 +14,7 @@ Plug 'voldikss/vim-floaterm'
 	let g:floaterm_position = 'topright'
 	let g:floaterm_borderchars = '─│─│╭╮╯╰'
 	let g:floaterm_keymap_toggle = '<F2>'
+	let g:floaterm_opener = 'vsplit'
 Plug 'kkoomen/vim-doge', {'do': { -> doge#install() }}
 Plug 'mbbill/undotree'
 Plug 'wellle/targets.vim'
@@ -31,8 +32,7 @@ Plug 'justinmk/vim-sneak'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'liuchengxu/vista.vim', {'on': 'Vista'}
 	let g:vista#renderer#enable_icon = 0
-Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf.vim'
+Plug 'ibhagwan/fzf-lua'
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-fugitive'
 Plug 'rbong/vim-flog'
@@ -92,12 +92,14 @@ xmap af <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
 nnoremap <Leader>t :Vista!!<CR>
-nnoremap <Leader>f :Files<CR>
-nnoremap <Leader>F :Files! 
-nnoremap <Leader>b :Buffers<CR>
-nnoremap <Leader>c :History:<CR>
-nnoremap <Leader>/ :History/<CR>
-nnoremap <Leader>l :History<CR>
+nnoremap <Leader>f :FzfLua files <C-r>=GitRoot()<CR><CR>
+nnoremap <Leader>F :FzfLua files cwd=
+nnoremap <Leader>b :FzfLua buffers<CR>
+nnoremap <Leader>c :FzfLua command_history<CR>
+nnoremap <Leader>/ :FzfLua search_history<CR>
+nnoremap <Leader>l :FzfLua oldfiles<CR>
+nnoremap <Leader>s :FzfLua grep_cword <C-r>=GitRoot()<CR><CR>
+xnoremap <Leader>s :<C-u>FzfLua grep_visual <C-r>=GitRoot()<CR><CR>
 nnoremap <Leader>e :CocCommand explorer<CR>
 nnoremap <Leader>x :cclose <Bar> lclose<CR>
 nnoremap [q :cprev<CR>zz
@@ -108,8 +110,7 @@ nnoremap [b :bprev<CR>
 nnoremap ]b :bnext<CR>
 nnoremap <TAB> <C-w>w
 nnoremap <S-TAB> <C-w>W
-nmap <Leader>s :Rg <C-r><C-w>
-xmap <Leader>s y:Rg -F '<C-r>"'<CR>
+xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 nmap gb <Plug>(EasyAlign)
 xmap gb <Plug>(EasyAlign)
 cabbrev dd EasyAlign / \ze\S\+\s*[;=]/ {'rm': 0, 'lm': 0}
@@ -118,10 +119,15 @@ command! -nargs=0 NNN FloatermNew nnn
 command! -nargs=0 Format :call CocAction('format')
 command! -nargs=? Fold :call CocAction('fold', <f-args>)
 
-xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 function! ExecuteMacroOverVisualRange()
 	echo "@".getcmdline()
 	execute ":'<,'>normal @".nr2char(getchar())
+endfunction
+
+function! GitRoot()
+	let l:gr = system('git rev-parse --show-toplevel 2> /dev/null')
+	if empty(l:gr) | return '' | endif
+	return 'cwd=' . l:gr[:-2]
 endfunction
 
 " jump to the last position
