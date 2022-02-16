@@ -6,7 +6,8 @@
 [merge]
 	tool = vimdiff
 [mergetool "vimdiff"]
-	path = nvim
+	cmd = "nvim -u ~/.config/nvim/gitdiff.vim -d \"$LOCAL\" \"$REMOTE\""
+	; path = nvim
 [difftool]
 	prompt = false
 [alias]
