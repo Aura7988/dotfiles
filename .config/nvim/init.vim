@@ -113,6 +113,14 @@ nnoremap <S-TAB> <C-w>W
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 nmap gb <Plug>(EasyAlign)
 xmap gb <Plug>(EasyAlign)
+noremap! <A-a> <Home>
+noremap! <A-s> <S-Left>
+noremap! <A-d> <S-Right>
+noremap! <A-f> <End>
+noremap! <A-h> <Left>
+noremap! <A-j> <Down>
+noremap! <A-k> <Up>
+noremap! <A-l> <Right>
 cabbrev dd EasyAlign / \ze\S\+\s*[;=]/ {'rm': 0, 'lm': 0}
 
 command! -nargs=0 NNN FloatermNew nnn
