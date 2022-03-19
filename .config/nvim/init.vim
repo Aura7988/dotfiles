@@ -60,6 +60,7 @@ set ignorecase smartcase
 set mouse=a
 set hidden
 set cmdheight=2
+set laststatus=3
 " set shortmess+=c
 set pastetoggle=<F3>
 set fillchars=vert:│
