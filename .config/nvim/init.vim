@@ -2,7 +2,6 @@ let mapleader = " "
 
 call plug#begin('~/.config/nvim/plugged')
 Plug 'Aura7988/anyline'
-Plug 'nvim-lua/plenary.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'sainnhe/edge'
 	let g:edge_style = 'aura'
