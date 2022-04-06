@@ -38,6 +38,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-fugitive'
 Plug 'rbong/vim-flog'
 Plug 'rhysd/git-messenger.vim'
+Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-repeat'
@@ -52,10 +53,10 @@ set noshowmode
 set fileencodings=ucs-bom,utf-8,cp936,gb18030,gbk,big5,euc-jp,euc-kr,latin1
 set backspace=start,indent,eol
 set whichwrap=b,s,h,l,<,>,~,[,]
-set nu
+set number
 set relativenumber
 set cindent shiftwidth=4
-set ts=4
+set tabstop=4
 set clipboard=unnamed
 set ignorecase smartcase
 set mouse=a
@@ -63,7 +64,6 @@ set hidden
 set cmdheight=2
 set laststatus=3
 " set shortmess+=c
-set pastetoggle=<F3>
 set fillchars=vert:│
 set updatetime=300
 " set undofile
@@ -103,13 +103,6 @@ nnoremap <Leader>l :FzfLua oldfiles<CR>
 nnoremap <Leader>s :FzfLua grep_cword <C-r>=GitRoot()<CR><CR>
 xnoremap <Leader>s :<C-u>FzfLua grep_visual <C-r>=GitRoot()<CR><CR>
 nnoremap <Leader>e :CocCommand explorer<CR>
-nnoremap <Leader>x :cclose <Bar> lclose<CR>
-nnoremap [q :cprev<CR>zz
-nnoremap ]q :cnext<CR>zz
-nnoremap [l :lprev<CR>zz
-nnoremap ]l :lnext<CR>zz
-nnoremap [b :bprev<CR>
-nnoremap ]b :bnext<CR>
 nnoremap <TAB> <C-w>w
 nnoremap <S-TAB> <C-w>W
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
