@@ -1,5 +1,6 @@
 [ -f ~/.bashrc ] && . ~/.bashrc
 
+export BAT_THEME=GitHub
 export GOPATH=$HOME/Go
 export PATH=$HOME/.cargo/bin:$GOPATH/bin:/usr/local/sbin:$PATH
 export EDITOR=nvim
