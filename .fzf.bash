@@ -31,7 +31,7 @@ d() {
 	fzf -m --prompt 'Diff> ' \
 		--bind "ctrl-o:execute(nvim -d {2} {3} < /dev/tty > /dev/tty)" \
 		$FZF_PREVIEW_OPTS 'bat -n --color=always {2}' |
-	cut -d' '  -f2-
+	cut -d' ' -f2-
 }
 
 fk() {
