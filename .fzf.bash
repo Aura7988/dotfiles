@@ -63,8 +63,8 @@ _git_commits() {
 	fzf -m +s --ansi --prompt 'Commits> ' \
 		--bind "ctrl-n:preview-page-down,ctrl-p:preview-page-up,ctrl-/:toggle-preview" \
 		--preview-window 'up,30%,wrap,border-sharp' \
-		--preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always' |
-	grep -o "[a-f0-9]\{7,\}"
+		--preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | head -1 | xargs git show --color=always' |
+	sed -E 's/.* ([a-f0-9]{7,}) - .*/\1/'
 }
 
 bind '"\ea": redraw-current-line'
