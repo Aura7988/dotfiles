@@ -18,6 +18,7 @@
 	ss = status -sb
 	st = stash
 	sp = stash pop
+	sr = "!sr() { rev=${1:-HEAD}; git difftool $rev~1 $rev; }; sr $1"
 	l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci @%cn)%Creset'
 	permission-reset = !git diff -p -R --no-ext-diff --no-color | grep -E \"^(diff|(old|new) mode)\" --color=never | git apply
 	rl = reflog --pretty=format:\"%h %Cblue%ad%Creset %an %Cgreen%s%Creset\" --date=format:\"%Y-%m-%d %H:%M:%S\"
