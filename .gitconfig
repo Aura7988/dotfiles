@@ -18,7 +18,7 @@
 	ss = status -sb
 	st = stash
 	sp = stash pop
-	sr = "!sr() { rev=${1:-HEAD}; git difftool $rev~1 $rev; }; sr $1"
+	sr = "!sr() { cd ${GIT_PREFIX:-.}; rev=${1:-HEAD}; git difftool $rev~1 $rev -- \"${@:2}\"; }; sr"
 	l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci @%cn)%Creset'
 	permission-reset = !git diff -p -R --no-ext-diff --no-color | grep -E \"^(diff|(old|new) mode)\" --color=never | git apply
 	rl = reflog --pretty=format:\"%h %Cblue%ad%Creset %an %Cgreen%s%Creset\" --date=format:\"%Y-%m-%d %H:%M:%S\"
@@ -42,11 +42,11 @@
 	po = push origin
 	pf = push -f
 	pd = push origin --delete
-; [http]
-	; proxy = socks5://127.0.0.1:1080
+[http]
+	proxy = socks5://127.0.0.1:9150
 	; proxy = http://127.0.0.1:1087
-; [https]
-	; proxy = socks5://127.0.0.1:1080
+[https]
+	proxy = socks5://127.0.0.1:9150
 	; proxy = http://127.0.0.1:1087
 [pull]
 	rebase = true
