@@ -19,7 +19,7 @@
 	st = stash
 	sp = stash pop
 	sr = "!sr() { cd ${GIT_PREFIX:-.}; rev=${1:-HEAD}; git difftool $rev~1 $rev -- \"${@:2}\"; }; sr"
-	l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci @%cn)%Creset'
+	l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ai @%an)%Creset'
 	permission-reset = !git diff -p -R --no-ext-diff --no-color | grep -E \"^(diff|(old|new) mode)\" --color=never | git apply
 	rl = reflog --pretty=format:\"%h %Cblue%ad%Creset %an %Cgreen%s%Creset\" --date=format:\"%Y-%m-%d %H:%M:%S\"
 	br = branch
