@@ -1,6 +1,4 @@
 let mapleader = " "
-let g:do_filetype_lua = 1
-let g:did_load_filetypes = 0
 
 call plug#begin('~/.config/nvim/plugged')
 Plug 'Aura7988/anyline'
@@ -26,7 +24,7 @@ Plug 'iamcco/markdown-preview.nvim', {'do': 'cd app && yarn install'}
 Plug 'kevinhwang91/nvim-bqf'
 Plug 'lfv89/vim-interestingwords'
 Plug 'justinmk/vim-sneak'
-	let g:sneak#label = 1
+	" let g:sneak#label = 1
 	let g:sneak#use_ic_scs = 1
 	map f <Plug>Sneak_s
 	map F <Plug>Sneak_S
