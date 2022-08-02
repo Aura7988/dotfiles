@@ -78,21 +78,26 @@ nnoremap <Leader>Q :qa!<CR>
 nnoremap <expr> gs '`[' . strpart(getregtype(), 0, 1) . '`]'
 vnoremap < <gv
 vnoremap > >gv
-inoremap <expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr> <S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <TAB> coc#pum#visible() ? coc#pum#next(1) : "\<TAB>"
+inoremap <expr> <S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+inoremap <expr> <CR> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
 inoremap <expr> <C-z> coc#refresh()
 nmap <Leader>j :call CocActionAsync('doHover')<CR>
 imap <C-l> <Plug>(coc-snippets-expand)
+vmap <C-j> <Plug>(coc-snippets-select)
 nmap <C-k> <Plug>(coc-diagnostic-prev)
 nmap <C-j> <Plug>(coc-diagnostic-next)
 nmap <Leader>g <Plug>(coc-definition)
 nmap <Leader>r <Plug>(coc-references)
 nmap <leader>R <Plug>(coc-rename)
 xmap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
 omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
 nnoremap <Leader>t :Vista!!<CR>
 nnoremap <Leader>f :FzfLua files <C-r>=GitRoot()<CR><CR>
 nnoremap <Leader>F :FzfLua files cwd=
