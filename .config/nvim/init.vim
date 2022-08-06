@@ -15,7 +15,7 @@ Plug 'voldikss/vim-floaterm'
 	let g:floaterm_borderchars = '─│─│╭╮╯╰'
 	let g:floaterm_keymap_toggle = '<F2>'
 	let g:floaterm_opener = 'vsplit'
-Plug 'kkoomen/vim-doge', {'do': { -> doge#install() }}
+Plug 'danymat/neogen'
 Plug 'mbbill/undotree'
 Plug 'wellle/targets.vim'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
@@ -158,6 +158,7 @@ ensure_installed = {'bash', 'c', 'cmake', 'cpp', 'go', 'json', 'lua', 'python', 
   },
 }
 require('iswap').setup {}
+require('neogen').setup {}
 require('gitsigns').setup {
   signs = {
     add          = {hl = 'GitSignsAdd'   , text = '+', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
