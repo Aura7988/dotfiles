@@ -7,6 +7,7 @@ Plug 'lewis6991/gitsigns.nvim'
 Plug 'sainnhe/edge'
 	let g:edge_style = 'aura'
 	let g:edge_better_performance = 1
+Plug 'sakhnik/nvim-gdb', {'do': ':!./install.sh'}
 Plug 'mizlan/iswap.nvim'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'voldikss/vim-floaterm'
@@ -108,8 +109,6 @@ nnoremap <Leader>l :FzfLua oldfiles<CR>
 nnoremap <Leader>s :FzfLua grep_cword <C-r>=GitRoot()<CR><CR>
 xnoremap <Leader>s :<C-u>FzfLua grep_visual <C-r>=GitRoot()<CR><CR>
 nnoremap <Leader>e :CocCommand explorer<CR>
-nnoremap <TAB> <C-w>w
-nnoremap <S-TAB> <C-w>W
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 nmap gb <Plug>(EasyAlign)
 xmap gb <Plug>(EasyAlign)
