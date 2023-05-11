@@ -9,3 +9,5 @@ export MANPAGER='nvim +Man!'
 export FZF_DEFAULT_COMMAND='fd --hidden --exclude .git'
 export FZF_DEFAULT_OPTS='--bind ctrl-s:toggle-sort,alt-a:toggle-all,ctrl-n:preview-page-down,ctrl-p:preview-page-up,ctrl-/:toggle-preview --cycle --reverse --inline-info --tabstop 2 -0'
 export FZF_PREVIEW_OPTS='--preview-window right:64%:wrap:hidden --preview'
+export RUSTUP_DIST_SERVER="https://rsproxy.cn"
+export RUSTUP_UPDATE_ROOT="https://rsproxy.cn/rustup"
