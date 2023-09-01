@@ -1,15 +1,20 @@
 [user]
 	name = Aura
 	email = aura8897@gmail.com
-[commit]
-	template = ~/.commit-template
+
+; [commit]
+; 	template = ~/.commit-template
+
 [merge]
 	tool = vimdiff
+
 [mergetool "vimdiff"]
 	cmd = "nvim -u ~/.config/nvim/gitdiff.vim -d \"$LOCAL\" \"$REMOTE\""
 	; path = nvim
+
 [difftool]
 	prompt = false
+
 [alias]
 	co = checkout
 	d = difftool
@@ -42,13 +47,32 @@
 	po = push origin
 	pf = push -f
 	pd = push origin --delete
-[http]
-	proxy = socks5://127.0.0.1:9150
-	; proxy = http://127.0.0.1:1087
-[https]
-	proxy = socks5://127.0.0.1:9150
-	; proxy = http://127.0.0.1:1087
-[pull]
-	rebase = true
+
+; [http]
+; 	proxy = socks5://127.0.0.1:9150
+; 	; proxy = http://127.0.0.1:1087
+
+; [https]
+; 	proxy = socks5://127.0.0.1:9150
+; 	; proxy = http://127.0.0.1:1087
+
+; [pager]
+; 	diff = delta
+; 	log = delta
+; 	reflog = delta
+; 	show = delta
+
+; [interactive]
+; 	diffFilter = delta --color-only
+
+; [delta]
+; 	features = side-by-side line-numbers decorations
+; 	whitespace-error-style = 22 reverse
+
+; [delta "decorations"]
+; 	commit-decoration-style = bold yellow box ul
+; 	file-style = bold yellow ul
+; 	file-decoration-style = none
+
 [init]
 	defaultBranch = master

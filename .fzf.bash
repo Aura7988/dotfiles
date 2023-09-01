@@ -1,7 +1,6 @@
-[[ ! $- =~ i ]] && return
+# ~/.fzf.bash
 
-stty -ixon
-stty -ixoff
+sf() { greenclip print | fzf -e | xargs -r -0 greenclip print; }
 
 rv() {
 	local RG="rg --column --line-number --no-heading --color=always --smart-case "
@@ -15,6 +14,7 @@ rv() {
 		--bind "ctrl-r:unbind(change,ctrl-r)+change-prompt(Fzf> )+enable-search+clear-query+rebind(ctrl-g)" \
 		--bind "ctrl-g:unbind(ctrl-g)+change-prompt(Ripgrep> )+disable-search+reload($RG {q} || true)+rebind(change,ctrl-r)" \
 		--bind "ctrl-n:preview-page-down,ctrl-p:preview-page-up,ctrl-/:toggle-preview" \
+		--bind "ctrl-o:execute(nvim {1} < /dev/tty > /dev/tty)" \
 		--prompt 'Ripgrep> ' \
 		--delimiter : \
 		--header '╱ CTRL-G (Ripgrep mode) ╱ CTRL-R (Fzf mode) ╱' \
@@ -27,7 +27,7 @@ rv() {
 d() {
 	[[ ! -d "$1" || ! -d "$2" ]] && return
 	diff -raq "$@" |
-	sed -nE 's,^Only in (.*): (.*)$,S: \1/\2,p; s,^Files (.*) and (.*) differ$,D: \1 \2,p' |
+	sed -nr 's,^Only in (.*): (.*)$,S: \1/\2,p; s,^Files (.*) and (.*) differ$,D: \1 \2,p' |
 	fzf -m --prompt 'Diff> ' \
 		--bind "ctrl-o:execute(nvim -d {2} {3} < /dev/tty > /dev/tty)" \
 		$FZF_PREVIEW_OPTS 'bat -n --color=always {2}' |
@@ -64,7 +64,7 @@ _git_commits() {
 		--bind "ctrl-n:preview-page-down,ctrl-p:preview-page-up,ctrl-/:toggle-preview" \
 		--preview-window 'up,30%,wrap,border-sharp' \
 		--preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | head -1 | xargs git show --color=always' |
-	sed -E 's/.* ([a-f0-9]{7,}) - .*/\1/'
+	sed -r 's/.* ([a-f0-9]{7,}) - .*/\1/'
 }
 
 bind '"\ea": redraw-current-line'

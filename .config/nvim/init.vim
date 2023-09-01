@@ -55,10 +55,11 @@ set fileencodings=ucs-bom,utf-8,cp936,gb18030,gbk,big5,euc-jp,euc-kr,latin1
 set backspace=start,indent,eol
 set whichwrap=b,s,h,l,<,>,~,[,]
 set number
+set cursorline
 set relativenumber
 set cindent shiftwidth=4
 set tabstop=4
-set clipboard=unnamed
+set clipboard+=unnamedplus
 set ignorecase smartcase
 set mouse=a
 set hidden
@@ -73,6 +74,8 @@ set jumpoptions=stack
 set signcolumn=auto:2
 set virtualedit=block
 " set lazyredraw
+" set pumblend=9
+" set timeoutlen=500
 
 nnoremap <Leader>q :q<CR>
 nnoremap <Leader>Q :qa!<CR>
@@ -109,6 +112,8 @@ nnoremap <Leader>l :FzfLua oldfiles<CR>
 nnoremap <Leader>s :FzfLua grep_cword <C-r>=GitRoot()<CR><CR>
 xnoremap <Leader>s :<C-u>FzfLua grep_visual <C-r>=GitRoot()<CR><CR>
 nnoremap <Leader>e :CocCommand explorer<CR>
+" nnoremap <TAB> <C-w>w
+" nnoremap <S-TAB> <C-w>W
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 nmap gb <Plug>(EasyAlign)
 xmap gb <Plug>(EasyAlign)

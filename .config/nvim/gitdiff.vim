@@ -1,4 +1,6 @@
 let mapleader = " "
+" let &showbreak = '╰─➤ '
+" set cpoptions+=n
 
 call plug#begin('~/.config/nvim/plugged')
 Plug 'Aura7988/anyline'
@@ -44,7 +46,7 @@ set number
 set relativenumber
 set cindent shiftwidth=4
 set tabstop=4
-set clipboard=unnamed
+set clipboard+=unnamedplus
 set ignorecase smartcase
 set mouse=a
 set hidden
@@ -59,6 +61,8 @@ set jumpoptions=stack
 set signcolumn=auto:2
 set virtualedit=block
 " set lazyredraw
+" set pumblend=9
+" set timeoutlen=500
 
 nnoremap <Leader>q :q<CR>
 nnoremap <Leader>Q :qa!<CR>
