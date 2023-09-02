@@ -43,7 +43,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-repeat'
-Plug 'machakann/vim-sandwich'
+Plug 'echasnovski/mini.surround'
 Plug 'honza/vim-snippets'
 call plug#end()
 
@@ -157,6 +157,7 @@ ensure_installed = {'bash', 'c', 'cmake', 'cpp', 'go', 'json', 'lua', 'python', 
     enable = true,
   },
 }
+require('mini.surround').setup {}
 require('iswap').setup {}
 require('neogen').setup {}
 require('fzf-lua').setup {
