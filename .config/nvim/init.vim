@@ -55,6 +55,7 @@ set fileencodings=ucs-bom,utf-8,cp936,gb18030,gbk,big5,euc-jp,euc-kr,latin1
 set backspace=start,indent,eol
 set whichwrap=b,s,h,l,<,>,~,[,]
 set number
+set cursorline
 set relativenumber
 set cindent shiftwidth=4
 set tabstop=4
@@ -158,6 +159,16 @@ ensure_installed = {'bash', 'c', 'cmake', 'cpp', 'go', 'json', 'lua', 'python', 
 }
 require('iswap').setup {}
 require('neogen').setup {}
+require('fzf-lua').setup {
+  registers = {
+    actions = {
+      ["@"] = function(selected)
+        local keys = '@'..string.sub(selected[1], 2, 2)
+        vim.api.nvim_feedkeys(keys, "x", false)
+      end,
+    },
+  },
+}
 require('gitsigns').setup {
   signs = {
     add          = {hl = 'GitSignsAdd'   , text = '+', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
@@ -165,6 +176,7 @@ require('gitsigns').setup {
     delete       = {hl = 'GitSignsDelete', text = '-', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
     topdelete    = {hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
     changedelete = {hl = 'GitSignsChange', text = 'Ξ', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+    untracked    = {hl = 'GitSignsAdd'   , text = '┆', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
   },
   on_attach = function(bufnr)
     local gs = package.loaded.gitsigns
