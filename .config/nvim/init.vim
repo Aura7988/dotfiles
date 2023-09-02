@@ -18,7 +18,6 @@ Plug 'voldikss/vim-floaterm'
 	let g:floaterm_opener = 'vsplit'
 Plug 'danymat/neogen'
 Plug 'mbbill/undotree'
-Plug 'wellle/targets.vim'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'iamcco/markdown-preview.nvim', {'do': 'cd app && yarn install'}
@@ -43,6 +42,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-repeat'
+Plug 'echasnovski/mini.ai'
 Plug 'echasnovski/mini.surround'
 Plug 'honza/vim-snippets'
 call plug#end()
@@ -161,6 +161,7 @@ ensure_installed = {'bash', 'c', 'cmake', 'cpp', 'go', 'json', 'lua', 'python', 
     enable = true,
   },
 }
+require('mini.ai').setup {}
 require('mini.surround').setup {}
 require('iswap').setup {}
 require('neogen').setup {}
