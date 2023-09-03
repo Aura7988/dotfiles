@@ -43,6 +43,7 @@ Plug 'tpope/vim-repeat'
 Plug 'echasnovski/mini.ai'
 Plug 'echasnovski/mini.align'
 Plug 'echasnovski/mini.comment'
+Plug 'echasnovski/mini.move'
 Plug 'echasnovski/mini.surround'
 Plug 'honza/vim-snippets'
 call plug#end()
@@ -115,14 +116,6 @@ nnoremap <Leader>e :CocCommand explorer<CR>
 " nnoremap <TAB> <C-w>w
 " nnoremap <S-TAB> <C-w>W
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
-noremap! <A-a> <Home>
-noremap! <A-s> <S-Left>
-noremap! <A-d> <S-Right>
-noremap! <A-f> <End>
-noremap! <A-h> <Left>
-noremap! <A-j> <Down>
-noremap! <A-k> <Up>
-noremap! <A-l> <Right>
 
 command! -nargs=0 NNN FloatermNew nnn
 command! -nargs=0 Format :call CocAction('format')
@@ -166,6 +159,7 @@ require('mini.align').setup {
   },
 }
 require('mini.comment').setup {}
+require('mini.move').setup {}
 require('mini.surround').setup {}
 require('iswap').setup {}
 require('neogen').setup {}
