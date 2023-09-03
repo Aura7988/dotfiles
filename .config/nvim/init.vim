@@ -8,7 +8,6 @@ Plug 'sainnhe/edge'
 	let g:edge_style = 'aura'
 	let g:edge_better_performance = 1
 Plug 'sakhnik/nvim-gdb', {'do': ':!./install.sh'}
-Plug 'mizlan/iswap.nvim'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'voldikss/vim-floaterm'
 	let g:floaterm_title = ''
@@ -18,7 +17,6 @@ Plug 'voldikss/vim-floaterm'
 	let g:floaterm_opener = 'vsplit'
 Plug 'danymat/neogen'
 Plug 'mbbill/undotree'
-Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'iamcco/markdown-preview.nvim', {'do': 'cd app && yarn install'}
 Plug 'kevinhwang91/nvim-bqf'
@@ -157,7 +155,6 @@ require('mini.align').setup {
 require('mini.comment').setup {}
 require('mini.move').setup {}
 require('mini.surround').setup {}
-require('iswap').setup {}
 require('neogen').setup {}
 require('fzf-lua').setup {
   registers = {
