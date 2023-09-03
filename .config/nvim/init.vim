@@ -38,11 +38,11 @@ Plug 'tpope/vim-fugitive'
 Plug 'rbong/vim-flog'
 Plug 'rhysd/git-messenger.vim'
 Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-repeat'
 Plug 'echasnovski/mini.ai'
 Plug 'echasnovski/mini.align'
+Plug 'echasnovski/mini.comment'
 Plug 'echasnovski/mini.surround'
 Plug 'honza/vim-snippets'
 call plug#end()
@@ -165,6 +165,7 @@ require('mini.align').setup {
     start_with_preview = 'gB',
   },
 }
+require('mini.comment').setup {}
 require('mini.surround').setup {}
 require('iswap').setup {}
 require('neogen').setup {}
