@@ -34,7 +34,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'liuchengxu/vista.vim', {'on': 'Vista'}
 	let g:vista#renderer#enable_icon = 0
 Plug 'ibhagwan/fzf-lua'
-Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-fugitive'
 Plug 'rbong/vim-flog'
 Plug 'rhysd/git-messenger.vim'
@@ -43,6 +42,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-repeat'
 Plug 'echasnovski/mini.ai'
+Plug 'echasnovski/mini.align'
 Plug 'echasnovski/mini.surround'
 Plug 'honza/vim-snippets'
 call plug#end()
@@ -111,8 +111,6 @@ nnoremap <Leader>s :FzfLua grep_cword <C-r>=GitRoot()<CR><CR>
 xnoremap <Leader>s :<C-u>FzfLua grep_visual <C-r>=GitRoot()<CR><CR>
 nnoremap <Leader>e :CocCommand explorer<CR>
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
-nmap gb <Plug>(EasyAlign)
-xmap gb <Plug>(EasyAlign)
 noremap! <A-a> <Home>
 noremap! <A-s> <S-Left>
 noremap! <A-d> <S-Right>
@@ -121,7 +119,6 @@ noremap! <A-h> <Left>
 noremap! <A-j> <Down>
 noremap! <A-k> <Up>
 noremap! <A-l> <Right>
-cabbrev dd EasyAlign / \ze\S\+\s*[;=]/ {'rm': 0, 'lm': 0}
 
 command! -nargs=0 NNN FloatermNew nnn
 command! -nargs=0 Format :call CocAction('format')
@@ -158,6 +155,12 @@ ensure_installed = {'bash', 'c', 'cmake', 'cpp', 'go', 'json', 'lua', 'python', 
   },
 }
 require('mini.ai').setup {}
+require('mini.align').setup {
+  mappings = {
+    start = 'gb',
+    start_with_preview = 'gB',
+  },
+}
 require('mini.surround').setup {}
 require('iswap').setup {}
 require('neogen').setup {}
