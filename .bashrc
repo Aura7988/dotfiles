@@ -28,7 +28,7 @@ fi
 . ~/.prompt.sh
 . ~/.fzf.bash
 eval "$(lua ~/github/z.lua/z.lua --init bash enhanced once fzf)"
-# eval "$(dircolors -b)"
+eval "$(dircolors -b)"
 
 alias vi='nvim'
 alias gd='git difftool'
