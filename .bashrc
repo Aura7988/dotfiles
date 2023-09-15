@@ -31,6 +31,7 @@ eval "$(lua ~/github/z.lua/z.lua --init bash enhanced once fzf)"
 eval "$(dircolors -b)"
 
 alias vi='nvim'
+alias vl='nvim -u ~/.config/nvim/large.vim'
 alias gd='git difftool'
 alias gs='git status'
 alias ls='ls --color=auto'
