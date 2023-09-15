@@ -5,10 +5,11 @@ cd ~/softwares
 # oldfile=nvim$(date +%Y%m%d%H%M%S).tgz
 oldfile=oldnvim.tgz
 
-trap "mv $oldfile nvim-linux64.tar.gz" SIGINT
+trap "mv $oldfile nvim-linux64.tar.gz; exit 1" SIGINT
 
 mv nvim-linux64.tar.gz $oldfile
-wget https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz || { mv $oldfile nvim-linux64.tar.gz; exit; }
+wget https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz || { mv $oldfile nvim-linux64.tar.gz; exit 1; }
+# curl -O https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz || { mv $oldfile nvim-linux64.tar.gz; exit 1; }
 
 oldmd5=`md5sum $oldfile | cut -c-32`
 newmd5=`md5sum nvim-linux64.tar.gz | cut -c-32`
