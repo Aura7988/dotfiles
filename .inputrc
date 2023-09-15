@@ -1,0 +1,7 @@
+set enable-bracketed-paste off
+set show-all-if-ambiguous on
+"\e\C-m": "\026\n"
+"\e\C-f": shell-forward-word
+"\e\C-b": shell-backward-word
+"\e\C-j": vi-editing-mode
+# "\C-e": emacs-editing-mode
