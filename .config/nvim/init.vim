@@ -22,8 +22,6 @@ Plug 'iamcco/markdown-preview.nvim', {'do': 'cd app && yarn install'}
 Plug 'kevinhwang91/nvim-bqf'
 Plug 'lfv89/vim-interestingwords'
 Plug 'justinmk/vim-sneak'
-	" let g:sneak#label = 1
-	let g:sneak#use_ic_scs = 1
 	map f <Plug>Sneak_s
 	map F <Plug>Sneak_S
 	map t <Plug>Sneak_t
