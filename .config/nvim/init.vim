@@ -2,7 +2,6 @@ let mapleader = " "
 
 call plug#begin('~/.config/nvim/plugged')
 Plug 'Aura7988/anyline'
-Plug 'rcarriga/nvim-notify'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'sainnhe/edge'
 	let g:edge_style = 'aura'
@@ -18,7 +17,6 @@ Plug 'voldikss/vim-floaterm'
 Plug 'danymat/neogen'
 Plug 'mbbill/undotree'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'iamcco/markdown-preview.nvim', {'do': 'cd app && yarn install'}
 Plug 'kevinhwang91/nvim-bqf'
 Plug 'lfv89/vim-interestingwords'
 Plug 'justinmk/vim-sneak'
@@ -215,10 +213,5 @@ require('gitsigns').setup {
     map('n', '<leader>td', gs.toggle_deleted)
     map({'o', 'x'}, 'ih', ':<C-u>Gitsigns select_hunk<CR>')
   end
-}
-vim.notify = require("notify")
-vim.notify.setup {
-  stages = "fade_in_slide_out",
-  timeout = 3000,
 }
 EOF
