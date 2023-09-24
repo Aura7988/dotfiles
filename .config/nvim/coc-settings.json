@@ -4,14 +4,19 @@
 //	},
 	"suggest.noselect": true,
 	"suggest.minTriggerInputLength": 2,
-	"coc.preferences.enableMessageDialog": false,
+	"suggest.triggerCompletionWait": 50,
 	"notification.timeout": 1000,
 	"notification.marginRight": 3,
+	"coc.preferences.enableMessageDialog": false,
 	"coc.preferences.currentFunctionSymbolAutoUpdate": true,
 	"coc.preferences.useQuickfixForLocations": true,
-	"suggest.triggerCompletionWait": 50,
-//	"coc.preferences.formatOnType": true,
-//	"coc.preferences.formatOnSaveFiletypes": ["c", "cpp"],
+	"coc.preferences.formatOnType": false,
+	"[c][cpp][rust]": {
+		"coc.preferences.formatOnSave": false,
+		"inlayHint.enable": false,
+		"inlayHint.enableParameter": true,
+		"semanticTokens.enable": true,
+	},
 	"diagnostic.errorSign": ">>",
 	"diagnostic.warningSign": "!!",
 	"diagnostic.infoSign": "--",
@@ -25,14 +30,16 @@
 	"tree.key.actions": "l",
 	"tree.key.collapseAll": "O",
 	"tree.key.close": "q",
-	"semanticTokens.filetypes": ["c", "cpp", "go", "rust"],
-	"clangd.inlayHints.enable": false,
-//	"disabledFeatures": ["inlayHints"],
-//	"clangd.inlayHints.parameterNames.enable": false,
-//	"clangd.enabled": false,
-//	"rust-analyzer.enable": false,
 	"rust-analyzer.server.path": "rust-analyzer",
-	"languageserver": {
+	"snippets.extends": {
+		"cpp": ["c"]
+	},
+	"workspace.ignoredFolders": [
+		"$HOME",
+		"$HOME/.cargo/**",
+		"$HOME/.rustup/**"
+	],
+//	"languageserver": {
 //		"clangd": {
 //			"command": "clangd",
 //			"args": ["--completion-style=detailed"],
@@ -54,13 +61,11 @@
 //			"rootPatterns": ["Cargo.toml"],
 //			"filetypes": ["rust"]
 //		},
-		"golang": {
-			"command": "gopls",
-			"rootPatterns": ["go.mod"],
-			"filetypes": ["go"]
-		}
-	},
-	"snippets.extends": {
-		"cpp": ["c"]
-	}
+//		"golang": {
+//			"command": "gopls",
+//			"rootPatterns": ["go.mod"],
+//			"trace.server": "verbose",
+//			"filetypes": ["go"]
+//		}
+//	},
 }
