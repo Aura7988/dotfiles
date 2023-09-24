@@ -8,7 +8,8 @@ oldfile=oldnvim.tgz
 trap "mv $oldfile nvim-linux64.tar.gz; exit 1" SIGINT
 
 mv nvim-linux64.tar.gz $oldfile
-wget https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz || { mv $oldfile nvim-linux64.tar.gz; exit 1; }
+# wget https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz || { mv $oldfile nvim-linux64.tar.gz; exit 1; }
+wget https://gh.ddlc.top/https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz || { mv $oldfile nvim-linux64.tar.gz; exit 1; }
 # curl -O https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz || { mv $oldfile nvim-linux64.tar.gz; exit 1; }
 
 oldmd5=`md5sum $oldfile | cut -c-32`
@@ -21,10 +22,10 @@ if [[ "$oldmd5" != "$newmd5" ]]; then
 	# pgrep nvim && echo 'nvim busy' && exit
 	tar -xf nvim-linux64.tar.gz
 	cd nvim-linux64
-	# patchelf --set-rpath /home/ahong/.local/nvimlib bin/nvim
-	# patchelf --set-rpath /home/ahong/.local/glibc236/lib bin/nvim
+	# patchelf --set-rpath ~/.local/glibc236/lib bin/nvim
 	# patchelf --set-interpreter ~/.local/glibc236/lib/ld-linux-x86-64.so.2 bin/nvim
 	until cp -r * ~/.local; do
+		echo 'nvim busy'
 		sleep 1
 	done
 	rm -rf ../nvim-linux64
