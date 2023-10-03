@@ -8,12 +8,6 @@ Plug 'sainnhe/edge'
 	let g:edge_better_performance = 1
 Plug 'sakhnik/nvim-gdb'
 Plug 'skywind3000/asyncrun.vim'
-Plug 'voldikss/vim-floaterm'
-	let g:floaterm_title = ''
-	let g:floaterm_position = 'topright'
-	let g:floaterm_borderchars = '─│─│╭╮╯╰'
-	let g:floaterm_keymap_toggle = '<F2>'
-	let g:floaterm_opener = 'vsplit'
 Plug 'danymat/neogen'
 Plug 'mbbill/undotree'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -113,7 +107,6 @@ xnoremap <Leader>s :<C-u>FzfLua grep_visual <C-r>=GitRoot()<CR><CR>
 nnoremap <Leader>e :CocCommand explorer<CR>
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 
-command! -nargs=0 NNN FloatermNew nnn
 command! -nargs=0 Format :call CocAction('format')
 command! -nargs=? Fold :call CocAction('fold', <f-args>)
 
@@ -138,7 +131,6 @@ au ColorScheme * highlight VertSplit cterm=NONE ctermfg=226 ctermbg=NONE
 au FileType c,cpp setlocal commentstring=//\ %s
 au FileType crontab setlocal nobackup nowritebackup
 au TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=300}
-highlight FloatermBorder guibg=NONE guifg=Blue
 
 lua <<EOF
 require('nvim-treesitter.configs').setup {
