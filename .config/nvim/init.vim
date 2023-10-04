@@ -65,7 +65,11 @@ set virtualedit=block
 " set lazyredraw
 " set pumblend=9
 " set timeoutlen=500
+set winminheight=0
+set winminwidth=0
 
+xnoremap @ :<C-u>exe ":'<,'>normal @" .. nr2char(getchar())<CR>
+nnoremap <C-w>m <C-w>_ \| <C-w>\|
 nnoremap <Leader>q :q<CR>
 nnoremap <Leader>Q :qa!<CR>
 nnoremap <expr> gs '`[' . strpart(getregtype(), 0, 1) . '`]'
@@ -105,15 +109,9 @@ nnoremap <Leader>l :FzfLua oldfiles<CR>
 nnoremap <Leader>s :FzfLua grep_cword <C-r>=GitRoot()<CR><CR>
 xnoremap <Leader>s :<C-u>FzfLua grep_visual <C-r>=GitRoot()<CR><CR>
 nnoremap <Leader>e :CocCommand explorer<CR>
-xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 
 command! -nargs=0 Format :call CocAction('format')
 command! -nargs=? Fold :call CocAction('fold', <f-args>)
-
-function! ExecuteMacroOverVisualRange()
-	echo "@".getcmdline()
-	execute ":'<,'>normal @".nr2char(getchar())
-endfunction
 
 function! GitRoot()
 	let l:gr = system('git rev-parse --show-toplevel 2> /dev/null')
