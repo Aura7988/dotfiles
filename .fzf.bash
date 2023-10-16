@@ -137,9 +137,9 @@ _fzf_git_ups() {
 bind '"\ea": redraw-current-line'
 bind '"\ej": " \C-b\C-k \C-u`_fzf_cd`\e\C-e\ea\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
 bind '"\C-q": " \C-b\C-k \C-u`_fzf_kill`\e\C-e\ea\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
-bind '"\C-s": " \C-b\C-k \C-u`_fzf_select`\e\C-e\ea\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
+bind '"\C-s": " \C-b\C-k \C-u`_fzf_select`\e\C-e\ea\C-a\C-y\C-h\C-e\e \C-y\ey\C-x\C-x\C-d"'
 bind '"\C-r": "\C-a\C-k`_fzf_history`\e\C-e\ea"'
 
 for o in branches each_ref files hashes reflogs stashes tags ups; do
-	bind '"\C-g'${o:0:1}'": " \C-b\C-k \C-u`_fzf_git_'$o'`\e\C-e\ea\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
+	bind '"\C-g'${o:0:1}'": " \C-b\C-k \C-u`_fzf_git_'$o'`\e\C-e\ea\C-a\C-y\C-h\C-e\e \C-y\ey\C-x\C-x\C-d"'
 done
