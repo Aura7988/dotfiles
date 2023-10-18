@@ -5,7 +5,7 @@ FZF_PREVIEW_OPTS='--preview-window right:64%:wrap:hidden --preview'
 sf() { greenclip print | fzf -e | xargs -r -0 greenclip print; }
 
 rv() {
-	local RG='rg --column --line-number --no-heading --color=always --smart-case'
+	local RG='rg --column --line-number --with-filename --no-heading --color=always --smart-case'
 	$RG "${@:-""}" |
 	fzf --ansi --color "hl:-1:#6B98DE,hl+:-1:#6B98DE:reverse" \
 		--bind "start:unbind(change,ctrl-r)" \
