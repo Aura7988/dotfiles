@@ -5,16 +5,16 @@ FZF_PREVIEW_OPTS='--preview-window right:64%:wrap:hidden --preview'
 sf() { greenclip print | fzf -e | xargs -r -0 greenclip print; }
 
 rv() {
-	local RG="rg --column --line-number --no-heading --color=always --smart-case"
+	local RG='rg --column --line-number --no-heading --color=always --smart-case'
+	$RG "${@:-""}" |
 	fzf --ansi --color "hl:-1:#6B98DE,hl+:-1:#6B98DE:reverse" \
-		--bind "start:reload($RG ${*:-''})+unbind(change,ctrl-r)" \
+		--bind "start:unbind(change,ctrl-r)" \
 		--bind "change:reload(sleep 0.1; $RG {q} || true)" \
 		--bind "ctrl-r:unbind(change,ctrl-r)+change-prompt(Fzf> )+enable-search+clear-query+rebind(ctrl-g)" \
 		--bind "ctrl-g:unbind(ctrl-g)+change-prompt(Ripgrep> )+disable-search+reload($RG {q} || true)+rebind(change,ctrl-r)" \
 		--bind "ctrl-o:execute(nvim {1} +{2} > /dev/tty)" \
 		--bind 'enter:become(nvim {1} +{2})' \
-		--prompt 'Fzf> ' \
-		--delimiter : \
+		--delimiter : --prompt 'Fzf> ' \
 		--header '╱ CTRL-G (Ripgrep mode) ╱ CTRL-R (Fzf mode) ╱' \
 		--preview 'bat --style=header-filename --color=always {1} --highlight-line {2}' \
 		--preview-window 'up,30%,wrap,border-sharp,+{2}+1/3,~1'
