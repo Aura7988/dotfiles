@@ -2,6 +2,7 @@ let mapleader = " "
 
 call plug#begin('~/.config/nvim/plugged')
 Plug 'Aura7988/anyline'
+Plug 'Aura7988/fzf.vim', {'branch': 'dev'}
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'sainnhe/edge'
 	let g:edge_style = 'aura'
@@ -21,7 +22,6 @@ Plug 'justinmk/vim-sneak'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'liuchengxu/vista.vim', {'on': 'Vista'}
 	let g:vista#renderer#enable_icon = 0
-Plug 'ibhagwan/fzf-lua'
 Plug 'tpope/vim-fugitive'
 Plug 'rbong/vim-flog'
 Plug 'rhysd/git-messenger.vim'
@@ -101,24 +101,18 @@ nmap <Leader>Rc <Plug>(coc-codeaction-refactor)
 xmap <Leader>R <Plug>(coc-codeaction-refactor-selected)
 nmap <Leader>R <Plug>(coc-codeaction-refactor-selected)
 nnoremap <Leader>t :Vista!!<CR>
-nnoremap <Leader>f :FzfLua files <C-r>=GitRoot()<CR><CR>
-nnoremap <Leader>F :FzfLua files cwd=
-nnoremap <Leader>b :FzfLua buffers<CR>
-nnoremap <Leader>c :FzfLua command_history<CR>
-nnoremap <Leader>/ :FzfLua search_history<CR>
-nnoremap <Leader>l :FzfLua oldfiles<CR>
-nnoremap <Leader>s :FzfLua grep_cword <C-r>=GitRoot()<CR><CR>
-xnoremap <Leader>s :<C-u>FzfLua grep_visual <C-r>=GitRoot()<CR><CR>
+nnoremap <Leader>f :KKFiles<CR>
+nnoremap <Leader>F :KKFiles! 
+nnoremap <Leader>b :KKBuffers<CR>
+nnoremap <Leader>c :KKHistory:<CR>
+nnoremap <Leader>/ :KKHistory/<CR>
+nnoremap <Leader>l :KKHistory<CR>
+nnoremap <Leader>s :KKRg <C-r><C-w><CR>
+xnoremap <Leader>s y:KKRg <C-r>"<CR>
 nnoremap <Leader>e :CocCommand explorer<CR>
 
 command! -nargs=0 Format :call CocAction('format')
 command! -nargs=? Fold :call CocAction('fold', <f-args>)
-
-function! GitRoot()
-	let l:gr = system('git rev-parse --show-toplevel 2> /dev/null')
-	if empty(l:gr) | return '' | endif
-	return 'cwd=' . l:gr[:-2]
-endfunction
 
 " jump to the last position
 au BufReadPost * if line('`"') <= line('$') | exe 'normal! g`"' | endif
@@ -152,16 +146,6 @@ require('mini.comment').setup {}
 require('mini.move').setup {}
 require('mini.surround').setup {}
 require('neogen').setup {}
-require('fzf-lua').setup {
-  registers = {
-    actions = {
-      ["@"] = function(selected)
-        local keys = '@'..string.sub(selected[1], 2, 2)
-        vim.api.nvim_feedkeys(keys, "x", false)
-      end,
-    },
-  },
-}
 require('gitsigns').setup {
   signs = {
     add          = { text = '+' },
