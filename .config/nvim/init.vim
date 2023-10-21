@@ -108,7 +108,7 @@ nnoremap <Leader>c :KKHistory:<CR>
 nnoremap <Leader>/ :KKHistory/<CR>
 nnoremap <Leader>l :KKHistory<CR>
 nnoremap <Leader>s :KKRg <C-r><C-w><CR>
-xnoremap <Leader>s y:KKRg <C-r>"<CR>
+xnoremap <Leader>s y:KKRg '<C-r>"'<CR>
 nnoremap <Leader>e :CocCommand explorer<CR>
 
 command! -nargs=0 Format :call CocAction('format')
