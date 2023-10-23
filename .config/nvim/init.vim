@@ -21,7 +21,6 @@ Plug 'justinmk/vim-sneak'
 	map T <Plug>Sneak_T
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'liuchengxu/vista.vim', {'on': 'Vista'}
-	let g:vista#renderer#enable_icon = 0
 Plug 'tpope/vim-fugitive'
 Plug 'rbong/vim-flog'
 Plug 'rhysd/git-messenger.vim'
