@@ -120,6 +120,7 @@ au BufEnter * set fo-=c fo-=r fo-=o
 au FileType c,cpp setlocal commentstring=//\ %s
 au FileType crontab setlocal nobackup nowritebackup
 au TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=300}
+hi FloatBorder ctermbg=NONE guibg=NONE
 
 lua <<EOF
 require('nvim-treesitter.configs').setup {
