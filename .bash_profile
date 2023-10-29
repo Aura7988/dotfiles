@@ -12,7 +12,7 @@ export EDITOR=nvim
 export MANPAGER='nvim +Man!'
 # export MANPATH=$HOME/.local/share/man:$MANPATH
 export FZF_DEFAULT_COMMAND='fd --hidden --exclude .git'
-export FZF_DEFAULT_OPTS='--bind ctrl-s:toggle-sort,alt-a:toggle-all,ctrl-n:preview-page-down,ctrl-p:preview-page-up,ctrl-/:toggle-preview --cycle --reverse --inline-info --tabstop 2 -0'
+export FZF_DEFAULT_OPTS='--bind ctrl-/:toggle-preview,ctrl-l:clear-selection,ctrl-s:toggle-sort,alt-a:toggle-all,alt-j:preview-page-down,alt-k:preview-page-up,alt-w:toggle-preview-wrap --cycle --reverse --inline-info --tabstop 2 -0'
 
 # for wsl2
 # export DISPLAY=$(grep nameserver /etc/resolv.conf | awk '{print $2}'):0.0
