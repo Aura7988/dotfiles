@@ -7,7 +7,7 @@
 #  > compile_commands.json
 
 make --always-make --dry-run \
-  | rg -w 'gcc|g\+\+' \
-  | rg -w '\-c' \
+  | rg -v '^checking' \
+  | rg '^.*?\b(gcc|g\+\+)(\s|\s.*\s)(\-c)\b' --replace '$1$2$3' \
   | jq -nR '[inputs | {directory:$ENV.PWD, command:., file: match(" [^ ]+$").string[1:]}]' \
   > "${1:-compile_commands.json}"
