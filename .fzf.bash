@@ -7,13 +7,13 @@ sf() { greenclip print | fzf -e | xargs -r -0 greenclip print; }
 rv() {
 	local RG='rg --column --line-number --with-filename --no-heading --color=always --smart-case'
 	$RG "${@:-""}" |
-	fzf --ansi --color "hl:-1:#6B98DE,hl+:-1:#6B98DE:reverse" \
+	fzf -m --ansi --color "hl:-1:#6B98DE,hl+:-1:#6B98DE:reverse" \
 		--bind "start:unbind(change,ctrl-r)" \
 		--bind "change:reload(sleep 0.1; $RG {q} || true)" \
 		--bind "ctrl-r:unbind(change,ctrl-r)+change-prompt(Fzf> )+enable-search+clear-query+rebind(ctrl-g)" \
 		--bind "ctrl-g:unbind(ctrl-g)+change-prompt(Ripgrep> )+disable-search+reload($RG {q} || true)+rebind(change,ctrl-r)" \
 		--bind "ctrl-o:execute(nvim {1} +{2} > /dev/tty)" \
-		--bind 'enter:become(nvim {1} +{2})' \
+		--bind 'enter:become(nvim -q {+f})' \
 		--delimiter : --prompt 'Fzf> ' \
 		--header '╱ CTRL-G (Ripgrep mode) ╱ CTRL-R (Fzf mode) ╱' \
 		--preview 'bat --style=header-filename --color=always {1} --highlight-line {2}' \
@@ -31,7 +31,9 @@ d() {
 }
 
 _fzf_kill() {
-	ps -fu $UID | fzf -m --header-lines=1 --preview 'echo {}' --preview-window up:3:wrap --bind 'enter:become(kill -9 {+2} &> /dev/null)'
+	ps -fu $UID |
+	fzf -m --header-lines=1 --preview 'echo {}' --preview-window up:3:wrap \
+		--bind 'enter:become(echo {+2}),alt-enter:become(kill -9 {+2} &> /dev/null)'
 }
 
 _fzf_cd() {
@@ -136,7 +138,7 @@ _fzf_git_ups() {
 
 bind '"\ea": redraw-current-line'
 bind '"\ej": " \C-b\C-k \C-u`_fzf_cd`\e\C-e\ea\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
-bind '"\C-q": " \C-b\C-k \C-u`_fzf_kill`\e\C-e\ea\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
+bind '"\C-q": " \C-b\C-k \C-u`_fzf_kill`\e\C-e\ea\C-a\C-y\C-h\C-e\e \C-y\ey\C-x\C-x\C-d"'
 bind '"\C-s": " \C-b\C-k \C-u`_fzf_select`\e\C-e\ea\C-a\C-y\C-h\C-e\e \C-y\ey\C-x\C-x\C-d"'
 bind '"\C-r": "\C-a\C-k`_fzf_history`\e\C-e\ea"'
 
