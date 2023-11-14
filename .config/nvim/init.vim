@@ -7,7 +7,6 @@ Plug 'lewis6991/gitsigns.nvim'
 Plug 'sainnhe/edge'
 	let g:edge_style = 'aura'
 	let g:edge_better_performance = 1
-Plug 'sakhnik/nvim-gdb'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'danymat/neogen'
 Plug 'mbbill/undotree'
@@ -68,6 +67,7 @@ set virtualedit=block
 set winminheight=0
 set winminwidth=0
 
+tnoremap <A-Esc> <C-\><C-n>
 xnoremap @ :<C-u>exe ":'<,'>normal @" .. nr2char(getchar())<CR>
 nnoremap <C-w>m <C-w>_ \| <C-w>\|
 nnoremap <Leader>q :q<CR>
