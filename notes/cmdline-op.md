@@ -109,13 +109,30 @@ M-- num 将数值参数设置为负数，负数表示操作方向相反。
 
 ---
 
+## Completing
+
+- M-?    List the possible completions of the text before point.
+- M-*    Insert all possible completions of the text before point.
+- M-/    Attempt filename completion on the text before point.
+- C-x /  List the possible completions of the text before point, treating it as a filename.
+- M-~    Attempt completion on the text before point, treating it as a username.
+- C-x ~  List the possible completions of the text before point, treating it as a username.
+- M-$    Attempt completion on the text before point, treating it as a shell variable.
+- C-x $  List the possible completions of the text before point, treating it as a shell variable.
+- M-@    Attempt completion on the text before point, treating it as a hostname.
+- C-x @  List the possible completions of the text before point, treating it as a hostname.
+- M-!    Attempt completion on the text before point, treating it as a command name.
+- C-x !  List the possible completions of the text before point, treating it as a command name.
+- M-TAB  Attempt completion on the text before point, comparing the text against lines from the history list for possible completion matches.
+- M-{    Perform filename completion and insert the list of possible completions enclosed within braces so the list is available to the shell.
+
+---
+
 ## 杂项
 
 - C-q, C-v        字面插入下一个字符，例如：C-v Tab 会插入 Tab
 - M-#             注释当前行，如果带参数的话并且该行已经被注释，则取消注释该行
 - C-x C-e         使用 EDITOR 指定的编辑器来编辑当前行
-- M-?             列出可能的补全项
-- M-*             插入所有可能的补全项
 - C-x (           开始录制宏
 - C-x )           结束录制宏
 - C-x e           执行最近录制的宏
