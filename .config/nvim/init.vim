@@ -5,8 +5,6 @@ Plug 'Aura7988/anyline'
 Plug 'Aura7988/fzf.vim', {'branch': 'dev'}
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'sainnhe/edge'
-	let g:edge_style = 'aura'
-	let g:edge_better_performance = 1
 Plug 'skywind3000/asyncrun.vim'
 Plug 'danymat/neogen'
 Plug 'mbbill/undotree'
@@ -115,12 +113,13 @@ command! -nargs=0 Format :call CocAction('format')
 command! -nargs=? Fold :call CocAction('fold', <f-args>)
 
 " jump to the last position
-au BufReadPost * if line('`"') <= line('$') | exe 'normal! g`"' | endif
+au BufReadPost * silent! if line('`"') <= line('$') | exe 'normal! g`"' | endif
 " Disable automatic comment insertion
 au BufEnter * set fo-=c fo-=r fo-=o
 au FileType c,cpp setlocal commentstring=//\ %s
 au FileType crontab setlocal nobackup nowritebackup
-au TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=300}
+au TextYankPost * silent! lua vim.highlight.on_yank {higroup="Cursor", timeout=300}
+hi IncSearch ctermfg=230 ctermbg=160 guifg=#fdf6e3 guibg=#f85552
 hi FloatBorder ctermbg=NONE guibg=NONE
 
 lua <<EOF
