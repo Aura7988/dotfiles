@@ -5,7 +5,6 @@ Plug 'Aura7988/anyline'
 Plug 'Aura7988/fzf.vim', {'branch': 'dev'}
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'sainnhe/edge'
-Plug 'skywind3000/asyncrun.vim'
 Plug 'danymat/neogen'
 Plug 'mbbill/undotree'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
