@@ -5,15 +5,13 @@
 ; [commit]
 ; 	template = ~/.commit-template
 
-[merge]
-	tool = vimdiff
-
-[mergetool "vimdiff"]
-	; cmd = "nvim -u ~/.config/nvim/gitdiff.vim -d \"$LOCAL\" \"$REMOTE\""
-	path = nvim
-
 [difftool]
 	prompt = false
+[diff]
+	tool = nvimdiff
+[difftool "nvimdiff"]
+	cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
+	; path = nvim
 
 [alias]
 	co = checkout
@@ -30,7 +28,8 @@
 	br = branch
 	bd = branch -d
 	sw = switch
-	ca = commit --amend --no-edit
+	ca = commit --amend
+	ce = commit --amend --no-edit
 	cm = commit -m
 	c = commit
 	a = add
