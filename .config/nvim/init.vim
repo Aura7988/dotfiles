@@ -161,16 +161,10 @@ require('gitsigns').setup {
       opts.buffer = bufnr
       vim.keymap.set(mode, l, r, opts)
     end
-    map('n', ']c', function()
-      if vim.wo.diff then return ']c' end
-      vim.schedule(function() gs.next_hunk() end)
-      return '<Ignore>'
-    end, {expr=true})
-    map('n', '[c', function()
-      if vim.wo.diff then return '[c' end
-      vim.schedule(function() gs.prev_hunk() end)
-      return '<Ignore>'
-    end, {expr=true})
+    if not vim.wo.diff then
+      map('n', ']c', function() vim.schedule(function() gs.next_hunk() end) return '<Ignore>' end, {expr=true})
+      map('n', '[c', function() vim.schedule(function() gs.prev_hunk() end) return '<Ignore>' end, {expr=true})
+    end
     map('n', '<leader>hs', gs.stage_hunk)
     map('n', '<leader>hr', gs.reset_hunk)
     map('v', '<leader>hs', function() gs.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
@@ -179,7 +173,7 @@ require('gitsigns').setup {
     map('n', '<leader>hu', gs.undo_stage_hunk)
     map('n', '<leader>hR', gs.reset_buffer)
     map('n', '<leader>hp', gs.preview_hunk)
-    map('n', '<leader>hb', function() gs.blame_line{full=true} end)
+    map('n', '<leader>hb', function() gs.blame_line {full=true} end)
     map('n', '<leader>tb', gs.toggle_current_line_blame)
     map('n', '<leader>hd', gs.diffthis)
     map('n', '<leader>hD', function() gs.diffthis('~') end)
