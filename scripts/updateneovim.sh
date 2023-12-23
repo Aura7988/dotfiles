@@ -22,6 +22,7 @@ if [[ "$oldmd5" != "$newmd5" ]]; then
 	cd nvim-linux64
 	# patchelf --set-rpath ~/.local/glibc236/lib bin/nvim
 	# patchelf --set-interpreter ~/.local/glibc236/lib/ld-linux-x86-64.so.2 bin/nvim
+	rm -rf ~/.local/share/nvim
 	until cp -r * ~/.local; do
 		echo 'nvim busy'
 		sleep 1
