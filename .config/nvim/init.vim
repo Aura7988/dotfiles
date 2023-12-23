@@ -106,6 +106,8 @@ nnoremap <Leader>l :KKHistory<CR>
 nnoremap <Leader>s :KKRg <C-r><C-w><CR>
 xnoremap <Leader>s y:KKRg '<C-r>"'<CR>
 nnoremap <Leader>e :CocCommand explorer<CR>
+nnoremap <Leader>gg :silent! tab Git<CR>
+nnoremap <Leader>gl :silent! Flog<CR>
 
 command! -nargs=0 Format :call CocAction('format')
 command! -nargs=? Fold :call CocAction('fold', <f-args>)
@@ -134,12 +136,7 @@ require('nvim-treesitter.configs').setup {
   },
 }
 require('mini.ai').setup {}
-require('mini.align').setup {
-  mappings = {
-    start = 'gb',
-    start_with_preview = 'gB',
-  },
-}
+require('mini.align').setup {mappings = {start = 'gb', start_with_preview = 'gB'}}
 require('mini.comment').setup {}
 require('mini.move').setup {}
 require('mini.surround').setup {}
