@@ -107,7 +107,7 @@ nnoremap <Leader>s :KKRg <C-r><C-w><CR>
 xnoremap <Leader>s y:KKRg '<C-r>"'<CR>
 nnoremap <Leader>e :CocCommand explorer<CR>
 nnoremap <Leader>gg :silent! tab Git<CR>
-nnoremap <Leader>gl :silent! Flog<CR>
+noremap <Leader>gl :Flog<Home>silent! <CR>
 
 command! -nargs=0 Format :call CocAction('format')
 command! -nargs=? Fold :call CocAction('fold', <f-args>)
