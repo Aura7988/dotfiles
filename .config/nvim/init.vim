@@ -112,9 +112,7 @@ noremap <Leader>gl :Flog<Home>silent! <CR>
 command! -nargs=0 Format :call CocAction('format')
 command! -nargs=? Fold :call CocAction('fold', <f-args>)
 
-" jump to the last position
-au BufReadPost * silent! if line('`"') <= line('$') | exe 'normal! g`"' | endif
-" Disable automatic comment insertion
+au BufReadPost * silent! normal g`"
 au BufEnter * set fo-=c fo-=r fo-=o
 au FileType c,cpp setlocal commentstring=//\ %s
 au FileType crontab setlocal nobackup nowritebackup
