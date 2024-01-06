@@ -7,6 +7,7 @@ Plug 'sainnhe/edge'
 Plug 'danymat/neogen'
 Plug 'mbbill/undotree'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'RRethy/nvim-treesitter-textsubjects'
 Plug 'kevinhwang91/nvim-bqf'
 Plug 'lfv89/vim-interestingwords'
 Plug 'justinmk/vim-sneak'
@@ -131,6 +132,15 @@ require('nvim-treesitter.configs').setup {
         return true
       end
     end,
+  },
+  indent = {enable = true},
+  textsubjects = {
+    enable = true,
+    keymaps = {
+      ['.'] = 'textsubjects-smart',
+      ['z;'] = 'textsubjects-container-outer',
+      ['z,'] = 'textsubjects-container-inner',
+    },
   },
 }
 require('mini.ai').setup {}
