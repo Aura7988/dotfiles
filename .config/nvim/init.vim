@@ -11,10 +11,6 @@ Plug 'RRethy/nvim-treesitter-textsubjects'
 Plug 'kevinhwang91/nvim-bqf'
 Plug 'lfv89/vim-interestingwords'
 Plug 'justinmk/vim-sneak'
-	map f <Plug>Sneak_s
-	map F <Plug>Sneak_S
-	map t <Plug>Sneak_t
-	map T <Plug>Sneak_T
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'liuchengxu/vista.vim', {'on': 'Vista'}
 Plug 'tpope/vim-fugitive'
