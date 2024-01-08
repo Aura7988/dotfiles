@@ -9,7 +9,6 @@ Plug 'mbbill/undotree'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'RRethy/nvim-treesitter-textsubjects'
 Plug 'kevinhwang91/nvim-bqf'
-Plug 'lfv89/vim-interestingwords'
 Plug 'justinmk/vim-sneak'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'liuchengxu/vista.vim', {'on': 'Vista'}
