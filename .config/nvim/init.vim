@@ -60,18 +60,14 @@ set winminheight=0
 set winminwidth=0
 
 tnoremap <A-Esc> <C-\><C-n>
-xnoremap @ :<C-u>exe ":'<,'>normal @" .. nr2char(getchar())<CR>
 nnoremap <C-w>m <C-w>_ \| <C-w>\|
 nnoremap <Leader>q :q<CR>
 nnoremap <Leader>Q :qa!<CR>
 nnoremap <expr> gs '`[' . strpart(getregtype(), 0, 1) . '`]'
-vnoremap < <gv
-vnoremap > >gv
 inoremap <expr> <TAB> coc#pum#visible() ? coc#pum#next(1) : '<TAB>'
 inoremap <expr> <S-TAB> coc#pum#visible() ? coc#pum#prev(1) : '<C-h>'
 inoremap <expr> <CR> coc#pum#visible() ? coc#pum#confirm() : '<CR>'
 inoremap <expr> <C-z> coc#refresh()
-vmap <A-/> y/<C-r>"<CR>
 imap <C-l> <Plug>(coc-snippets-expand)
 vmap <C-j> <Plug>(coc-snippets-select)
 nmap <C-k> <Plug>(coc-diagnostic-prev)
