@@ -61,7 +61,6 @@ set winminwidth=0
 tnoremap <A-Esc> <C-\><C-n>
 nnoremap <C-w>m <C-w>_ \| <C-w>\|
 nnoremap <Leader>q :q<CR>
-nnoremap <Leader>Q :qa!<CR>
 nnoremap <expr> gs '`[' . strpart(getregtype(), 0, 1) . '`]'
 inoremap <expr> <TAB> coc#pum#visible() ? coc#pum#next(1) : '<TAB>'
 inoremap <expr> <S-TAB> coc#pum#visible() ? coc#pum#prev(1) : '<C-h>'
