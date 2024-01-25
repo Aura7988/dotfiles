@@ -65,12 +65,11 @@ bb() {
 	local build_type=Release
 	local jobs=55
 	local linker=-B$HOME/.local/libexec/mold
-	local set_rpath=1
 	local only=0
 	local prof=OFF
 	local regen=0
 	local source_dir=~/xxx
-	local third_dir=/3rd/out
+	local third_dir=/3rd
 	OPTIND=1
 	while getopts ":F:Uab:dj:l:oprs:t:" opt; do
 		case $opt in
@@ -93,7 +92,7 @@ bb() {
 				jobs=$OPTARG
 				;;
 			l)
-				[[ $OPTARG == 'ld' ]] && { linker=''; set_rpath=0; } || { [[ $OPTARG == 'lld' ]] && { linker='-fuse-ld=lld'; }; }
+				[[ $OPTARG == 'ld' ]] && linker='' || linker="-fuse-ld=$OPTARG"
 				;;
 			o)
 				only=1
@@ -125,13 +124,22 @@ bb() {
 	[[ -d "$source_dir" && -d "$third_dir" ]] || { echo "$source_dir or $third_dir is not directory" && return 3; }
 	build_dir="$source_dir/$build_dir"
 	if [[ $regen -eq 1 ]]; then
+		rm -rf $build_dir
 		echo "$generator,$all,$build_dir,$build_type,$jobs,$linker,$only,$prof,$regen,$source_dir,$third_dir"
-		cmake -G "$generator" -DCMAKE_CXX_FLAGS="$linker$cxx_flags" -DXXX_TEST=$all -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=$build_type -DXXX_THIRD_PARTY=$third_dir -DXXX_PROFILER=$prof -S $source_dir -B $build_dir "$@"
+		cmake -G "$generator" -DCMAKE_CXX_FLAGS="$linker$cxx_flags" -DXXX_ALL=$all -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=$build_type -DXXX_THIRD_PARTY=$third_dir -DXXX_PROFILER=$prof -S $source_dir -B $build_dir "$@"
 		cp $build_dir/compile_commands.json $source_dir
 		[[ $only -ne 0 ]] && return 0
 	fi
-	cmake --build $build_dir --parallel $jobs &&
-	(($set_rpath)) && patchelf --force-rpath --set-rpath "\$ORIGIN/lib/xxx/lib:\$ORIGIN/lib" $source_dir/bin/xxx
+	cmake --build $build_dir --parallel $jobs
+# set_target_properties(xxx
+#     PROPERTIES
+#     ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/lib"
+#     LIBRARY_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/lib"
+#     RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin"
+#     BUILD_WITH_INSTALL_RPATH TRUE
+#     LINK_FLAGS               "-Wl,--disable-new-dtags"
+#     INSTALL_RPATH            "\$ORIGIN/lib/xxx/lib:\$ORIGIN/lib"
+# )
 }
 
 nb() {
