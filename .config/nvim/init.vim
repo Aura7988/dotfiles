@@ -9,7 +9,7 @@ Plug 'mbbill/undotree'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'RRethy/nvim-treesitter-textsubjects'
 Plug 'kevinhwang91/nvim-bqf'
-Plug 'justinmk/vim-sneak'
+Plug 'folke/flash.nvim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'liuchengxu/vista.vim', {'on': 'Vista'}
 Plug 'tpope/vim-fugitive'
@@ -111,6 +111,18 @@ hi IncSearch ctermfg=230 ctermbg=160 guifg=#fdf6e3 guibg=#f85552
 hi FloatBorder ctermbg=NONE guibg=NONE
 
 lua <<EOF
+require('flash').setup {
+  highlight = {backdrop = false},
+  modes = {
+    search = {enabled = false},
+    char = {enabled = false},
+  },
+}
+vim.keymap.set({'n', 'x', 'o'}, 's', function() require("flash").jump() end)
+vim.keymap.set({'n', 'x', 'o'}, 'S', function() require("flash").treesitter() end)
+vim.keymap.set('o', 'r', function() require("flash").remote() end)
+vim.keymap.set({'o', 'x'}, 'R', function() require("flash").treesitter_search() end)
+vim.keymap.set('c', '<C-s>', function() require("flash").toggle() end)
 require('nvim-treesitter.configs').setup {
   highlight = {
     enable = true,
