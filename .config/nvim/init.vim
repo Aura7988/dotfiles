@@ -117,6 +117,7 @@ require('flash').setup {
     search = {enabled = false},
     char = {enabled = false},
   },
+  prompt = {prefix = {{'卍', 'FlashPromptIcon'}}},
 }
 vim.keymap.set({'n', 'x', 'o'}, 's', function() require("flash").jump() end)
 vim.keymap.set({'n', 'x', 'o'}, 'S', function() require("flash").treesitter() end)
