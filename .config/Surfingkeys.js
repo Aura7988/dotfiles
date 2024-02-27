@@ -25,13 +25,30 @@ settings.omnibarMaxResults = 33;
 settings.tabsThreshold = 12;
 settings.scrollStepSize = 159;
 settings.hintAlign = "left";
-settings.defaultSearchEngine = "gg";
+//settings.defaultSearchEngine = "gg";
 settings.nextLinkRegex = /^((N|n)ext|newer|>>?|»|(下|后)一?(页|封|张|篇))$/i
 settings.prevLinkRegex = /^((P|p)rev(ious)?|older|<<?|«|(上|前)一?(页|封|张|篇))$/i
 
-// map('t', 'T'); // opened tabs
 map('e', 'go'); // open in the current tab
-map(',h', 'H');
+map(',t', 'H');
+map(',h', 'oh');
+mapkey('oh', '打开Github搜索栏', () => {
+	Front.openOmnibar({type: "SearchEngine", extra: "h"});
+});
+map('<Ctrl-f>', 'P');
+map('<Ctrl-b>', 'U');
+mapkey('p', "打开选中文本或剪切板内容", function() {
+	Clipboard.read(function(response) {
+		var query = window.getSelection().toString() || response.data;
+		Front.openOmnibar({type: "URLs", pref: query, tabbed: false});
+	});
+});
+mapkey('P', "在新标签页打开选中文本或剪切板内容", function() {
+	Clipboard.read(function(response) {
+		var query = window.getSelection().toString() || response.data;
+		Front.openOmnibar({type: "URLs", pref: query});
+	});
+});
 map('H', 'h');
 map('L', 'l');
 map('h', 'S'); // backward
@@ -46,44 +63,11 @@ map('<Ctrl-d>', 'x'); // close current tab
 unmap('x');
 map('<Ctrl-u>', 'X'); // restore current tab
 map('<Ctrl-[>', '<Esc>');
-map('<Ctrl-f>', 'P');
-map('<Ctrl-b>', 'U');
-mapkey('p', "Open the clipboard's text in current tab", function() {
-	navigator.clipboard.readText().then(
-		text => {
-			if (text.startsWith("http://") || text.startsWith("https://")) {
-				window.location = text;
-			} else {
-				window.location = text = "https://www.google.com/search?q=" + text;
-			}
-		}
-	);
-});
-mapkey('P', "Open the clipboard's text in new tab", function() {
-	navigator.clipboard.readText().then(
-		text => {
-			if (text.startsWith("http://") || text.startsWith("https://")) {
-				tabOpenLink(text);
-			} else {
-				tabOpenLink("https://www.google.com/search?q=" + text);
-			}
-		}
-	);
-});
-
 iunmap(":");
 cmap('<Ctrl-;>', '<Ctrl-.>');
 
-removeSearchAlias('e');
-removeSearchAlias('g');
-// removeSearchAlias('h');
-removeSearchAlias('s');
-removeSearchAlias('w');
-addSearchAlias('gg', 'google', 'https://www.google.com/search?q=');
-addSearchAlias('gh', 'github', 'https://github.com/search?q=');
-addSearchAlias('jd', 'jd', 'http://search.jd.com/Search?keyword=');
-addSearchAlias('so', 'stackoverflow', 'https://stackoverflow.com/search?q=');
-addSearchAlias('se', 'sogou-en', 'https://fanyi.sogou.com/text?keyword={0}&transfrom=auto&transto=en&model=general');
-addSearchAlias('sz', 'sogou-zh', 'https://fanyi.sogou.com/text?keyword={0}&transfrom=auto&transto=zh-CHS&model=general');
-addSearchAlias('we', 'wiki-en', 'https://en.wikipedia.org/wiki/');
-addSearchAlias('wz', 'wiki-zh', 'https://zh.wikipedia.org/wiki/');
+addSearchAlias('a', 'wolframalpha', 'http://www.wolframalpha.com/input/?i=');
+addSearchAlias('n', 'hackernews', 'https://hn.algolia.com/?query=');
+addSearchAlias('o', 'onelook', 'http://onelook.com/?w=');
+addSearchAlias('v', 'vimwiki', 'https://vim.fandom.com/wiki/Special:Search?query=');
+addSearchAlias('z', 'wiki-zh', 'https://zh.wikipedia.org/wiki/');
