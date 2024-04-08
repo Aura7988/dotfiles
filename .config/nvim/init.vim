@@ -30,7 +30,6 @@ set termguicolors
 set background=light
 set noshowmode
 set fileencodings=ucs-bom,utf-8,cp936,gb18030,gbk,big5,euc-jp,euc-kr,latin1
-set backspace=start,indent,eol
 set whichwrap=b,s,h,l,<,>,~,[,]
 set number
 set cursorline
