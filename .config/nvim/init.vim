@@ -20,7 +20,6 @@ Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-repeat'
 Plug 'echasnovski/mini.ai'
 Plug 'echasnovski/mini.align'
-Plug 'echasnovski/mini.comment'
 Plug 'echasnovski/mini.move'
 Plug 'echasnovski/mini.surround'
 Plug 'honza/vim-snippets'
@@ -147,7 +146,6 @@ require('nvim-treesitter.configs').setup {
 }
 require('mini.ai').setup {}
 require('mini.align').setup {mappings = {start = 'gb', start_with_preview = 'gB'}}
-require('mini.comment').setup {}
 require('mini.move').setup {}
 require('mini.surround').setup {}
 require('neogen').setup {}
