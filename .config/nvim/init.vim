@@ -133,7 +133,6 @@ require('nvim-treesitter.configs').setup {
       end
     end,
   },
-  indent = {enable = true},
   textsubjects = {
     enable = true,
     keymaps = {
