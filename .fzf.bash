@@ -8,14 +8,15 @@ rv() {
 	local RG='rg --column --line-number --with-filename --no-heading --color=always --smart-case'
 	$RG "${@:-""}" |
 	fzf -m --ansi --color "hl:-1:#6B98DE,hl+:-1:#6B98DE:reverse" \
-		--bind "start:unbind(change,ctrl-r)" \
+		--bind "start:unbind(change)" \
 		--bind "change:reload(sleep 0.1; $RG {q} || true)" \
-		--bind "ctrl-r:unbind(change,ctrl-r)+change-prompt(Fzf> )+enable-search+clear-query+rebind(ctrl-g)" \
-		--bind "ctrl-g:unbind(ctrl-g)+change-prompt(Ripgrep> )+disable-search+reload($RG {q} || true)+rebind(change,ctrl-r)" \
+		--bind "ctrl-g:transform:[[ \$FZF_PROMPT =~ Fzf ]] &&
+			echo 'change-prompt(Ripgrep> )+disable-search+reload($RG \{q} || :)+rebind(change)' ||
+			echo 'change-prompt(Fzf> )+enable-search+clear-query+unbind(change)'" \
 		--bind "ctrl-o:execute(nvim {1} +{2} > /dev/tty)" \
 		--bind 'enter:become(nvim -q {+f})' \
 		--delimiter : --prompt 'Fzf> ' \
-		--header '╱ CTRL-G (Ripgrep mode) ╱ CTRL-R (Fzf mode) ╱' \
+		--header '╱ CTRL-G: Switch between Fzf/Ripgrep mode ╱' \
 		--preview 'bat --style=header-filename --color=always {1} --highlight-line {2}' \
 		--preview-window 'up,30%,wrap,border-sharp,+{2}+1/3,~1'
 }
@@ -37,18 +38,20 @@ _fzf_kill() {
 }
 
 _fzf_cd() {
-	d=$(fd -td | fzf $FZF_PREVIEW_OPTS 'tree -C {}') && printf 'cd -- %q' "$d"
+	local d=$(fd -H -td | fzf $FZF_PREVIEW_OPTS 'tree -C {}') && printf 'cd -- %q' "$d"
 }
 
 _fzf_history() {
-	h=$(history | sed 's/^ *[0-9]* *//' | fzf +s --tac) && echo -n "$h"
+	local h=$(history | sed 's/^ *[0-9]* *//' | fzf +s --tac) && echo -n "$h"
 }
 
 _fzf_select() {
-	fzf -m --prompt 'All> ' --header '╱ CTRL-G: Directories ╱ CTRL-R: Files ╱' \
-		--bind 'ctrl-g:change-prompt(Directories> )+reload(fd -td)' \
-		--bind 'ctrl-r:change-prompt(Files> )+reload(fd -tf)' \
-		$FZF_PREVIEW_OPTS '(bat -n --color=always {} || tree -C {}) 2> /dev/null' |
+	fd -HE .git -tf |
+	fzf -m --prompt 'Files> ' --header '╱ CTRL-G: Switch between Files/Directories ╱' \
+		--bind 'ctrl-g:transform:[[ $FZF_PROMPT =~ Files ]] &&
+			echo "change-prompt(Directories> )+reload(fd -H -td)" ||
+			echo "change-prompt(Files> )+reload(fd -HE .git -tf)"' \
+		$FZF_PREVIEW_OPTS '[[ $FZF_PROMPT =~ Files ]] && bat -p --color=always {} || tree -C {}' |
 	while read -r i; do printf '%q ' "$i"; done
 }
 
