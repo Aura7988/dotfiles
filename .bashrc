@@ -50,6 +50,8 @@ alias fd='fd --hidden --exclude .git'
 alias .f='git --git-dir=$HOME/.files/ --work-tree=$HOME'
 alias y='xsel -bi'
 alias p='xsel -bo'
+alias wy='clip.exe'
+alias wp='powershell.exe -Command "Get-Clipboard -Raw"'
 # alias git='LANG=en_US.UTF-8 git'
 # alias tmux='tmux -2'
 
