@@ -15,11 +15,11 @@ Plug 'liuchengxu/vista.vim', {'on': 'Vista'}
 Plug 'tpope/vim-fugitive'
 Plug 'rbong/vim-flog'
 Plug 'rhysd/git-messenger.vim'
-Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-repeat'
 Plug 'echasnovski/mini.ai'
 Plug 'echasnovski/mini.align'
+Plug 'echasnovski/mini.bracketed'
 Plug 'echasnovski/mini.diff'
 Plug 'echasnovski/mini.move'
 Plug 'echasnovski/mini.surround'
@@ -57,6 +57,20 @@ set virtualedit=block
 set winminheight=0
 set winminwidth=0
 
+nmap \a :set colorcolumn=<C-R>=empty(&cc) ? '125' : ''<CR><CR>
+nmap \b :set background=<C-R>=&background == 'dark' ? 'light' : 'dark'<CR><CR>
+nmap \c :setlocal cursorline!<CR>
+nmap \d :<C-R>=&diff ? 'diffoff' : 'diffthis'<CR><CR>
+nmap \h :set hlsearch!<CR>
+nmap \i :set ignorecase!<CR>
+nmap \l :setlocal list!<CR>
+nmap \n :setlocal number!<CR>
+nmap \r :setlocal relativenumber!<CR>
+nmap \s :setlocal spell!<CR>
+nmap \v :set <C-R>=(&virtualedit =~# 'all') ? 'virtualedit-=all' : 'virtualedit+=all'<CR><CR>
+nmap \w :setlocal wrap!<CR>
+nmap \x :set <C-R>=(&cursorline && &cursorcolumn) ? 'nocursorline nocursorcolumn' : 'cursorline cursorcolumn'<CR><CR>
+
 tnoremap <A-Esc> <C-\><C-n>
 nnoremap <C-w>m <C-w>_ \| <C-w>\|
 nnoremap <Leader>q :q<CR>
@@ -91,7 +105,7 @@ nnoremap <Leader>F :KKFiles!
 nnoremap <Leader>b :KKBuffers<CR>
 nnoremap <Leader>c :KKHistory:<CR>
 nnoremap <Leader>/ :KKHistory/<CR>
-nnoremap <Leader>l :KKHistory<CR>
+nnoremap <Leader>o :KKHistory<CR>
 nnoremap <Leader>s :KKRg <C-r><C-w><CR>
 xnoremap <Leader>s y:KKRg '<C-r>"'<CR>
 nnoremap <Leader>e :CocCommand explorer<CR>
@@ -147,6 +161,7 @@ require('nvim-treesitter.configs').setup {
 }
 require('mini.ai').setup {}
 require('mini.align').setup {mappings = {start = 'gb', start_with_preview = 'gB'}}
+require('mini.bracketed').setup {}
 require('mini.diff').setup {}
 require('mini.move').setup {}
 require('mini.surround').setup {}
