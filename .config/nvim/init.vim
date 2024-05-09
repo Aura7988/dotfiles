@@ -20,6 +20,7 @@ Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-repeat'
 Plug 'echasnovski/mini.ai'
 Plug 'echasnovski/mini.align'
+Plug 'echasnovski/mini.diff'
 Plug 'echasnovski/mini.move'
 Plug 'echasnovski/mini.surround'
 Plug 'honza/vim-snippets'
@@ -94,6 +95,8 @@ nnoremap <Leader>l :KKHistory<CR>
 nnoremap <Leader>s :KKRg <C-r><C-w><CR>
 xnoremap <Leader>s y:KKRg '<C-r>"'<CR>
 nnoremap <Leader>e :CocCommand explorer<CR>
+nnoremap <Leader>gd :silent! lua MiniDiff.toggle_overlay()<CR>
+nnoremap <Leader>ge :lua vim.fn.setqflist(MiniDiff.export('qf'))<CR>
 nnoremap <Leader>gg :silent! tab Git<CR>
 noremap <Leader>gl :Flog<Home>silent! <CR>
 
@@ -144,6 +147,7 @@ require('nvim-treesitter.configs').setup {
 }
 require('mini.ai').setup {}
 require('mini.align').setup {mappings = {start = 'gb', start_with_preview = 'gB'}}
+require('mini.diff').setup {}
 require('mini.move').setup {}
 require('mini.surround').setup {}
 require('neogen').setup {}
