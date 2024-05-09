@@ -4,8 +4,8 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'Aura7988/anyline'
 Plug 'Aura7988/fzf.vim', {'branch': 'dev'}
 Plug 'sainnhe/edge'
-Plug 'danymat/neogen'
-Plug 'mbbill/undotree'
+Plug 'danymat/neogen', {'on': 'Neogen'}
+Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'RRethy/nvim-treesitter-textsubjects'
 Plug 'kevinhwang91/nvim-bqf'
@@ -13,8 +13,8 @@ Plug 'folke/flash.nvim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'liuchengxu/vista.vim', {'on': 'Vista'}
 Plug 'tpope/vim-fugitive'
-Plug 'rbong/vim-flog'
-Plug 'rhysd/git-messenger.vim'
+Plug 'rbong/vim-flog', {'on': 'Flog'}
+Plug 'rhysd/git-messenger.vim', {'on': 'GitMessenger'}
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-repeat'
 Plug 'echasnovski/mini.ai'
@@ -86,20 +86,26 @@ nmap <C-k> <Plug>(coc-diagnostic-prev)
 nmap <C-j> <Plug>(coc-diagnostic-next)
 nmap <C-s> <Plug>(coc-range-select)
 xmap <C-s> <Plug>(coc-range-select)
-nmap <C-q> <Plug>(coc-range-select-backward)
 xmap <C-q> <Plug>(coc-range-select-backward)
-nmap <Leader>j :call CocActionAsync('doHover')<CR>
-nmap <Leader>g <Plug>(coc-definition)
+nmap <Leader>h :call CocActionAsync('doHover')<CR>
+nmap <Leader>j <Plug>(coc-definition)
 nmap <Leader>r <Plug>(coc-references)
-nmap <Leader>ar <Plug>(coc-rename)
-xmap <Leader>a <Plug>(coc-codeaction-selected)
-nmap <Leader>a <Plug>(coc-codeaction-selected)
+nmap <Leader>d <Plug>(coc-type-definition)
+nmap <Leader>i <Plug>(coc-implementation)
+xmap <Leader>mf <Plug>(coc-format-selected)
+nmap <Leader>mf <Plug>(coc-format-selected)
+xmap <Leader>ma <Plug>(coc-codeaction-selected)
+nmap <Leader>ma <Plug>(coc-codeaction-selected)
+xmap <Leader>mr <Plug>(coc-codeaction-refactor-selected)
+nmap <Leader>mr <Plug>(coc-codeaction-refactor-selected)
+nmap <Leader>aa <Plug>(coc-codeaction)
+nmap <Leader>af <Plug>(coc-fix-current)
+nmap <Leader>an <Plug>(coc-rename)
 nmap <Leader>ac <Plug>(coc-codeaction-cursor)
 nmap <Leader>as <Plug>(coc-codeaction-source)
-nmap <Leader>af <Plug>(coc-fix-current)
-nmap <Leader>Rc <Plug>(coc-codeaction-refactor)
-xmap <Leader>R <Plug>(coc-codeaction-refactor-selected)
-nmap <Leader>R <Plug>(coc-codeaction-refactor-selected)
+nmap <Leader>ar <Plug>(coc-codeaction-refactor)
+nmap <Leader>al <Plug>(coc-codelens-action)
+nmap <Leader>ah :call CocActionAsync('highlight')<CR>
 nnoremap <Leader>t :Vista!!<CR>
 nnoremap <Leader>f :KKFiles<CR>
 nnoremap <Leader>F :KKFiles! 
@@ -113,10 +119,9 @@ nnoremap <Leader>e :lua MiniFiles.open()<CR>
 nnoremap <Leader>gd :silent! lua MiniDiff.toggle_overlay()<CR>
 nnoremap <Leader>ge :lua vim.fn.setqflist(MiniDiff.export('qf'))<CR>
 nnoremap <Leader>gg :silent! tab Git<CR>
-noremap <Leader>gl :Flog<Home>silent! <CR>
-
-command! -nargs=0 Format :call CocAction('format')
-command! -nargs=? Fold :call CocAction('fold', <f-args>)
+nnoremap <Leader>gl :silent! Flog<CR>
+xnoremap <Leader>gl :Flog<Home>silent! <CR>
+nnoremap <Leader>gm :silent! GitMessenger<CR>
 
 au BufReadPost * silent! normal g`"
 au BufEnter * set fo-=c fo-=r fo-=o
@@ -162,7 +167,7 @@ require('nvim-treesitter.configs').setup {
 }
 require('mini.ai').setup {}
 require('mini.align').setup {mappings = {start = 'gb', start_with_preview = 'gB'}}
-require('mini.bracketed').setup {}
+require('mini.bracketed').setup {comment = {suffix = 'a'}, diagnostic = {suffix = ''}}
 require('mini.diff').setup {}
 require('mini.files').setup {}
 require('mini.move').setup {}
