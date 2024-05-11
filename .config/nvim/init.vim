@@ -39,22 +39,31 @@ set relativenumber
 set cindent shiftwidth=4
 set tabstop=4
 set clipboard+=unnamedplus
-set ignorecase smartcase
+set ignorecase smartcase infercase
 set mouse=a
 set hidden
 set cmdheight=2
 set laststatus=3
-" set shortmess+=c
-set fillchars=vert:│
+set fillchars=eob:\ 
+set shortmess+=WcC
 set updatetime=300
 " set undofile
+set noruler
+set noswapfile noautoread
+set nobackup nowritebackup
+set breakindent
+set listchars=tab:¬·,trail:•,extends:…,precedes:…,nbsp:␣
+set completeopt=menuone,noinsert,noselect,popup
+set splitkeep=screen
 set matchpairs+=<:>
 set jumpoptions=stack
 set signcolumn=auto:2
 set virtualedit=block
 " set lazyredraw
-" set pumblend=9
-" set timeoutlen=500
+set timeoutlen=900
+set pumblend=9
+set winblend=9
+set pumheight=9
 set winminheight=0
 set winminwidth=0
 
@@ -124,9 +133,8 @@ xnoremap <Leader>gl :Flog<Home>silent! <CR>
 nnoremap <Leader>gm :silent! GitMessenger<CR>
 
 au BufReadPost * silent! normal g`"
-au BufEnter * set fo-=c fo-=r fo-=o
+au BufEnter * set formatoptions=ql1j
 au FileType c,cpp setlocal commentstring=//\ %s
-au FileType crontab setlocal nobackup nowritebackup
 au TextYankPost * silent! lua vim.highlight.on_yank {higroup="Cursor", timeout=300}
 hi IncSearch ctermfg=230 ctermbg=160 guifg=#fdf6e3 guibg=#f85552
 hi FloatBorder ctermbg=NONE guibg=NONE
