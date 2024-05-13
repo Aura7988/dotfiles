@@ -67,23 +67,23 @@ set pumheight=9
 set winminheight=0
 set winminwidth=0
 
-nmap \a :set colorcolumn=<C-R>=empty(&cc) ? '125' : ''<CR><CR>
-nmap \b :set background=<C-R>=&background == 'dark' ? 'light' : 'dark'<CR><CR>
-nmap \c :setlocal cursorline!<CR>
-nmap \d :<C-R>=&diff ? 'diffoff' : 'diffthis'<CR><CR>
-nmap \h :set hlsearch!<CR>
-nmap \i :set ignorecase!<CR>
-nmap \l :setlocal list!<CR>
-nmap \n :setlocal number!<CR>
-nmap \r :setlocal relativenumber!<CR>
-nmap \s :setlocal spell!<CR>
-nmap \v :set <C-R>=(&virtualedit =~# 'all') ? 'virtualedit-=all' : 'virtualedit+=all'<CR><CR>
-nmap \w :setlocal wrap!<CR>
-nmap \x :set <C-R>=(&cursorline && &cursorcolumn) ? 'nocursorline nocursorcolumn' : 'cursorline cursorcolumn'<CR><CR>
+nnoremap \a :set colorcolumn=<C-R>=empty(&cc) ? '125' : ''<CR><CR>
+nnoremap \b :set background=<C-R>=&background == 'dark' ? 'light' : 'dark'<CR><CR>
+nnoremap \c :setlocal cursorline!<CR>
+nnoremap \d :<C-R>=&diff ? 'diffoff' : 'diffthis'<CR><CR>
+nnoremap \h :set hlsearch!<CR>
+nnoremap \i :set ignorecase!<CR>
+nnoremap \l :setlocal list!<CR>
+nnoremap \n :setlocal number!<CR>
+nnoremap \r :setlocal relativenumber!<CR>
+nnoremap \s :setlocal spell!<CR>
+nnoremap \v :set <C-R>=(&virtualedit =~# 'all') ? 'virtualedit-=all' : 'virtualedit+=all'<CR><CR>
+nnoremap \w :setlocal wrap!<CR>
+nnoremap \x :set <C-R>=(&cursorline && &cursorcolumn) ? 'nocursorline nocursorcolumn' : 'cursorline cursorcolumn'<CR><CR>
 
+nnoremap <C-s> :w<CR>
 tnoremap <A-Esc> <C-\><C-n>
 nnoremap <C-w>m <C-w>_ \| <C-w>\|
-nnoremap <Leader>q :q<CR>
 nnoremap <expr> gs '`[' . strpart(getregtype(), 0, 1) . '`]'
 inoremap <expr> <TAB> coc#pum#visible() ? coc#pum#next(1) : '<TAB>'
 inoremap <expr> <S-TAB> coc#pum#visible() ? coc#pum#prev(1) : '<C-h>'
@@ -93,10 +93,8 @@ imap <C-l> <Plug>(coc-snippets-expand)
 vmap <C-j> <Plug>(coc-snippets-select)
 nmap <C-k> <Plug>(coc-diagnostic-prev)
 nmap <C-j> <Plug>(coc-diagnostic-next)
-nmap <C-s> <Plug>(coc-range-select)
-xmap <C-s> <Plug>(coc-range-select)
-xmap <C-q> <Plug>(coc-range-select-backward)
-nmap <Leader>h :call CocActionAsync('doHover')<CR>
+nmap <C-q> <Plug>(coc-range-select)
+xmap <C-q> <Plug>(coc-range-select)
 nmap <Leader>j <Plug>(coc-definition)
 nmap <Leader>r <Plug>(coc-references)
 nmap <Leader>d <Plug>(coc-type-definition)
@@ -114,7 +112,9 @@ nmap <Leader>ac <Plug>(coc-codeaction-cursor)
 nmap <Leader>as <Plug>(coc-codeaction-source)
 nmap <Leader>ar <Plug>(coc-codeaction-refactor)
 nmap <Leader>al <Plug>(coc-codelens-action)
-nmap <Leader>ah :call CocActionAsync('highlight')<CR>
+nnoremap <Leader>mh :call CocActionAsync('doHover')<CR>
+nnoremap <Leader>ml :call CocActionAsync('highlight')<CR>
+nnoremap <Leader>q :q<CR>
 nnoremap <Leader>t :Vista!!<CR>
 nnoremap <Leader>f :KKFiles<CR>
 nnoremap <Leader>F :KKFiles! 
