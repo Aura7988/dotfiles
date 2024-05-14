@@ -142,16 +142,13 @@ hi FloatBorder ctermbg=NONE guibg=NONE
 lua <<EOF
 require('flash').setup {
   highlight = {backdrop = false},
-  modes = {
-    search = {enabled = false},
-    char = {enabled = false},
-  },
+  modes = {char = {enabled = false}},
   prompt = {prefix = {{'卍', 'FlashPromptIcon'}}},
 }
 vim.keymap.set({'n', 'x', 'o'}, 'ss', function() require("flash").jump() end)
-vim.keymap.set({'n', 'x', 'o'}, 'S', function() require("flash").treesitter() end)
+vim.keymap.set({'n', 'x', 'o'}, 'st', function() require("flash").treesitter() end)
 vim.keymap.set('o', 'r', function() require("flash").remote() end)
-vim.keymap.set({'o', 'x'}, 'R', function() require("flash").treesitter_search() end)
+vim.keymap.set({'o', 'x'}, 'sr', function() require("flash").treesitter_search() end)
 vim.keymap.set('c', '<C-s>', function() require("flash").toggle() end)
 require('nvim-treesitter.configs').setup {
   highlight = {
