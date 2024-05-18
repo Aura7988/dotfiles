@@ -117,6 +117,7 @@ _fzf_git_stashes() {
 	git rev-parse HEAD &> /dev/null || return
 	git stash list |
 	fzf -d: --prompt 'Stashes> ' \
+		--header '╱ CTRL-X: Drop selected stash entry ╱' \
 		--bind 'ctrl-o:execute(nvim <(git show {1}) > /dev/tty)' \
 		--bind 'ctrl-x:execute-silent(git stash drop {1})+reload(git stash list)' \
 		--preview-window 'up,50%,wrap,border-sharp' --preview 'git show --color=always {1}' |
