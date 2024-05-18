@@ -43,7 +43,7 @@ set ignorecase smartcase infercase
 set mouse=a
 set hidden
 set cmdheight=2
-set laststatus=3
+set laststatus=2
 set fillchars=eob:\ 
 set shortmess+=WcC
 set updatetime=300
@@ -82,7 +82,11 @@ nnoremap \w :setlocal wrap!<CR>
 nnoremap \x :set <C-R>=(&cursorline && &cursorcolumn) ? 'nocursorline nocursorcolumn' : 'cursorline cursorcolumn'<CR><CR>
 
 nnoremap <C-s> :w<CR>
-tnoremap <A-Esc> <C-\><C-n>
+tnoremap <A-[> <C-\><C-n>
+tnoremap <expr> <A-;> '<C-\><C-n>"'.nr2char(getchar()).'pi'
+nnoremap <C-w><C-s> :horizontal terminal<CR>
+nnoremap <C-w><C-v> :vertical terminal<CR>
+nnoremap <C-w><C-t> :tab terminal<CR>
 nnoremap <C-w>m <C-w>_ \| <C-w>\|
 nnoremap <expr> gs '`[' . strpart(getregtype(), 0, 1) . '`]'
 inoremap <expr> <TAB> coc#pum#visible() ? coc#pum#next(1) : '<TAB>'
