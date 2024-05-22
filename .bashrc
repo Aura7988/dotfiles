@@ -30,7 +30,7 @@ fi
 eval "$(lua ~/github/z.lua/z.lua --init bash enhanced once fzf)"
 eval "$(dircolors -b)"
 
-alias vi='nvim'
+alias vv='nvim'
 alias vl='nvim -u ~/.config/nvim/large.vim'
 alias gd='git difftool'
 alias gs='git status'
@@ -58,6 +58,40 @@ alias wp='powershell.exe -Command "Get-Clipboard -Raw"'
 # ww() { curl wttr.in/${1:-Nanjing}; }
 ww() { last | grep still | awk '{print $1}' | sort | uniq -c; }
 rr() { [ $# -ge 2 ] && bat -pr $2 --color never $1; }
+
+vi() {
+	local sp=~/.cache/nvim/server.pipe
+	[[ ! -S $sp ]] && nvim --listen $sp "$@" && return
+	[[ $# -eq 0 ]] && return
+	local rs="--remote-send '<C-\><C-N>:tabe|lcd $PWD|"
+	case "$1" in
+		-d)
+			[[ $# -lt 3 ]] && { echo 'Wrong arguments'; return; }
+			rs+="e $2|diffthis"
+			for f in "${@:3}"; do rs+="|vs $f|diffthis"; done
+			rs+="<CR>'"
+			;;
+		-q)
+			[[ $# -ne 2 ]] && { echo 'Wrong arguments'; return; }
+			rs+="lfile $2<CR>'"
+			;;
+		-b)
+			[[ $# -lt 2 ]] && { echo 'Wrong arguments'; return; }
+			rs+="set binary|drop ${@:2}<CR>'"
+			;;
+		+*)
+			rs+="${1:1}<CR>'"
+			;;
+		-c | --cmd)
+			[[ $# -ne 2 ]] && { echo 'Wrong arguments'; return; }
+			rs+="$2<CR>'"
+			;;
+		*)
+			rs+="drop $@<CR>'"
+			;;
+	esac
+	eval nvim --server $sp $rs
+}
 
 bb() {
 	local cxx_flags=
