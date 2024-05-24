@@ -63,7 +63,7 @@ vi() {
 	local sp=~/.cache/nvim/server.pipe
 	[[ ! -S $sp ]] && nvim --listen $sp "$@" && return
 	[[ $# -eq 0 ]] && return
-	local rs="--remote-send '<C-\><C-N>:tabe|lcd $PWD|"
+	local rs="--remote-send '<C-\><C-N>:tabe %|lcd $PWD|"
 	case "$1" in
 		-d)
 			[[ $# -lt 3 ]] && { echo 'Wrong arguments'; return; }
