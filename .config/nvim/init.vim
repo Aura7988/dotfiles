@@ -52,7 +52,7 @@ set noruler
 set noswapfile noautoread
 set nobackup nowritebackup
 set breakindent
-set listchars=tab:¬·,trail:•,extends:…,precedes:…,nbsp:␣
+set list listchars=tab:│\ ,trail:•,extends:…,precedes:…,nbsp:␣
 set completeopt=menuone,noinsert,noselect,popup
 set splitkeep=screen
 set matchpairs+=<:>
@@ -82,6 +82,7 @@ nnoremap \w :setlocal wrap!<CR>
 nnoremap \x :set <C-R>=(&cursorline && &cursorcolumn) ? 'nocursorline nocursorcolumn' : 'cursorline cursorcolumn'<CR><CR>
 
 nnoremap <C-s> :w<CR>
+nnoremap <BS> :bd<CR>
 tnoremap <A-[> <C-\><C-n>
 tnoremap <expr> <A-;> '<C-\><C-n>"'.nr2char(getchar()).'pi'
 nnoremap <C-w><C-s> :horizontal terminal<CR>
@@ -119,9 +120,6 @@ nmap <Leader>al <Plug>(coc-codelens-action)
 nnoremap <Leader>mh :call CocActionAsync('doHover')<CR>
 nnoremap <Leader>ml :call CocActionAsync('highlight')<CR>
 nnoremap <Leader>q :q<CR>
-nnoremap <Leader>t :Vista!!<CR>
-nnoremap <Leader>f :KKFiles<CR>
-nnoremap <Leader>F :KKFiles! 
 nnoremap <Leader>b :KKBuffers<CR>
 nnoremap <Leader>c :KKHistory:<CR>
 nnoremap <Leader>/ :KKHistory/<CR>
@@ -129,12 +127,34 @@ nnoremap <Leader>o :KKHistory<CR>
 nnoremap <Leader>s :KKRg <C-r><C-w><CR>
 xnoremap <Leader>s y:KKRg '<C-r>"'<CR>
 nnoremap <Leader>e :lua MiniFiles.open()<CR>
+nnoremap <Leader>fc :KKChanges<CR>
+nnoremap <Leader>fd :KKColors<CR>
+nnoremap <Leader>fe :KKCommands<CR>
+nnoremap <Leader>ff :KKFiles<CR>
+nnoremap <Leader>fg :KKFiles! 
+nnoremap <Leader>fh :KKHelptags<CR>
+nnoremap <Leader>fj :KKJumps<CR>
+nnoremap <Leader>fk :KKBLines<CR>
+nnoremap <Leader>fl :KKLines<CR>
+nnoremap <Leader>fm :KKMarks<CR>
+nnoremap <Leader>fn :KKMaps<CR>
+nnoremap <Leader>fo :KKLocate<CR>
+nnoremap <Leader>fr :KKRegisters<CR>
+nnoremap <Leader>fs :KKSnippets<CR>
+nnoremap <Leader>ft :KKFiletypes<CR>
+nnoremap <Leader>fw :KKWindows<CR>
+nnoremap <Leader>gb :KKBCommits<CR>
+xnoremap <Leader>gb :KKBCommits<CR>
+nnoremap <Leader>gc :KKCommits<CR>
 nnoremap <Leader>gd :silent! lua MiniDiff.toggle_overlay()<CR>
 nnoremap <Leader>ge :lua vim.fn.setqflist(MiniDiff.export('qf'))<CR>
 nnoremap <Leader>gg :silent! tab Git<CR>
 nnoremap <Leader>gl :silent! Flog<CR>
 xnoremap <Leader>gl :Flog<Home>silent! <CR>
 nnoremap <Leader>gm :silent! GitMessenger<CR>
+nnoremap <Leader>tt :Vista!!<CR>
+nnoremap <Leader>ta :KKTags<CR>
+nnoremap <Leader>tb :KKBTags<CR>
 
 au BufReadPost * silent! normal g`"
 au BufEnter * set formatoptions=ql1j
@@ -176,7 +196,7 @@ require('nvim-treesitter.configs').setup {
 }
 require('mini.ai').setup {}
 require('mini.align').setup {mappings = {start = 'gb', start_with_preview = 'gB'}}
-require('mini.bracketed').setup {comment = {suffix = 'a'}, diagnostic = {suffix = ''}}
+require('mini.bracketed').setup {comment = {suffix = 'a'}, diagnostic = {suffix = ''}, oldfile = {suffix = ''}}
 require('mini.diff').setup {}
 require('mini.files').setup {}
 require('mini.move').setup {}
