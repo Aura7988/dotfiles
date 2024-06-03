@@ -162,6 +162,9 @@ au FileType c,cpp setlocal commentstring=//\ %s
 au TextYankPost * silent! lua vim.highlight.on_yank {higroup="Cursor", timeout=300}
 hi IncSearch ctermfg=230 ctermbg=160 guifg=#fdf6e3 guibg=#f85552
 hi FloatBorder ctermbg=NONE guibg=NONE
+hi MiniDiffSignAdd guifg=Green
+hi MiniDiffSignChange guifg=#ffcc33
+hi MiniDiffSignDelete guifg=Red
 
 lua <<EOF
 require('flash').setup {
