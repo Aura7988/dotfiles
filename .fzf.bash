@@ -13,7 +13,7 @@ rv() {
 		--bind "ctrl-g:transform:[[ \$FZF_PROMPT =~ Fzf ]] &&
 			echo 'change-prompt(Ripgrep> )+disable-search+reload($RG \{q} || :)+rebind(change)' ||
 			echo 'change-prompt(Fzf> )+enable-search+clear-query+unbind(change)'" \
-		--bind "ctrl-o:execute(nvim {1} +{2} > /dev/tty)" \
+		--bind "ctrl-o:execute:nvim {1} +{2}" \
 		--bind 'enter:become(nvim -q {+f})' \
 		--delimiter : --prompt 'Fzf> ' \
 		--header '╱ CTRL-G: Switch between Fzf/Ripgrep mode ╱' \
@@ -26,7 +26,7 @@ d() {
 	diff -raq "$@" |
 	sed -nr 's,^Only in (.*): (.*)$,S: \1/\2,p; s,^Files (.*) and (.*) differ$,D: \1 \2,p' |
 	fzf -m --prompt 'Diff> ' \
-		--bind "ctrl-o:execute(nvim -d {2} {3} > /dev/tty)" \
+		--bind "ctrl-o:execute:nvim -d {2} {3}" \
 		$FZF_PREVIEW_OPTS 'bat -n --color=always {2}' |
 	cut -d' ' -f2-
 }
@@ -62,7 +62,7 @@ _fzf_git_branches() {
 	column -ts$'\t' |
 	fzf -m --ansi --color "hl:-1:#6B98DE,hl+:-1:#6B98DE:reverse" \
 		--tiebreak begin --no-hscroll --prompt 'Branches> ' \
-		--bind 'ctrl-o:execute:nvim <(sed s/^..// <<< {} | cut -d" " -f1 | xargs git diff) > /dev/tty' \
+		--bind 'ctrl-o:execute:nvim <(sed s/^..// <<< {} | cut -d" " -f1 | xargs git diff)' \
 		--preview-window 'up,35%,wrap,border-sharp' \
 		--preview 'git l --oneline --color=always $(sed s/^..// <<< {} | cut -d" " -f1)' |
 	sed 's/^..//' | cut -d' ' -f1
@@ -75,7 +75,7 @@ _fzf_git_each_ref() {
 	column -ts$'\t' |
 	fzf -m --ansi --color "hl:-1:#6B98DE,hl+:-1:#6B98DE:reverse" \
 		--nth 2,2.. --tiebreak begin --no-hscroll --prompt 'Every ref> ' \
-		--bind 'ctrl-o:execute:nvim <(git show {2}) > /dev/tty' \
+		--bind 'ctrl-o:execute:nvim <(git show {2})' \
 		--preview-window 'up,35%,wrap,border-sharp' \
 		--preview 'git l --oneline --color=always {2}' |
 	awk '{print $2}'
@@ -86,7 +86,7 @@ _fzf_git_files() {
 	(git -c color.status=always status --short --no-branch
 	git ls-files | grep -vxFf <(git status -s | grep '^[^?]' | cut -c4-; echo :) | sed 's/^/   /') |
 	fzf --prompt 'Files> ' -m --ansi --nth 2..,.. \
-		--bind 'ctrl-o:execute(nvim {-1} > /dev/tty)' \
+		--bind 'ctrl-o:execute:nvim {-1}' \
 		--preview-window 'right,75%,wrap,border-sharp' \
 		--preview 'git diff --no-ext-diff --color=always -- {-1} | sed 1,4d; bat --color=always {-1}' |
 	cut -c4- |
@@ -97,8 +97,8 @@ _fzf_git_hashes() {
 	git rev-parse HEAD &> /dev/null || return
 	git l --color=always |
 	fzf -m +s --prompt 'Hashes> ' \
-		--bind 'ctrl-o:execute(nvim <(grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show) > /dev/tty)' \
-		--bind 'ctrl-l:execute(nvim <(grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git diff) > /dev/tty)' \
+		--bind 'ctrl-o:execute:nvim <(grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show)' \
+		--bind 'ctrl-l:execute:nvim <(grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git diff)' \
 		--ansi --color "hl:-1:#6B98DE,hl+:-1:#6B98DE:reverse" \
 		--preview-window 'up,35%,wrap,border-sharp' \
 		--preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always' |
@@ -118,7 +118,7 @@ _fzf_git_stashes() {
 	git stash list |
 	fzf -d: --prompt 'Stashes> ' \
 		--header '╱ CTRL-X: Drop selected stash entry ╱' \
-		--bind 'ctrl-o:execute(nvim <(git show {1}) > /dev/tty)' \
+		--bind 'ctrl-o:execute:nvim <(git show {1})' \
 		--bind 'ctrl-x:execute-silent(git stash drop {1})+reload(git stash list)' \
 		--preview-window 'up,50%,wrap,border-sharp' --preview 'git show --color=always {1}' |
 	cut -d: -f1
@@ -127,7 +127,7 @@ _fzf_git_stashes() {
 _fzf_git_tags() {
 	git rev-parse HEAD &> /dev/null || return
 	git tag --sort -version:refname |
-	fzf -m --prompt 'Tags> ' --bind 'ctrl-o:execute(nvim <(git diff {}) > /dev/tty)' \
+	fzf -m --prompt 'Tags> ' --bind 'ctrl-o:execute:nvim <(git diff {})' \
 		--preview-window 'right,75%,wrap,border-sharp' --preview 'git show --color=always {}'
 }
 
