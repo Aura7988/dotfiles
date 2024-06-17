@@ -64,8 +64,6 @@ set timeoutlen=900
 set pumblend=9
 set winblend=9
 set pumheight=9
-set winminheight=0
-set winminwidth=0
 
 nnoremap \a :set colorcolumn=<C-R>=empty(&cc) ? '125' : ''<CR><CR>
 nnoremap \b :set background=<C-R>=&background == 'dark' ? 'light' : 'dark'<CR><CR>
@@ -88,7 +86,7 @@ tnoremap <expr> <A-;> '<C-\><C-n>"'.nr2char(getchar()).'pi'
 nnoremap <C-w><C-s> :horizontal terminal<CR>
 nnoremap <C-w><C-v> :vertical terminal<CR>
 nnoremap <C-w><C-t> :tab terminal<CR>
-nnoremap <C-w>m <C-w>_ \| <C-w>\|
+nnoremap <C-w>m :-tab split<CR>
 nnoremap <expr> gs '`[' . strpart(getregtype(), 0, 1) . '`]'
 inoremap <expr> <TAB> coc#pum#visible() ? coc#pum#next(1) : '<TAB>'
 inoremap <expr> <S-TAB> coc#pum#visible() ? coc#pum#prev(1) : '<C-h>'
