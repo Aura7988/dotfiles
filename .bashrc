@@ -30,7 +30,7 @@ fi
 eval "$(lua ~/github/z.lua/z.lua --init bash enhanced once fzf)"
 eval "$(dircolors -b)"
 
-alias vv='nvim'
+alias vi='nvim'
 alias vl='nvim -u ~/.config/nvim/large.vim'
 alias gd='git difftool'
 alias gs='git status'
@@ -59,7 +59,7 @@ alias wp='powershell.exe -Command "Get-Clipboard -Raw"'
 ww() { last | grep still | awk '{print $1}' | sort | uniq -c; }
 rr() { [ $# -ge 2 ] && bat -pr $2 --color never $1; }
 
-vi() {
+vv() {
 	local sp=~/.cache/nvim/server.pipe
 	[[ ! -S $sp ]] && nvim --listen $sp "$@" && return
 	[[ $# -eq 0 ]] && return
