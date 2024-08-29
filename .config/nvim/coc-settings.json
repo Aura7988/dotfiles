@@ -12,6 +12,7 @@
 	"coc.preferences.currentFunctionSymbolAutoUpdate": true,
 	"coc.preferences.useQuickfixForLocations": true,
 	"coc.preferences.formatOnType": false,
+	"clangd.arguments": ["--header-insertion=never"],
 	"[c][cpp][rust]": {
 		"coc.preferences.formatOnSave": false,
 		"inlayHint.enable": false,
