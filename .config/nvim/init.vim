@@ -156,7 +156,6 @@ nnoremap <Leader>tb :KKBTags<CR>
 
 au BufReadPost * silent! normal g`"
 au BufEnter * set formatoptions=ql1j
-au FileType c,cpp setlocal commentstring=//\ %s
 au TextYankPost * silent! lua vim.highlight.on_yank {higroup="Cursor", timeout=300}
 hi IncSearch ctermfg=230 ctermbg=160 guifg=#fdf6e3 guibg=#f85552
 hi FloatBorder ctermbg=NONE guibg=NONE
