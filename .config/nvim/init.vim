@@ -29,6 +29,7 @@ call plug#end()
 
 colorscheme edge
 set termguicolors
+set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,a:blinkwait790-blinkoff430-blinkon250
 set background=light
 set noshowmode
 set fileencodings=ucs-bom,utf-8,cp936,gb18030,gbk,big5,euc-jp,euc-kr,latin1
@@ -156,7 +157,8 @@ nnoremap <Leader>tb :KKBTags<CR>
 
 au BufReadPost * silent! normal g`"
 au BufEnter * set formatoptions=ql1j
-au TextYankPost * silent! lua vim.highlight.on_yank {higroup="Cursor", timeout=300}
+au TextYankPost * silent! lua vim.highlight.on_yank {higroup="Yanked", timeout=300}
+hi Yanked cterm=underline ctermfg=Blue gui=underline guifg=Blue
 hi IncSearch ctermfg=230 ctermbg=160 guifg=#fdf6e3 guibg=#f85552
 hi FloatBorder ctermbg=NONE guibg=NONE
 hi MiniDiffSignAdd guifg=Green

@@ -18,6 +18,7 @@
 		"inlayHint.enable": false,
 		"inlayHint.enableParameter": true,
 		"semanticTokens.enable": true,
+		"semanticTokens.highlightPriority": 125,
 	},
 	"diagnostic.errorSign": "",
 	"diagnostic.warningSign": "",
