@@ -127,7 +127,6 @@ nnoremap <Leader>s :KKRg <C-r><C-w><CR>
 xnoremap <Leader>s y:KKRg '<C-r>"'<CR>
 nnoremap <Leader>e :lua MiniFiles.open()<CR>
 nnoremap <Leader>fc :KKChanges<CR>
-nnoremap <Leader>fd :KKColors<CR>
 nnoremap <Leader>fe :KKCommands<CR>
 nnoremap <Leader>ff :KKFiles<CR>
 nnoremap <Leader>fg :KKFiles! 
@@ -136,12 +135,7 @@ nnoremap <Leader>fj :KKJumps<CR>
 nnoremap <Leader>fk :KKBLines<CR>
 nnoremap <Leader>fl :KKLines<CR>
 nnoremap <Leader>fm :KKMarks<CR>
-nnoremap <Leader>fn :KKMaps<CR>
-nnoremap <Leader>fo :KKLocate<CR>
 nnoremap <Leader>fr :KKRegisters<CR>
-nnoremap <Leader>fs :KKSnippets<CR>
-nnoremap <Leader>ft :KKFiletypes<CR>
-nnoremap <Leader>fw :KKWindows<CR>
 nnoremap <Leader>gb :KKBCommits<CR>
 xnoremap <Leader>gb :KKBCommits<CR>
 nnoremap <Leader>gc :KKCommits<CR>
