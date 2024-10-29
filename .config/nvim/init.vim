@@ -53,6 +53,8 @@ set noruler
 set noswapfile noautoread
 set nobackup nowritebackup
 set breakindent
+set showbreak=╰➤
+"set cpoptions+=n
 set list listchars=tab:│\ ,trail:•,extends:…,precedes:…,nbsp:␣
 set completeopt=menuone,noinsert,noselect,popup
 set splitkeep=screen
