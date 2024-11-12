@@ -82,6 +82,8 @@ nnoremap \v :set <C-R>=(&virtualedit =~# 'all') ? 'virtualedit-=all' : 'virtuale
 nnoremap \w :setlocal wrap!<CR>
 nnoremap \x :set <C-R>=(&cursorline && &cursorcolumn) ? 'nocursorline nocursorcolumn' : 'cursorline cursorcolumn'<CR><CR>
 
+nnoremap <C-n> 12<C-e>
+nnoremap <C-p> 12<C-y>
 nnoremap <C-s> :w<CR>
 nnoremap <BS> :bd<CR>
 tnoremap <A-[> <C-\><C-n>
