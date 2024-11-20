@@ -51,6 +51,7 @@ _fzf_select() {
 		--bind 'ctrl-g:transform:[[ $FZF_PROMPT =~ Files ]] &&
 			echo "change-prompt(Directories> )+reload(fd -H -td)" ||
 			echo "change-prompt(Files> )+reload(fd -HE .git -tf)"' \
+		--bind 'ctrl-o:execute:nvim {}' \
 		$FZF_PREVIEW_OPTS '[[ $FZF_PROMPT =~ Files ]] && bat -p --color=always {} || tree -C {}' |
 	while read -r i; do printf '%q ' "$i"; done
 }
@@ -83,14 +84,13 @@ _fzf_git_each_ref() {
 
 _fzf_git_files() {
 	git rev-parse HEAD &> /dev/null || return
-	(git -c color.status=always status --short --no-branch
-	git ls-files | grep -vxFf <(git status -s | grep '^[^?]' | cut -c4-; echo :) | sed 's/^/   /') |
-	fzf --prompt 'Files> ' -m --ansi --nth 2..,.. \
-		--bind 'ctrl-o:execute:nvim {-1}' \
-		--preview-window 'right,75%,wrap,border-sharp' \
-		--preview 'git diff --no-ext-diff --color=always -- {-1} | sed 1,4d; bat --color=always {-1}' |
-	cut -c4- |
-	sed 's/.* -> //'
+	(git status -s | sed -r 's/^(..)./[31m\1[m\t/'
+	git ls-files | grep -vxFf <(git status -s | grep '^[^?]' | cut -c4-; echo :) | sed 's/^/  \t/') |
+	fzf --prompt 'GFiles> ' -m --ansi -d "\t" --tabstop=1 --nth 2.. \
+		--bind 'ctrl-o:execute:printf "%b" {2} | xargs nvim' \
+		--preview-window 'right,75%,wrap,border-sharp,hidden' \
+		--preview 'printf "%b" {2} | xargs git diff --no-ext-diff --color=always --' |
+	cut -c4-
 }
 
 _fzf_git_hashes() {
