@@ -87,9 +87,9 @@ _fzf_git_files() {
 	(git status -s | sed -r 's/^(..)./[31m\1[m\t/'
 	git ls-files | grep -vxFf <(git status -s | grep '^[^?]' | cut -c4-; echo :) | sed 's/^/  \t/') |
 	fzf --prompt 'GFiles> ' -m --ansi -d "\t" --tabstop=1 --nth 2.. \
-		--bind 'ctrl-o:execute:printf "%b" {2} | xargs nvim' \
+		--bind 'ctrl-o:execute:eval nvim {2}' \
 		--preview-window 'right,75%,wrap,border-sharp,hidden' \
-		--preview 'printf "%b" {2} | xargs git diff --no-ext-diff --color=always --' |
+		--preview 'eval git diff --no-ext-diff --color=always -- {2}' |
 	cut -c4-
 }
 
