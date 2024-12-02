@@ -21,7 +21,7 @@ rv() {
 		--preview-window 'up,30%,wrap,border-sharp,+{2}+1/3,~1'
 }
 
-d() {
+dr() {
 	[[ ! -d "$1" || ! -d "$2" ]] && return
 	diff -raq "$@" |
 	sed -nr 's,^Only in (.*): (.*)$,S: \1/\2,p; s,^Files (.*) and (.*) differ$,D: \1 \2,p' |
@@ -38,11 +38,11 @@ _fzf_kill() {
 }
 
 _fzf_cd() {
-	local d=$(fd -H -td | fzf $FZF_PREVIEW_OPTS 'tree -C {}') && printf 'cd -- %q' "$d"
+	fd -HE .git -td | fzf $FZF_PREVIEW_OPTS 'tree -C {}' --bind 'enter:become:printf "cd -- %q" {}'
 }
 
 _fzf_history() {
-	local h=$(history | sed 's/^ *[0-9]* *//' | fzf +s --tac) && echo -n "$h"
+	history | sed 's/^ *[0-9]* *//' | fzf +s --tac --bind 'enter:become:echo -n {}'
 }
 
 _fzf_select() {
@@ -86,16 +86,16 @@ _fzf_git_files() {
 	git rev-parse HEAD &> /dev/null || return
 	(git status -s | sed -r 's/^(..)./[31m\1[m\t/'
 	git ls-files | grep -vxFf <(git status -s | grep '^[^?]' | cut -c4-; echo :) | sed 's/^/  \t/') |
-	fzf --prompt 'GFiles> ' -m --ansi -d "\t" --tabstop=1 --nth 2.. \
+	fzf --prompt 'GFiles> ' -m --ansi -d "\t" --tabstop=1 \
 		--bind 'ctrl-o:execute:eval nvim {2}' \
-		--preview-window 'right,75%,wrap,border-sharp,hidden' \
-		--preview 'eval git diff --no-ext-diff --color=always -- {2}' |
-	cut -c4-
+		--bind 'alt-h:become(eval _fzf_git_hashes {+2})' \
+		--bind 'enter:become(echo {+2})' \
+		$FZF_PREVIEW_OPTS 'eval git diff --no-ext-diff --color=always -- {2} | sed 1,4d; eval bat --style=header --color=always {2}'
 }
 
 _fzf_git_hashes() {
 	git rev-parse HEAD &> /dev/null || return
-	git l --color=always |
+	git l --color=always -- "$@" |
 	fzf -m +s --prompt 'Hashes> ' \
 		--bind 'ctrl-o:execute:nvim <(grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show)' \
 		--bind 'ctrl-l:execute:nvim <(grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git diff)' \
@@ -104,6 +104,7 @@ _fzf_git_hashes() {
 		--preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always' |
 	sed -r 's/.* ([a-f0-9]{7,}) - .*/\1/'
 }
+export -f _fzf_git_hashes
 
 _fzf_git_reflogs() {
 	git rev-parse HEAD &> /dev/null || return
