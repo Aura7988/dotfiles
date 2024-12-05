@@ -47,7 +47,8 @@ _fzf_history() {
 
 _fzf_select() {
 	fd -HE .git -tf |
-	fzf -m --prompt 'Files> ' --header '╱ CTRL-G: Switch between Files/Directories ╱' \
+	fzf -m $FZF_COLOR --prompt 'Files> ' \
+		--header '╱ CTRL-G: Switch between Files/Directories ╱' \
 		--bind 'ctrl-g:transform:[[ $FZF_PROMPT =~ Files ]] &&
 			echo "change-prompt(Directories> )+reload(fd -H -td)" ||
 			echo "change-prompt(Files> )+reload(fd -HE .git -tf)"' \
@@ -57,7 +58,7 @@ _fzf_select() {
 }
 
 _fbr() {
-	git branch "$@" --sort=-committerdate --sort=-HEAD --color --format=$'%(HEAD) %(color:yellow)%(refname:short) %(color:green)(%(committerdate:relative))\t%(color:blue)%(subject)%(color:reset)' | column -ts$'\t'
+	git branch "$@" --sort=-committerdate --sort=-HEAD --color --format=$'%(HEAD) %(color:yellow)%(refname:short) %(color:green)(%(committerdate:relative))\t%(color:blue)%(subject)%(color:reset)' | column -ts$'\t' | sed 's/^..//'
 }
 export -f _fbr
 
@@ -69,9 +70,10 @@ _fzf_git_branches() {
 		--bind 'alt-r:transform:[[ $FZF_PROMPT =~ All ]] &&
 			echo "change-prompt(Branches> )+reload(_fbr)" ||
 			echo "change-prompt(AllBranches> )+reload(_fbr -a)"' \
-		--bind 'ctrl-o:execute:nvim <(sed s/^..// <<< {} | cut -d" " -f1 | xargs git diff)' \
-		$FZF_PREVIEW_OPTS 'git l --color $(sed s/^..// <<< {} | cut -d" " -f1)' |
-	sed 's/^..//' | cut -d' ' -f1
+		--bind 'ctrl-o:execute:nvim <(git diff {1})' \
+		--bind 'alt-h:become:_fzf_git_hashes {1}' \
+		--bind 'enter:become:echo {+1}' \
+		$FZF_PREVIEW_OPTS 'git l --color {1}'
 }
 
 _fzf_git_each_ref() {
@@ -91,7 +93,7 @@ _fzf_git_files() {
 	git rev-parse HEAD &> /dev/null || return
 	(git status -s | sed -r 's/^(..)./[31m\1[m\t/'
 	git ls-files | grep -vxFf <(git status -s | grep '^[^?]' | cut -c4-; echo :) | sed 's/^/  \t/') |
-	fzf --prompt 'GFiles> ' -m --ansi -d "\t" --tabstop=1 \
+	fzf --prompt 'GFiles> ' -m --ansi -d "\t" --tabstop=1 $FZF_COLOR \
 		--bind 'ctrl-o:execute:eval nvim {2}' \
 		--bind 'alt-h:become(eval _fzf_git_hashes -- {+2})' \
 		--bind 'enter:become(echo {+2})' \
