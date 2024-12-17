@@ -14,6 +14,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'liuchengxu/vista.vim', {'on': 'Vista'}
 Plug 'tpope/vim-fugitive'
 Plug 'rbong/vim-flog', {'on': 'Flog'}
+	let g:flog_enable_dynamic_commit_hl = 1
+	let g:flog_default_opts = {'max_count': 9999, 'format': '%h -%d %s %ad %an'}
 Plug 'rhysd/git-messenger.vim', {'on': 'GitMessenger'}
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-repeat'
@@ -140,12 +142,10 @@ nnoremap <Leader>fk :KKBLines<CR>
 nnoremap <Leader>fl :KKLines<CR>
 nnoremap <Leader>fm :KKMarks<CR>
 nnoremap <Leader>fr :KKRegisters<CR>
-nnoremap <Leader>gb :KKBCommits<CR>
-xnoremap <Leader>gb :KKBCommits<CR>
-nnoremap <Leader>gc :KKCommits<CR>
 nnoremap <Leader>gd :silent! lua MiniDiff.toggle_overlay()<CR>
 nnoremap <Leader>ge :lua vim.fn.setqflist(MiniDiff.export('qf'))<CR>
 nnoremap <Leader>gg :silent! tab Git<CR>
+nnoremap <Leader>gk :Flog -path=%<Home>silent! <CR>
 nnoremap <Leader>gl :Flog<Home>silent! <CR>
 xnoremap <Leader>gl :Flog<Home>silent! <CR>
 nnoremap <Leader>gm :silent! GitMessenger<CR>
@@ -156,12 +156,15 @@ nnoremap <Leader>tb :KKBTags<CR>
 au BufReadPost * silent! normal g`"
 au BufEnter * set formatoptions=ql1j
 au TextYankPost * silent! lua vim.highlight.on_yank {higroup="Yanked", timeout=300}
+au FileType git set foldmethod=syntax
 hi Yanked cterm=underline ctermfg=Blue gui=underline guifg=Blue
 hi IncSearch ctermfg=230 ctermbg=160 guifg=#fdf6e3 guibg=#f85552
 hi FloatBorder ctermbg=NONE guibg=NONE
 hi MiniDiffSignAdd guifg=Green
 hi MiniDiffSignChange guifg=#ffcc33
 hi MiniDiffSignDelete guifg=Red
+hi flogHash guifg=Red
+hi flogDate guifg=#6B98DE
 
 lua <<EOF
 require('flash').setup {
