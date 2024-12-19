@@ -50,7 +50,7 @@ _fzf_select() {
 	fzf -m $FZF_COLOR --prompt 'Files> ' \
 		--header '╱ CTRL-G: Switch between Files/Directories ╱' \
 		--bind 'ctrl-g:transform:[[ $FZF_PROMPT =~ Files ]] &&
-			echo "change-prompt(Directories> )+reload(fd -H -td)" ||
+			echo "change-prompt(Directories> )+reload(fd -HE .git -td)" ||
 			echo "change-prompt(Files> )+reload(fd -HE .git -tf)"' \
 		--bind 'ctrl-o:execute:nvim {}' \
 		$FZF_PREVIEW_OPTS '[[ $FZF_PROMPT =~ Files ]] && bat -p --color=always {} || tree -C {}' |
@@ -70,7 +70,7 @@ _fzf_git_branches() {
 		--bind 'alt-r:transform:[[ $FZF_PROMPT =~ All ]] &&
 			echo "change-prompt(Branches> )+reload(_fbr)" ||
 			echo "change-prompt(AllBranches> )+reload(_fbr -a)"' \
-		--bind 'ctrl-o:execute:nvim <(git diff {1})' \
+		--bind 'ctrl-o:execute:nvim "+G diff {1}|on"' \
 		--bind 'alt-h:become:_fzf_git_hashes {1}' \
 		--bind 'enter:become:echo {+1}' \
 		$FZF_PREVIEW_OPTS 'git l --color {1}'
@@ -94,18 +94,19 @@ _fzf_git_files() {
 	(git status -s | sed -r 's/^(..)./[31m\1[m\t/'
 	git ls-files | grep -vxFf <(git status -s | grep '^[^?]' | cut -c4-; echo :) | sed 's/^/  \t/') |
 	fzf --prompt 'GFiles> ' -m --ansi -d "\t" --tabstop=1 $FZF_COLOR \
-		--bind 'ctrl-o:execute:eval nvim {2}' \
-		--bind 'alt-h:become(eval _fzf_git_hashes -- {+2})' \
+		# git 对文件名包含特殊符号的行为看起来好像不一致：git status 会对包含空格的文件名加双引号，但 git ls-files 不加；两个命令对文件名中含有单引号都不加双引号。暂时不处理特殊符号的问题。
+		--bind 'ctrl-o:execute:nvim {2}' \
+		--bind 'alt-h:become(_fzf_git_hashes -- {+2})' \
 		--bind 'enter:become(echo {+2})' \
-		$FZF_PREVIEW_OPTS 'eval git diff --no-ext-diff --color -- {2} | sed 1,4d; eval bat --style=header --color=always {2}'
+		$FZF_PREVIEW_OPTS 'git diff --no-ext-diff --color -- {2} | sed 1,4d; bat --style=header --color=always {2}'
 }
 
 _fzf_git_hashes() {
 	git rev-parse HEAD &> /dev/null || return
 	git l --color "$@" |
 	fzf -m +s --prompt 'Hashes> ' --ansi $FZF_COLOR \
-		--bind 'ctrl-o:execute:nvim <(grep -Eo "[a-f0-9]{7,}" <<< {} | xargs -Ih git diff h~ h)' \
-		$FZF_PREVIEW_OPTS 'grep -Eo "[a-f0-9]{7,}" <<< {} | xargs git show --color --stat' |
+		--bind 'ctrl-o:execute:nvim "+G show --dd "`grep -Eo "[a-f0-9]{7,}" <<< {} | head -1`"|on"' \
+		$FZF_PREVIEW_OPTS 'git show --color --stat `grep -Eo "[a-f0-9]{7,}" <<< {} | head -1`' |
 	sed -r 's/.* ([a-f0-9]{7,}) - .*/\1/'
 }
 export -f _fzf_git_hashes
@@ -122,9 +123,9 @@ _fzf_git_stashes() {
 	git stash list |
 	fzf -d: --prompt 'Stashes> ' \
 		--header '╱ CTRL-X: Drop selected stash entry ╱' \
-		--bind 'ctrl-o:execute:nvim <(git show {1})' \
+		--bind 'ctrl-o:execute:nvim "+G stash show -p {1}|on"' \
 		--bind 'ctrl-x:execute-silent(git stash drop {1})+reload(git stash list)' \
-		--preview-window 'up,50%,wrap,border-sharp' --preview 'git show --color {1}' |
+		--preview-window 'up,25%,wrap' --preview 'git -c color.ui=always stash show {1}' |
 	cut -d: -f1
 }
 
@@ -132,7 +133,7 @@ _fzf_git_tags() {
 	git rev-parse HEAD &> /dev/null || return
 	git tag --sort -version:refname |
 	fzf -m --prompt 'Tags> ' \
-		--bind 'ctrl-o:execute:nvim <(git diff `git describe --always --abbrev=0 --tags {}~` {})' \
+		--bind 'ctrl-o:execute:nvim "+G diff "`git describe --always --abbrev=0 --tags {}~`" {}|on"' \
 		$FZF_PREVIEW_OPTS 'git diff --color --stat `git describe --always --abbrev=0 --tags {}~` {}'
 }
 
