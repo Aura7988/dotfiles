@@ -90,11 +90,11 @@ _fzf_git_each_ref() {
 }
 
 _fzf_git_files() {
+	# git 对文件名包含特殊符号的行为看起来好像不一致：git status 会对包含空格的文件名加双引号，但 git ls-files 不加；两个命令对文件名中含有单引号都不加双引号。暂时不处理特殊符号的问题。
 	git rev-parse HEAD &> /dev/null || return
 	(git status -s | sed -r 's/^(..)./[31m\1[m\t/'
 	git ls-files | grep -vxFf <(git status -s | grep '^[^?]' | cut -c4-; echo :) | sed 's/^/  \t/') |
 	fzf --prompt 'GFiles> ' -m --ansi -d "\t" --tabstop=1 $FZF_COLOR \
-		# git 对文件名包含特殊符号的行为看起来好像不一致：git status 会对包含空格的文件名加双引号，但 git ls-files 不加；两个命令对文件名中含有单引号都不加双引号。暂时不处理特殊符号的问题。
 		--bind 'ctrl-o:execute:nvim {2}' \
 		--bind 'alt-h:become(_fzf_git_hashes -- {+2})' \
 		--bind 'enter:become(echo {+2})' \
