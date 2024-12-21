@@ -32,8 +32,9 @@ eval "$(dircolors -b)"
 
 alias vi='nvim'
 alias vl='nvim -u ~/.config/nvim/large.vim'
-alias gd='git difftool'
+alias gd='git dd'
 alias gs='git status'
+alias gl='git l'
 alias ls='ls --color=auto'
 alias la='ls -A'
 alias ll='ls -lh --time-style=long-iso'

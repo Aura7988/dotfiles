@@ -15,28 +15,35 @@
 
 [alias]
 	co = checkout
-	d = difftool
 	df = diff
 	s = status
-	ss = status -sb
+	dd = "!bash -c 'cd \"${GIT_PREFIX-.}\"; nvim <(git diff \"$@\")'"
+	ss = "!bash -c 'cd \"${GIT_PREFIX-.}\"; nvim <(git show --dd \"$@\")'"
+	; ss = "!cd \"${GIT_PREFIX-.}\"; git cat-file -e \"$1\" && nvim '+G difftool -y $1^ $1 -- ${@:2}' || nvim '+G difftool -y HEAD^ HEAD ${@}' #"
 	st = stash
+	sa = stash apply
+	sd = stash show -p
+	sl = stash list
+	sm = "!cd \"${GIT_PREFIX-.}\"; [[ $# -gt 0 && ! -e \"${@: -1}\" ]] && git stash push -m \"${@: -1}\" -- \"${@:1:$(($#-1))}\" || git stash push -m `date +%F,%T%z` -- \"$@\""
 	sp = stash pop
-	sr = "!sr() { cd ${GIT_PREFIX:-.}; rev=${1:-HEAD}; git difftool $rev~1 $rev -- \"${@:2}\"; }; sr"
 	l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ai @%an)%Creset'
+	ll = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ai @%an)%Creset' --numstat
 	permission-reset = !git diff -p -R --no-ext-diff --no-color | grep -E \"^(diff|(old|new) mode)\" --color=never | git apply
-	rl = reflog --pretty=format:\"%h %Cblue%ad%Creset %an %Cgreen%s%Creset\" --date=format:\"%Y-%m-%d %H:%M:%S\"
+	rl = reflog --pretty=format:'%Cred%h %Cgreen%ai %Cblue@%an%Creset %s'
 	br = branch
 	bd = branch -d
 	sw = switch
 	ca = commit --amend
 	ce = commit --amend --no-edit
 	cm = commit -m
+	ee = "!git commit --allow-empty -m \"${1:-wip}\" #"
+	cc = "![[ $# -gt 0 ]] && cd \"${GIT_PREFIX-.}\" && git add \"$@\" || git add .; git commit -m wip #"
 	c = commit
 	a = add
 	rs = restore
 	rb = rebase
 	fa = fetch --all
-	mfh = merge FETCH_HEAD
+	mf = merge FETCH_HEAD
 	m = merge
 	mt = mergetool
 	cp = cherry-pick
