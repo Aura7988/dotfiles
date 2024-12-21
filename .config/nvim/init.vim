@@ -17,6 +17,7 @@ Plug 'rbong/vim-flog', {'on': 'Flog'}
 	let g:flog_enable_dynamic_commit_hl = 1
 	let g:flog_default_opts = {'max_count': 9999, 'format': '%h -%d %s %ad %an'}
 Plug 'rhysd/git-messenger.vim', {'on': 'GitMessenger'}
+	let g:git_messenger_always_into_popup = 1
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-repeat'
 Plug 'echasnovski/mini.ai'
@@ -135,7 +136,7 @@ nnoremap <Leader>e :lua MiniFiles.open()<CR>
 nnoremap <Leader>fc :KKChanges<CR>
 nnoremap <Leader>fe :KKCommands<CR>
 nnoremap <Leader>ff :KKFiles<CR>
-nnoremap <Leader>fg :KKFiles! 
+nnoremap <Leader>fg :KKFiles 
 nnoremap <Leader>fh :KKHelptags<CR>
 nnoremap <Leader>fj :KKJumps<CR>
 nnoremap <Leader>fk :KKBLines<CR>
