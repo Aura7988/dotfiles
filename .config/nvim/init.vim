@@ -4,6 +4,7 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'Aura7988/anyline'
 Plug 'Aura7988/fzf.vim', {'branch': 'dev'}
 Plug 'sainnhe/edge'
+	let g:edge_style = 'aura' | let g:edge_better_performance = 1
 Plug 'danymat/neogen', {'on': 'Neogen'}
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -201,7 +202,7 @@ require('nvim-treesitter.configs').setup {
 require('mini.ai').setup {}
 require('mini.align').setup {mappings = {start = 'gb', start_with_preview = 'gB'}}
 require('mini.bracketed').setup {comment = {suffix = 'a'}, diagnostic = {suffix = ''}, oldfile = {suffix = ''}}
-require('mini.diff').setup {}
+require('mini.diff').setup {options = {wrap_goto = true}}
 require('mini.files').setup {}
 require('mini.move').setup {}
 require('mini.surround').setup {}
