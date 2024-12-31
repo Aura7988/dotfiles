@@ -9,6 +9,7 @@
 	prompt = false
 [diff]
 	tool = nvimdiff
+	context = 1
 [difftool "nvimdiff"]
 	cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
 	; path = nvim
@@ -17,8 +18,8 @@
 	co = checkout
 	df = diff
 	s = status
-	dd = "!cd \"${GIT_PREFIX-.}\"; c='+G diff'; for a in \"$@\"; do c=\"$c\"`printf ' %q' \"$a\"`; done; nvim \"$c|on\" #"
-	ss = "!cd \"${GIT_PREFIX-.}\"; c='+G show --dd'; for a in \"$@\"; do c=\"$c\"`printf ' %q' \"$a\"`; done; nvim \"$c|on\" #"
+	dd = "!cd \"${GIT_PREFIX-.}\"; [[ $# -eq 0 ]] && set -- HEAD; nvim \"+G diff`printf ' %q' \"$@\"`|on\" #"
+	ss = "!cd \"${GIT_PREFIX-.}\"; [[ $# -eq 0 ]] && set -- HEAD; nvim \"+G show --dd`printf ' %q' \"$@\"`|on\" #"
 	; ss = "!cd \"${GIT_PREFIX-.}\"; git cat-file -e \"$1\" && nvim '+G difftool -y $1^ $1 -- ${@:2}' || nvim '+G difftool -y HEAD^ HEAD ${@}' #"
 	st = stash
 	sa = stash apply
