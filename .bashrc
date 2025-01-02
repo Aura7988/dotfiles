@@ -49,8 +49,13 @@ alias hh='http_proxy=http://127.0.0.1:32080 https_proxy=http://127.0.0.1:32080 '
 alias rg='rg -SnHg !.git/* --hidden'
 alias fd='fd --hidden --exclude .git'
 alias .f='git --git-dir=$HOME/.files/ --work-tree=$HOME'
-alias y='xsel -bi'
-alias p='xsel -bo'
+if [[ -v TERMUX_VERSION ]]; then
+	alias y='termux-clipboard-set'
+	alias p='termux-clipboard-get'
+else
+	alias y='xsel -bi'
+	alias p='xsel -bo'
+fi
 alias wy='clip.exe'
 alias wp='powershell.exe -Command "Get-Clipboard -Raw"'
 # alias git='LANG=en_US.UTF-8 git'
