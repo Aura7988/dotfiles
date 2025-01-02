@@ -56,8 +56,10 @@ else
 	alias y='xsel -bi'
 	alias p='xsel -bo'
 fi
-alias wy='clip.exe'
-alias wp='powershell.exe -Command "Get-Clipboard -Raw"'
+[[ -v WSL_DISTRO_NAME ]] && {
+	alias wy='clip.exe'
+	alias wp='powershell.exe -Command "Get-Clipboard -Raw"'
+}
 # alias git='LANG=en_US.UTF-8 git'
 # alias tmux='tmux -2'
 
