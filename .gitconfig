@@ -18,8 +18,8 @@
 	co = checkout
 	df = diff
 	s = status
-	dd = "!cd \"${GIT_PREFIX-.}\"; [[ $# -eq 0 ]] && set -- HEAD; nvim \"+G diff`printf ' %q' \"$@\"`|on\" #"
-	ss = "!cd \"${GIT_PREFIX-.}\"; [[ $# -eq 0 ]] && set -- HEAD; nvim \"+G show --dd`printf ' %q' \"$@\"`|on\" #"
+	dd = "!cd \"${GIT_PREFIX-.}\"; [[ $# -eq 0 ]] && set -- HEAD; nvim \"+G diff`printf ' %q' \"$@\" | sed 's/\\\\\\^/^/g'`|on\" #"
+	ss = "!cd \"${GIT_PREFIX-.}\"; [[ $# -eq 0 ]] && set -- HEAD; nvim \"+G show --dd`printf ' %q' \"$@\" | sed 's/\\\\\\^/^/g'`|on\" #"
 	; ss = "!cd \"${GIT_PREFIX-.}\"; git cat-file -e \"$1\" && nvim '+G difftool -y $1^ $1 -- ${@:2}' || nvim '+G difftool -y HEAD^ HEAD ${@}' #"
 	st = stash
 	sa = stash apply
