@@ -88,7 +88,6 @@ nnoremap \x :set <C-R>=(&cursorline && &cursorcolumn) ? 'nocursorline nocursorco
 
 nnoremap <C-n> 12<C-e>
 nnoremap <C-p> 12<C-y>
-nnoremap <C-s> :w<CR>
 nnoremap <BS> :bd<CR>
 tnoremap <A-[> <C-\><C-n>
 tnoremap <expr> <A-;> '<C-\><C-n>"'.nr2char(getchar()).'pi'
@@ -126,7 +125,9 @@ nmap <Leader>ar <Plug>(coc-codeaction-refactor)
 nmap <Leader>al <Plug>(coc-codelens-action)
 nnoremap <Leader>mh :call CocActionAsync('doHover')<CR>
 nnoremap <Leader>ml :call CocActionAsync('highlight')<CR>
-nnoremap <Leader>q :q<CR>
+nnoremap <Leader>qq :q<CR>
+nnoremap <Leader>qw :w<CR>
+nnoremap <Leader>qe :q!<CR>
 nnoremap <Leader>b :KKBuffers<CR>
 nnoremap <Leader>c :KKHistory:<CR>
 nnoremap <Leader>/ :KKHistory/<CR>
