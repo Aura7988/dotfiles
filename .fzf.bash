@@ -113,7 +113,7 @@ export -f _fzf_git_hashes
 
 _fzf_git_reflogs() {
 	git rev-parse HEAD &> /dev/null || return
-	git reflog --color --format="%C(blue)%gD %C(yellow)%h%C(auto)%d %gs" |
+	git reflog --color --format='%Cblue%gD %Cred%h%Creset %gs%Cgreen%d' |
 	fzf --prompt 'Reflogs> ' --ansi $FZF_COLOR --preview 'git show --color {1}' |
 	awk '{print $1}'
 }

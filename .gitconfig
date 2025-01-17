@@ -27,10 +27,10 @@
 	sl = stash list
 	sm = "!cd \"${GIT_PREFIX-.}\"; [[ $# -gt 0 && ! -e \"${@: -1}\" ]] && git stash push -m \"${@: -1}\" -- \"${@:1:$(($#-1))}\" || git stash push -m `date +%F,%T%z` -- \"$@\""
 	sp = stash pop
-	l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ai @%an)%Creset'
-	ll = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ai @%an)%Creset' --numstat
+	l  = log --graph --format='%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ai @%an)%Creset'
+	ll = log --graph --format='%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ai @%an)%Creset' --numstat
 	permission-reset = !git diff -p -R --no-ext-diff --no-color | grep -E \"^(diff|(old|new) mode)\" --color=never | git apply
-	rl = reflog --pretty=format:'%Cred%h %Cgreen%ai %Cblue@%an%Creset %s'
+	rl = reflog --format='%Cblue%gD %Cred%h%Creset %gs%Cgreen%d'
 	br = branch
 	bd = branch -d
 	sw = switch
