@@ -125,9 +125,9 @@ nmap <Leader>ar <Plug>(coc-codeaction-refactor)
 nmap <Leader>al <Plug>(coc-codelens-action)
 nnoremap <Leader>mh :call CocActionAsync('doHover')<CR>
 nnoremap <Leader>ml :call CocActionAsync('highlight')<CR>
-nnoremap <Leader>qq :q<CR>
+nnoremap <Leader>qq :only<Bar>q<CR>
 nnoremap <Leader>qw :w<CR>
-nnoremap <Leader>qe :q!<CR>
+nnoremap <Leader>qe :only<Bar>q!<CR>
 nnoremap <Leader>b :KKBuffers<CR>
 nnoremap <Leader>c :KKHistory:<CR>
 nnoremap <Leader>/ :KKHistory/<CR>
