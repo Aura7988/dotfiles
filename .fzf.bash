@@ -1,7 +1,7 @@
 # ~/.fzf.bash
 
 export FZF_PREVIEW_OPTS='--preview-window right:75%:wrap:hidden --preview'
-export FZF_COLOR='--color hl:-1:#6B98DE,hl+:-1:#6B98DE:reverse'
+export FZF_COLOR='--color light,hl:#6B98DE,hl+:#6B98DE:reverse'
 
 sf() { greenclip print | fzf -e | xargs -r -0 greenclip print; }
 
