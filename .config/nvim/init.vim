@@ -94,6 +94,11 @@ tnoremap <expr> <A-;> '<C-\><C-n>"'.nr2char(getchar()).'pi'
 nnoremap <C-w><C-s> :horizontal terminal<CR>
 nnoremap <C-w><C-v> :vertical terminal<CR>
 nnoremap <C-w><C-t> :tab terminal<CR>
+"s- used: adfhnrst F
+"ctrl-w unused: ay ABCDEGIMOQVXYZ
+nnoremap <C-w>U :wa<CR>
+nnoremap <C-w>u :up<CR>
+nnoremap <C-w>e :q!<CR>
 nnoremap <C-w>m :-tab split<CR>
 nnoremap <expr> gs '`[' . strpart(getregtype(), 0, 1) . '`]'
 inoremap <expr> <TAB> coc#pum#visible() ? coc#pum#next(1) : '<TAB>'
@@ -102,14 +107,14 @@ inoremap <expr> <CR> coc#pum#visible() ? coc#pum#confirm() : '<CR>'
 inoremap <expr> <C-z> coc#refresh()
 imap <C-l> <Plug>(coc-snippets-expand)
 vmap <C-j> <Plug>(coc-snippets-select)
-nmap <C-k> <Plug>(coc-diagnostic-prev)
-nmap <C-j> <Plug>(coc-diagnostic-next)
-nmap <C-q> <Plug>(coc-range-select)
-xmap <C-q> <Plug>(coc-range-select)
-nmap <Leader>j <Plug>(coc-definition)
-nmap <Leader>r <Plug>(coc-references)
-nmap <Leader>d <Plug>(coc-type-definition)
-nmap <Leader>i <Plug>(coc-implementation)
+nmap <silent> <C-s><C-s> <Plug>(coc-range-select)
+xmap <silent> <C-s><C-s> <Plug>(coc-range-select)
+nmap <nowait> [d <Plug>(coc-diagnostic-prev)
+nmap <nowait> ]d <Plug>(coc-diagnostic-next)
+nmap <nowait> <Leader>j <Plug>(coc-definition)
+nmap <nowait> <Leader>r <Plug>(coc-references)
+nmap <nowait> <Leader>d <Plug>(coc-type-definition)
+nmap <nowait> <Leader>i <Plug>(coc-implementation)
 xmap <Leader>mf <Plug>(coc-format-selected)
 nmap <Leader>mf <Plug>(coc-format-selected)
 xmap <Leader>ma <Plug>(coc-codeaction-selected)
@@ -125,9 +130,6 @@ nmap <Leader>ar <Plug>(coc-codeaction-refactor)
 nmap <Leader>al <Plug>(coc-codelens-action)
 nnoremap <Leader>mh :call CocActionAsync('doHover')<CR>
 nnoremap <Leader>ml :call CocActionAsync('highlight')<CR>
-nnoremap <Leader>qq :only<Bar>q<CR>
-nnoremap <Leader>qw :w<CR>
-nnoremap <Leader>qe :only<Bar>q!<CR>
 nnoremap <Leader>b :KKBuffers<CR>
 nnoremap <Leader>c :KKHistory:<CR>
 nnoremap <Leader>/ :KKHistory/<CR>
