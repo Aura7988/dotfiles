@@ -23,20 +23,20 @@ eval "$(lua ~/github/z.lua/z.lua --init bash enhanced once fzf)"
 # make less more friendly for non-text input files, see lesspipe(1)
 [[ -x /usr/bin/lesspipe ]] && eval "$(SHELL=/bin/sh lesspipe)"
 
-if [[ -v HOMEBREW_PREFIX ]]; then
-	BCP=$HOMEBREW_PREFIX/usr
+if [[ -v SSH_AUTH_SOCK ]]; then
+	BCP=/opt/homebrew/share
 	alias y='pbcopy'
 	alias p='pbpaste'
 elif [[ -v TERMUX_VERSION ]]; then
-	BCP=/data/data/com.termux/files/usr
+	BCP=/data/data/com.termux/files/usr/share
 	alias y='termux-clipboard-set'
 	alias p='termux-clipboard-get'
 else
-	BCP=/usr
+	BCP=/usr/share
 	alias y='xsel -bi'
 	alias p='xsel -bo'
 fi
-[[ -f $BCP/share/bash-completion/bash_completion ]] && . $BCP/share/bash-completion/bash_completion
+[[ -f $BCP/bash-completion/bash_completion ]] && . $BCP/bash-completion/bash_completion
 
 alias vi='nvim'
 alias vl='nvim -u ~/.config/nvim/large.vim'
