@@ -1,6 +1,6 @@
 # ~/.bashrc
 
-[[ ! $- =~ i ]] && return
+[[ $- != *i* ]] && return
 
 HISTCONTROL=ignoreboth:erasedups
 HISTIGNORE='pwd:cd'
@@ -16,19 +16,27 @@ stty -ixon
 stty -ixoff
 # stty discard undef
 
-# enable programmable completion features
-if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
-fi
-
 . ~/.prompt.sh
 . ~/.fzf.bash
 eval "$(lua ~/github/z.lua/z.lua --init bash enhanced once fzf)"
-eval "$(dircolors -b)"
+# eval "$(dircolors -b)"
+# make less more friendly for non-text input files, see lesspipe(1)
+[[ -x /usr/bin/lesspipe ]] && eval "$(SHELL=/bin/sh lesspipe)"
+
+if [[ -v HOMEBREW_PREFIX ]]; then
+	BCP=$HOMEBREW_PREFIX/usr
+	alias y='pbcopy'
+	alias p='pbpaste'
+elif [[ -v TERMUX_VERSION ]]; then
+	BCP=/data/data/com.termux/files/usr
+	alias y='termux-clipboard-set'
+	alias p='termux-clipboard-get'
+else
+	BCP=/usr
+	alias y='xsel -bi'
+	alias p='xsel -bo'
+fi
+[[ -f $BCP/share/bash-completion/bash_completion ]] && . $BCP/share/bash-completion/bash_completion
 
 alias vi='nvim'
 alias vl='nvim -u ~/.config/nvim/large.vim'
@@ -49,19 +57,12 @@ alias hh='http_proxy=http://127.0.0.1:32080 https_proxy=http://127.0.0.1:32080 '
 alias rg='rg -SnHg !.git/* --hidden'
 alias fd='fd --hidden --exclude .git'
 alias .f='git --git-dir=$HOME/.files/ --work-tree=$HOME'
-if [[ -v TERMUX_VERSION ]]; then
-	alias y='termux-clipboard-set'
-	alias p='termux-clipboard-get'
-else
-	alias y='xsel -bi'
-	alias p='xsel -bo'
-fi
 [[ -v WSL_DISTRO_NAME ]] && {
 	alias wy='clip.exe'
 	alias wp='powershell.exe -Command "Get-Clipboard -Raw"'
+	# export DISPLAY=$(grep nameserver /etc/resolv.conf | awk '{print $2}'):0.0
+	# export DISPLAY=$(route.exe print | grep 0.0.0.0 | head -1 | awk '{print $4}'):0.0
 }
-# alias git='LANG=en_US.UTF-8 git'
-# alias tmux='tmux -2'
 
 # ww() { curl wttr.in/${1:-Nanjing}; }
 ww() { last | grep still | awk '{print $1}' | sort | uniq -c; }
@@ -225,10 +226,3 @@ nb() {
 	# 	$target/xxx
 	# fi
 }
-
-# colored GCC warnings and errors
-# export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-# make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-# Add an "alert" alias for long running commands. Use like so: sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'

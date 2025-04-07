@@ -2,6 +2,8 @@
 
 export FZF_PREVIEW_OPTS='--preview-window right:75%:wrap:hidden --preview'
 export FZF_COLOR='--color light,hl:#6B98DE,hl+:#6B98DE:reverse'
+export FZF_DEFAULT_COMMAND='fd --hidden --exclude .git'
+export FZF_DEFAULT_OPTS='--bind ctrl-/:toggle-preview,ctrl-l:clear-selection,ctrl-c:toggle-sort,ctrl-n:page-down,ctrl-p:page-up,ctrl-q:jump,alt-a:toggle-all,alt-j:preview-page-down,alt-k:preview-page-up,alt-w:toggle-preview-wrap --cycle --reverse --inline-info --tabstop 2 -0 --marker •'
 
 sf() { greenclip print | fzf -e | xargs -r -0 greenclip print; }
 
