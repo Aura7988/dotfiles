@@ -1,16 +1,11 @@
 # ~/.fzf.bash
 
-export FZF_PREVIEW_OPTS='--preview-window right:75%:wrap:hidden --preview'
-export FZF_COLOR='--color light,hl:#6B98DE,hl+:#6B98DE:reverse'
-export FZF_DEFAULT_COMMAND='fd --hidden --exclude .git'
-export FZF_DEFAULT_OPTS='--bind ctrl-/:toggle-preview,ctrl-l:clear-selection,ctrl-c:toggle-sort,ctrl-n:page-down,ctrl-p:page-up,ctrl-q:jump,alt-a:toggle-all,alt-j:preview-page-down,alt-k:preview-page-up,alt-w:toggle-preview-wrap --cycle --reverse --inline-info --tabstop 2 -0 --marker •'
-
 sf() { greenclip print | fzf -e | xargs -r -0 greenclip print; }
 
 rv() {
 	local RG='rg --column --line-number --with-filename --no-heading --color=always --smart-case'
 	$RG "${@:-""}" |
-	fzf -m --ansi $FZF_COLOR --delimiter : --prompt 'Fzf> ' \
+	fzf -m --ansi --delimiter : --prompt 'Fzf> ' \
 		--header '╱ CTRL-G: Switch between Fzf/Ripgrep mode ╱' \
 		--bind "start:unbind(change)" \
 		--bind "change:reload(sleep 0.1; $RG {q} || true)" \
@@ -20,7 +15,7 @@ rv() {
 		--bind "ctrl-o:execute:nvim {1} +{2}" \
 		--bind 'enter:become(nvim -q {+f})' \
 		--preview 'bat --style=header-filename --color=always {1} --highlight-line {2}' \
-		--preview-window 'up,30%,wrap,border-sharp,+{2}+1/3,~1'
+		--preview-window 'up,30%,+{2}+1/3,~1'
 }
 
 dr() {
@@ -29,33 +24,32 @@ dr() {
 	sed -nr 's,^Only in (.*): (.*)$,S: \1/\2,p; s,^Files (.*) and (.*) differ$,D: \1 \2,p' |
 	fzf -m --prompt 'Diff> ' \
 		--bind "ctrl-o:execute:nvim -d {2} {3}" \
-		$FZF_PREVIEW_OPTS 'bat -n --color=always {2}' |
+		--preview 'bat -n --color=always {2}' |
 	cut -d' ' -f2-
 }
 
 _fzf_kill() {
 	ps -fu $UID |
-	fzf -m --header-lines=1 --preview 'echo {}' --preview-window up:3:wrap \
+	fzf -m --header-lines=1 --preview 'echo {}' --preview-window up,3 \
 		--bind 'enter:become(echo {+2}),alt-enter:become(kill -9 {+2} &> /dev/null)'
 }
 
 _fzf_cd() {
-	fd -HE .git -td | fzf $FZF_PREVIEW_OPTS 'tree -C {}' --bind 'enter:become:printf "cd -- %q" {}'
+	fd -HE .git -td | fzf --preview 'tree -C {}' --bind 'enter:become:printf "cd -- %q" {}'
 }
 
 _fzf_history() {
-	history | sed 's/^ *[0-9]* *//' | fzf +s --tac --bind 'enter:become:echo -n {}'
+	history | sed 's/^ *[0-9]* *//' | fzf +s --tac --bind 'enter:become:echo -n {}' --preview 'echo {}' --preview-window up,3
 }
 
 _fzf_select() {
 	fd -HE .git -tf |
-	fzf -m $FZF_COLOR --prompt 'Files> ' \
-		--header '╱ CTRL-G: Switch between Files/Directories ╱' \
+	fzf -m --prompt 'Files> ' --header '╱ CTRL-G: Switch between Files/Directories ╱' \
 		--bind 'ctrl-g:transform:[[ $FZF_PROMPT =~ Files ]] &&
 			echo "change-prompt(Directories> )+reload(fd -HE .git -td)" ||
 			echo "change-prompt(Files> )+reload(fd -HE .git -tf)"' \
 		--bind 'ctrl-o:execute:nvim {}' \
-		$FZF_PREVIEW_OPTS '[[ $FZF_PROMPT =~ Files ]] && bat -p --color=always {} || tree -C {}' |
+		--preview '[[ $FZF_PROMPT =~ Files ]] && bat -p --color=always {} || tree -C {}' |
 	while read -r i; do printf '%q ' "$i"; done
 }
 
@@ -67,7 +61,7 @@ export -f _fbr
 _fzf_git_branches() {
 	git rev-parse HEAD &> /dev/null || return
 	_fbr |
-	fzf -m --tiebreak begin --no-hscroll --ansi $FZF_COLOR --prompt 'Branches> ' \
+	fzf -m --tiebreak begin --no-hscroll --ansi --prompt 'Branches> ' \
 		--header '╱ ALT-R: Toggle remote branches ╱' \
 		--bind 'alt-r:transform:[[ $FZF_PROMPT =~ All ]] &&
 			echo "change-prompt(Branches> )+reload(_fbr)" ||
@@ -75,7 +69,7 @@ _fzf_git_branches() {
 		--bind 'ctrl-o:execute:nvim "+G diff {1}|on"' \
 		--bind 'alt-h:become:_fzf_git_hashes {1}' \
 		--bind 'enter:become:echo {+1}' \
-		$FZF_PREVIEW_OPTS 'git l --color {1}'
+		--preview 'git l --color {1}'
 }
 
 _fzf_git_each_ref() {
@@ -83,10 +77,8 @@ _fzf_git_each_ref() {
 	git for-each-ref --sort=-creatordate --sort=-HEAD --color --format=$'%(refname) %(color:green)(%(creatordate:relative))\t%(color:blue)%(subject)%(color:reset)' |
 	sed 's#^refs/remotes/#\x1b[95mremote-branch\t\x1b[33m#; s#^refs/heads/#\x1b[92mbranch\t\x1b[33m#; s#^refs/tags/#\x1b[96mtag\t\x1b[33m#; s#refs/stash#\x1b[91mstash\t\x1b[33mrefs/stash#' |
 	column -ts$'\t' |
-	fzf -m --ansi $FZF_COLOR \
-		--nth 2,2.. --tiebreak begin --no-hscroll --prompt 'Every ref> ' \
+	fzf -m --ansi --nth 2,2.. --tiebreak begin --no-hscroll --prompt 'Every ref> ' \
 		--bind 'ctrl-o:execute:nvim <(git show {2})' \
-		--preview-window 'up,35%,wrap,border-sharp' \
 		--preview 'git l --color {2}' |
 	awk '{print $2}'
 }
@@ -96,19 +88,19 @@ _fzf_git_files() {
 	git rev-parse HEAD &> /dev/null || return
 	(git status -s | sed -r 's/^(..)./[31m\1[m\t/'
 	git ls-files | grep -vxFf <(git status -s | grep '^[^?]' | cut -c4-; echo :) | sed 's/^/  \t/') |
-	fzf --prompt 'GFiles> ' -m --ansi -d "\t" --tabstop=1 $FZF_COLOR \
+	fzf --prompt 'GFiles> ' -m --ansi -d "\t" --tabstop=1 \
 		--bind 'ctrl-o:execute:nvim {2}' \
 		--bind 'alt-h:become(_fzf_git_hashes -- {+2})' \
 		--bind 'enter:become(echo {+2})' \
-		$FZF_PREVIEW_OPTS 'git diff --no-ext-diff --color -- {2} | sed 1,4d; bat --style=header --color=always {2}'
+		--preview 'git diff --no-ext-diff --color -- {2} | sed 1,4d; bat --style=header --color=always {2}'
 }
 
 _fzf_git_hashes() {
 	git rev-parse HEAD &> /dev/null || return
 	git l --color "$@" |
-	fzf -m +s --prompt 'Hashes> ' --ansi $FZF_COLOR \
+	fzf -m +s --prompt 'Hashes> ' --ansi \
 		--bind 'ctrl-o:execute:nvim "+G show --dd "`grep -Eo "[a-f0-9]{7,}" <<< {} | head -1`"|on"' \
-		$FZF_PREVIEW_OPTS 'git show --color --stat `grep -Eo "[a-f0-9]{7,}" <<< {} | head -1`' |
+		--preview 'git show --color --stat `grep -Eo "[a-f0-9]{7,}" <<< {} | head -1`' |
 	sed -r 's/.* ([a-f0-9]{7,}) - .*/\1/'
 }
 export -f _fzf_git_hashes
@@ -116,18 +108,17 @@ export -f _fzf_git_hashes
 _fzf_git_reflogs() {
 	git rev-parse HEAD &> /dev/null || return
 	git reflog --color --format='%Cblue%gD %Cred%h%Creset %gs%Cgreen%d' |
-	fzf --prompt 'Reflogs> ' --ansi $FZF_COLOR --preview 'git show --color {1}' |
+	fzf --prompt 'Reflogs> ' --ansi --preview 'git show --color {1}' |
 	awk '{print $1}'
 }
 
 _fzf_git_stashes() {
 	git rev-parse HEAD &> /dev/null || return
 	git stash list |
-	fzf -d: --prompt 'Stashes> ' \
-		--header '╱ CTRL-X: Drop selected stash entry ╱' \
+	fzf -d: --prompt 'Stashes> ' --header '╱ CTRL-X: Drop selected stash entry ╱' \
 		--bind 'ctrl-o:execute:nvim "+G stash show -p {1}|on"' \
 		--bind 'ctrl-x:execute-silent(git stash drop {1})+reload(git stash list)' \
-		--preview-window 'up,25%,wrap' --preview 'git -c color.ui=always stash show {1}' |
+		--preview-window 'up,25%' --preview 'git -c color.ui=always stash show {1}' |
 	cut -d: -f1
 }
 
@@ -136,14 +127,14 @@ _fzf_git_tags() {
 	git tag --sort -version:refname |
 	fzf -m --prompt 'Tags> ' \
 		--bind 'ctrl-o:execute:nvim "+G diff "`git describe --always --abbrev=0 --tags {}~`" {}|on"' \
-		$FZF_PREVIEW_OPTS 'git diff --color --stat `git describe --always --abbrev=0 --tags {}~` {}'
+		--preview 'git diff --color --stat `git describe --always --abbrev=0 --tags {}~` {}'
 }
 
 _fzf_git_ups() {
 	git rev-parse HEAD &> /dev/null || return
 	git remote -v | awk '{print $1 "\t" $2}' | uniq |
 	fzf --prompt 'Upstream> ' --tac \
-		$FZF_PREVIEW_OPTS 'git l --color {1}/"$(git rev-parse --abbrev-ref HEAD)"' |
+		--preview 'git l --color {1}/"$(git rev-parse --abbrev-ref HEAD)"' |
 	cut -d$'\t' -f1
 }
 
