@@ -24,19 +24,18 @@ eval "$(lua ~/github/z.lua/z.lua --init bash enhanced once fzf)"
 [[ -x /usr/bin/lesspipe ]] && eval "$(SHELL=/bin/sh lesspipe)"
 
 if [[ -v SSH_AUTH_SOCK ]]; then
-	BCP=/opt/homebrew/share
+	. /opt/homebrew/share/bash-completion/bash_completion || :
 	alias y='pbcopy'
 	alias p='pbpaste'
 elif [[ -v TERMUX_VERSION ]]; then
-	BCP=/data/data/com.termux/files/usr/share
+	. /data/data/com.termux/files/usr/share/bash-completion/bash_completion || :
 	alias y='termux-clipboard-set'
 	alias p='termux-clipboard-get'
 else
-	BCP=/usr/share
+	. /usr/share/bash-completion/bash_completion || :
 	alias y='xsel -bi'
 	alias p='xsel -bo'
 fi
-[[ -f $BCP/bash-completion/bash_completion ]] && . $BCP/bash-completion/bash_completion
 
 alias vi='nvim'
 alias vl='nvim -u ~/.config/nvim/large.vim'
