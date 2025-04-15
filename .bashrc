@@ -63,6 +63,13 @@ alias .f='git --git-dir=$HOME/.files/ --work-tree=$HOME'
 	# export DISPLAY=$(route.exe print | grep 0.0.0.0 | head -1 | awk '{print $4}'):0.0
 }
 
+trap '
+	history -a
+	. ~/.bash_logout || :
+	trap - EXIT
+	exit
+' EXIT
+
 # ww() { curl wttr.in/${1:-Nanjing}; }
 ww() { last | grep still | awk '{print $1}' | sort | uniq -c; }
 rr() { [ $# -ge 2 ] && bat -pr $2 --color never $1; }
