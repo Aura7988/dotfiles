@@ -12,7 +12,7 @@ Plug 'RRethy/nvim-treesitter-textsubjects'
 Plug 'kevinhwang91/nvim-bqf'
 Plug 'folke/flash.nvim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'liuchengxu/vista.vim', {'on': 'Vista'}
+Plug 'hedyhli/outline.nvim', {'on': 'Outline'}
 Plug 'tpope/vim-fugitive'
 Plug 'rbong/vim-flog', {'on': 'Flog'}
 	let g:flog_enable_dynamic_commit_hl = 1
@@ -154,7 +154,7 @@ nnoremap <Leader>gk :Flog -path=%<Home>silent! <CR>
 nnoremap <Leader>gl :Flog<Home>silent! <CR>
 xnoremap <Leader>gl :Flog<Home>silent! <CR>
 nnoremap <Leader>gm :silent! GitMessenger<CR>
-nnoremap <Leader>tt :Vista!!<CR>
+nnoremap <Leader>tt :Outline<CR>
 nnoremap <Leader>ta :KKTags<CR>
 nnoremap <Leader>tb :KKBTags<CR>
 
@@ -202,6 +202,7 @@ require('nvim-treesitter.configs').setup {
     },
   },
 }
+require('outline').setup {providers = {priority = {'lsp', 'coc', 'markdown', 'norg', 'man', 'asciidoc', 'treesitter', 'ctags'}}}
 require('mini.ai').setup {}
 require('mini.align').setup {mappings = {start = 'gb', start_with_preview = 'gB'}}
 require('mini.bracketed').setup {comment = {suffix = 'a'}, diagnostic = {suffix = ''}, oldfile = {suffix = ''}}
