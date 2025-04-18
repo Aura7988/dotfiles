@@ -1,5 +1,3 @@
-let mapleader = " "
-
 call plug#begin('~/.config/nvim/plugged')
 Plug 'Aura7988/anyline'
 Plug 'Aura7988/fzf.vim', {'branch': 'dev'}
@@ -31,11 +29,12 @@ Plug 'echasnovski/mini.surround'
 Plug 'honza/vim-snippets'
 call plug#end()
 
-colorscheme edge
-set termguicolors
-set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,a:blinkwait790-blinkoff430-blinkon250
+let mapleader = ' '
 set background=light
+set termguicolors
+colorscheme edge
 set noshowmode
+set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,a:blinkwait790-blinkoff430-blinkon250
 set fileencodings=ucs-bom,utf-8,cp936,gb18030,gbk,big5,euc-jp,euc-kr,latin1
 set whichwrap=b,s,h,l,<,>,~,[,]
 set number
