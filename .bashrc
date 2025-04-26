@@ -19,7 +19,7 @@ stty -ixoff
 . ~/.prompt.sh
 . ~/.fzf.bash
 eval "$(lua ~/github/z.lua/z.lua --init bash enhanced once fzf)"
-# eval "$(dircolors -b)"
+eval "$(dircolors -b)"
 # make less more friendly for non-text input files, see lesspipe(1)
 [[ -x /usr/bin/lesspipe ]] && eval "$(SHELL=/bin/sh lesspipe)"
 
