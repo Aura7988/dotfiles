@@ -150,8 +150,8 @@ nnoremap <Leader>gd :silent! lua MiniDiff.toggle_overlay()<CR>
 nnoremap <Leader>ge :lua vim.fn.setqflist(MiniDiff.export('qf'))<CR>
 nnoremap <Leader>gg :silent! tab Git<CR>
 nnoremap <Leader>gk :Flog -path=%<Home>silent! <CR>
-nnoremap <Leader>gl :Flog<Home>silent! <CR>
-xnoremap <Leader>gl :Flog<Home>silent! <CR>
+nnoremap         gl :Flog<Home>silent! <CR>
+xnoremap         gl :Flog<Home>silent! <CR>
 nnoremap <Leader>gm :silent! GitMessenger<CR>
 nnoremap <Leader>tt :Outline<CR>
 nnoremap <Leader>ta :KKTags<CR>
