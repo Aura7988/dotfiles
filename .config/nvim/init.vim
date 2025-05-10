@@ -94,7 +94,8 @@ nnoremap <C-w><C-s> :horizontal terminal<CR>
 nnoremap <C-w><C-v> :vertical terminal<CR>
 nnoremap <C-w><C-t> :tab terminal<CR>
 "s- used: adfhnrst F
-"ctrl-w unused: ay ABCDEGIMOQVXYZ
+"ctrl-w unused: ay ABCDEGIMOVXYZ
+nnoremap <C-w>Q :qa<CR>
 nnoremap <C-w>U :wa<CR>
 nnoremap <C-w>u :up<CR>
 nnoremap <C-w>e :q!<CR>
