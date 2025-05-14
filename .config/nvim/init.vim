@@ -70,6 +70,7 @@ set timeoutlen=900
 set pumblend=9
 set winblend=9
 set pumheight=9
+set winborder=rounded
 
 nnoremap \a :set colorcolumn=<C-R>=empty(&cc) ? '125' : ''<CR><CR>
 nnoremap \b :set background=<C-R>=&background == 'dark' ? 'light' : 'dark'<CR><CR>
