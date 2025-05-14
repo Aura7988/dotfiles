@@ -20,8 +20,7 @@ stty -ixoff
 . ~/.fzf.bash
 eval "$(lua ~/github/z.lua/z.lua --init bash enhanced once fzf)"
 eval "$(dircolors -b)"
-# make less more friendly for non-text input files, see lesspipe(1)
-[[ -x /usr/bin/lesspipe ]] && eval "$(SHELL=/bin/sh lesspipe)"
+eval "$(~/github/lesspipe/lesspipe.sh)"
 
 if [[ -v SSH_AUTH_SOCK ]]; then
 	. /opt/homebrew/share/bash-completion/bash_completion || :
