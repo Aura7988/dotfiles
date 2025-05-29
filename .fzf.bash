@@ -99,8 +99,8 @@ _fzf_git_hashes() {
 	git rev-parse HEAD &> /dev/null || return
 	git l --color "$@" |
 	fzf -m +s --prompt 'Hashes> ' --ansi \
-		--bind 'ctrl-o:execute:nvim "+G show --dd "`grep -Eo "[a-f0-9]{7,}" <<< {} | head -1`"|on"' \
-		--preview 'git show --color --stat `grep -Eo "[a-f0-9]{7,}" <<< {} | head -1`' |
+		--bind 'ctrl-o:execute:nvim "+G show --dd "`grep -Eo "[a-f0-9]{7,}" {f} | head -1`"|on"' \
+		--preview 'git show --color --stat `grep -Eo "[a-f0-9]{7,}" {f} | head -1`' |
 	sed -r 's/.* ([a-f0-9]{7,}) - .*/\1/'
 }
 export -f _fzf_git_hashes
