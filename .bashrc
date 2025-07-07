@@ -4,8 +4,8 @@
 
 HISTCONTROL=ignoreboth:erasedups
 HISTIGNORE='pwd:cd'
-HISTSIZE=3000
-HISTFILESIZE=9000
+HISTSIZE=999999
+HISTFILESIZE=999999
 
 shopt -s histappend
 shopt -s checkwinsize
