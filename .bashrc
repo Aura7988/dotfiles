@@ -133,7 +133,7 @@ bb() {
 				all=ON
 				;;
 			b)
-				build_dir=$OPTARG
+				build_dir="$OPTARG"
 				;;
 			d)
 				build_type=Debug
@@ -154,10 +154,10 @@ bb() {
 				regen=1
 				;;
 			s)
-				source_dir=$OPTARG
+				source_dir="$OPTARG"
 				;;
 			t)
-				third_dir=$OPTARG
+				third_dir="$OPTARG"
 				;;
 			:)
 				echo "option requires an argument"
@@ -173,14 +173,13 @@ bb() {
 	echo "extra args: $@"
 	[[ -d "$source_dir" && -d "$third_dir" ]] || { echo "$source_dir or $third_dir is not directory" && return 3; }
 	build_dir="$source_dir/$build_dir"
-	if [[ $regen -eq 1 ]]; then
-		rm -rf $build_dir
-		echo "$generator,$all,$build_dir,$build_type,$jobs,$linker,$only,$prof,$regen,$source_dir,$third_dir"
-		cmake -G "$generator" -DCMAKE_CXX_FLAGS="$linker$cxx_flags" -DXXX_ALL=$all -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=$build_type -DXXX_THIRD_PARTY=$third_dir -DXXX_PROFILER=$prof -S $source_dir -B $build_dir "$@"
-		cp $build_dir/compile_commands.json $source_dir
-		[[ $only -ne 0 ]] && return 0
-	fi
-	cmake --build $build_dir --parallel $jobs
+	[[ $regen -eq 1 ]] && rm -rf "$build_dir"
+	cmd="cmake -G '$generator' -DCMAKE_CXX_FLAGS='$linker$cxx_flags' -DXXX_ALL=$all -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=$build_type -DXXX_THIRD_PARTY='$third_dir' -DXXX_PROFILER=$prof -S '$source_dir' -B '$build_dir' $@"
+	echo "CMD: $cmd"
+	eval $cmd
+	cp "$build_dir/compile_commands.json" "$source_dir"
+	[[ $only -ne 0 ]] && return 0
+	cmake --build "$build_dir" --parallel $jobs
 # set_target_properties(xxx
 #     PROPERTIES
 #     ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/lib"
