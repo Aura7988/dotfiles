@@ -118,10 +118,11 @@ bb() {
 	local only=0
 	local prof=OFF
 	local regen=0
+	local clean=0
 	local source_dir=~/xxx
 	local third_dir=/3rd
 	OPTIND=1
-	while getopts ":F:Uab:dj:l:oprs:t:" opt; do
+	while getopts ":F:Uab:cdj:l:oprs:t:" opt; do
 		case $opt in
 			F)
 				cxx_flags="$cxx_flags $OPTARG"
@@ -134,6 +135,9 @@ bb() {
 				;;
 			b)
 				build_dir="$OPTARG"
+				;;
+			c)
+				clean=1
 				;;
 			d)
 				build_type=Debug
@@ -173,12 +177,14 @@ bb() {
 	echo "extra args: $@"
 	[[ -d "$source_dir" && -d "$third_dir" ]] || { echo "$source_dir or $third_dir is not directory" && return 3; }
 	build_dir="$source_dir/$build_dir"
-	[[ $regen -eq 1 ]] && rm -rf "$build_dir"
+	[[ $clean -eq 1 ]] && { rm -rf "$build_dir"; regen=1; }
+[[ $regen -eq 1 ]] && {
 	cmd="cmake -G '$generator' -DCMAKE_CXX_FLAGS='$linker$cxx_flags' -DXXX_ALL=$all -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=$build_type -DXXX_THIRD_PARTY='$third_dir' -DXXX_PROFILER=$prof -S '$source_dir' -B '$build_dir' $@"
 	echo "CMD: $cmd"
 	eval $cmd
 	cp "$build_dir/compile_commands.json" "$source_dir"
 	[[ $only -ne 0 ]] && return 0
+}
 	cmake --build "$build_dir" --parallel $jobs
 # set_target_properties(xxx
 #     PROPERTIES
