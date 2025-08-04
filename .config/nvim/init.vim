@@ -15,8 +15,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'rbong/vim-flog', {'on': 'Flog'}
 	let g:flog_enable_dynamic_commit_hl = 1
 	let g:flog_default_opts = {'max_count': 9999, 'format': '%h -%d %s %ad %an'}
-Plug 'rhysd/git-messenger.vim', {'on': 'GitMessenger'}
-	let g:git_messenger_always_into_popup = 1
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-repeat'
 Plug 'echasnovski/mini.ai'
@@ -154,7 +152,6 @@ nnoremap <Leader>gg :silent! tab Git<CR>
 nnoremap <Leader>gk :Flog -path=%<Home>silent! <CR>
 nnoremap         gl :Flog<Home>silent! <CR>
 xnoremap         gl :Flog<Home>silent! <CR>
-nnoremap <Leader>gm :silent! GitMessenger<CR>
 nnoremap <Leader>tt :Outline<CR>
 nnoremap <Leader>ta :KKTags<CR>
 nnoremap <Leader>tb :KKBTags<CR>
