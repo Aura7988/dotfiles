@@ -3,16 +3,16 @@ Plug 'Aura7988/anyline'
 Plug 'Aura7988/fzf.vim', {'branch': 'dev'}
 Plug 'sainnhe/edge'
 	let g:edge_style = 'aura' | let g:edge_better_performance = 1
-Plug 'danymat/neogen', {'on': 'Neogen'}
-Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
+Plug 'danymat/neogen'
+Plug 'mbbill/undotree'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'RRethy/nvim-treesitter-textsubjects'
 Plug 'kevinhwang91/nvim-bqf'
 Plug 'folke/flash.nvim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'hedyhli/outline.nvim', {'on': 'Outline'}
+Plug 'hedyhli/outline.nvim'
 Plug 'tpope/vim-fugitive'
-Plug 'rbong/vim-flog', {'on': 'Flog'}
+Plug 'rbong/vim-flog'
 	let g:flog_enable_dynamic_commit_hl = 1
 	let g:flog_default_opts = {'max_count': 9999, 'format': '%h -%d %s %ad %an'}
 Plug 'tpope/vim-abolish'
