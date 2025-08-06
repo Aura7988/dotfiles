@@ -205,7 +205,7 @@ require('mini.ai').setup {}
 require('mini.align').setup {mappings = {start = 'gb', start_with_preview = 'gB'}}
 require('mini.bracketed').setup {comment = {suffix = 'a'}, diagnostic = {suffix = ''}, oldfile = {suffix = ''}}
 require('mini.diff').setup {options = {wrap_goto = true}}
-require('mini.files').setup {}
+require('mini.files').setup {mappings = {go_in = '.', go_in_plus = 'g.', go_out = ',', go_out_plus = 'g,'}}
 require('mini.move').setup {}
 require('mini.surround').setup {}
 require('neogen').setup {}
