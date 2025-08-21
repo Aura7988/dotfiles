@@ -2,8 +2,8 @@
 
 [[ $- != *i* ]] && return
 
-HISTCONTROL=ignoreboth:erasedups
-HISTIGNORE='pwd:cd'
+HISTCONTROL=ignorespace
+# HISTIGNORE='pwd:cd'
 HISTSIZE=999999
 HISTFILESIZE=999999
 
