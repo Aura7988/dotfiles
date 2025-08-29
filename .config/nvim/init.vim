@@ -6,7 +6,6 @@ Plug 'sainnhe/edge'
 Plug 'danymat/neogen'
 Plug 'mbbill/undotree'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'RRethy/nvim-treesitter-textsubjects'
 Plug 'kevinhwang91/nvim-bqf'
 Plug 'folke/flash.nvim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -190,14 +189,6 @@ require('nvim-treesitter.configs').setup {
         return true
       end
     end,
-  },
-  textsubjects = {
-    enable = true,
-    keymaps = {
-      ['.'] = 'textsubjects-smart',
-      ['z;'] = 'textsubjects-container-outer',
-      ['z,'] = 'textsubjects-container-inner',
-    },
   },
 }
 require('outline').setup {providers = {priority = {'lsp', 'coc', 'markdown', 'norg', 'man', 'asciidoc', 'treesitter', 'ctags'}}}
