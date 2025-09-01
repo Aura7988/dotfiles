@@ -185,7 +185,7 @@ vim.api.nvim_create_autocmd('FileType', {
   callback = function(ev)
     local ok, stats = pcall(vim.uv.fs_stat, ev.file)
     if ok and stats and stats.size < 3145728 then
-      vim.treesitter.start()
+      pcall(vim.treesitter.start)
     end
   end,
 })
