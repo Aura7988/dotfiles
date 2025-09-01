@@ -5,7 +5,7 @@ Plug 'sainnhe/edge'
 	let g:edge_style = 'aura' | let g:edge_better_performance = 1
 Plug 'danymat/neogen'
 Plug 'mbbill/undotree'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter', {'branch': 'main', 'do': ':TSUpdate'}
 Plug 'kevinhwang91/nvim-bqf'
 Plug 'folke/flash.nvim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -179,18 +179,16 @@ vim.keymap.set({'n', 'x', 'o'}, 'st', function() require("flash").treesitter() e
 vim.keymap.set('o', 'r', function() require("flash").remote() end)
 vim.keymap.set({'o', 'x'}, 'sr', function() require("flash").treesitter_search() end)
 vim.keymap.set('c', '<C-s>', function() require("flash").toggle() end)
-require('nvim-treesitter.configs').setup {
-  highlight = {
-    enable = true,
-    disable = function(lang, buf)
-      local max_filesize = 1024 * 1024
-      local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-      if ok and stats and stats.size > max_filesize then
-        return true
-      end
-    end,
-  },
-}
+require('nvim-treesitter').setup {install_dir = vim.fn.stdpath('config') .. '/ts-parsers'}
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = {'*'},
+  callback = function(ev)
+    local ok, stats = pcall(vim.uv.fs_stat, ev.file)
+    if ok and stats and stats.size < 3145728 then
+      vim.treesitter.start()
+    end
+  end,
+})
 require('outline').setup {providers = {priority = {'lsp', 'coc', 'markdown', 'norg', 'man', 'asciidoc', 'treesitter', 'ctags'}}}
 require('mini.ai').setup {}
 require('mini.align').setup {mappings = {start = 'gb', start_with_preview = 'gB'}}
