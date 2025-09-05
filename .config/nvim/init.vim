@@ -68,6 +68,7 @@ set pumblend=9
 set winblend=9
 set pumheight=9
 set winborder=rounded
+set tabclose=uselast
 
 nnoremap \a :set colorcolumn=<C-R>=empty(&cc) ? '125' : ''<CR><CR>
 nnoremap \b :set background=<C-R>=&background == 'dark' ? 'light' : 'dark'<CR><CR>
@@ -92,7 +93,9 @@ nnoremap <C-w><C-s> :horizontal terminal<CR>
 nnoremap <C-w><C-v> :vertical terminal<CR>
 nnoremap <C-w><C-t> :tab terminal<CR>
 "s- used: adfhnrst F
-"ctrl-w unused: ay ABCDEGIMOVXYZ
+"ctrl-w unused: ay ABCDEGIMVXYZ
+nnoremap <C-w><BS> :tabclose<CR>
+nnoremap <C-w>O :tabonly<CR>
 nnoremap <C-w>Q :qa<CR>
 nnoremap <C-w>U :wa<CR>
 nnoremap <C-w>u :up<CR>
