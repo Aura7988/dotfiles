@@ -148,7 +148,7 @@ nnoremap <Leader>fl :KKLines<CR>
 nnoremap <Leader>fm :KKMarks<CR>
 nnoremap <Leader>fr :KKRegisters<CR>
 nnoremap <Leader>gd :silent! lua MiniDiff.toggle_overlay()<CR>
-nnoremap <Leader>ge :lua vim.fn.setqflist(MiniDiff.export('qf'))<CR>
+nnoremap <Leader>ge :lua vim.fn.setqflist(MiniDiff.export('qf'))<CR>:copen<CR>
 nnoremap <Leader>gg :silent! tab Git<CR>
 nnoremap <Leader>gk :Flog -path=%<Home>silent! <CR>
 nnoremap         gl :Flog<Home>silent! <CR>
@@ -171,11 +171,7 @@ hi flogHash guifg=Red
 hi flogDate guifg=#6B98DE
 
 lua <<EOF
-require('flash').setup {
-  highlight = {backdrop = false},
-  modes = {char = {enabled = false}},
-  prompt = {prefix = {{'卍', 'FlashPromptIcon'}}},
-}
+require('flash').setup {modes = {char = {enabled = false}}, prompt = {prefix = {{'卍', 'FlashPromptIcon'}}}}
 vim.keymap.set({'n', 'x', 'o'}, 'ss', function() require("flash").jump() end)
 vim.keymap.set({'n', 'x', 'o'}, 'st', function() require("flash").treesitter() end)
 vim.keymap.set('o', 'r', function() require("flash").remote() end)
