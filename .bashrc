@@ -57,7 +57,7 @@ alias fd='fd --hidden --exclude .git'
 alias .f='git --git-dir=$HOME/.files/ --work-tree=$HOME'
 [[ -v WSL_DISTRO_NAME ]] && {
 	alias wy='clip.exe'
-	alias wp='powershell.exe -Command "Get-Clipboard -Raw"'
+	alias wp='powershell.exe -NoProfile -Command Get-Clipboard | sed "s/\r$//; \${/^$/d}"'
 	# export DISPLAY=$(grep nameserver /etc/resolv.conf | awk '{print $2}'):0.0
 	# export DISPLAY=$(route.exe print | grep 0.0.0.0 | head -1 | awk '{print $4}'):0.0
 }
