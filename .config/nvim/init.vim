@@ -85,15 +85,15 @@ nnoremap \x :set <C-R>=(&cursorline && &cursorcolumn) ? 'nocursorline nocursorco
 
 nnoremap <C-n> 12<C-e>
 nnoremap <C-p> 12<C-y>
-nnoremap <BS> :bd<CR>
 tnoremap <A-[> <C-\><C-n>
 tnoremap <expr> <A-;> '<C-\><C-n>"'.nr2char(getchar()).'pi'
 nnoremap <C-w><C-s> :horizontal terminal<CR>
 nnoremap <C-w><C-v> :vertical terminal<CR>
 nnoremap <C-w><C-t> :tab terminal<CR>
 "s- used: adfhnrst F
-"ctrl-w unused: ay ABCDEGIMVXYZ
-nnoremap <C-w><BS> :tabclose<CR>
+"ctrl-w unused: ay ABDEGIMVXYZ
+nnoremap <C-w><BS> :bd<CR>
+nnoremap <C-w>C :tabclose<CR>
 nnoremap <C-w>O :tabonly<CR>
 nnoremap <C-w>Q :qa<CR>
 nnoremap <C-w>U :wa<CR>
