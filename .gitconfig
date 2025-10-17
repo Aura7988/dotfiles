@@ -39,8 +39,10 @@
 	cm = commit -m
 	ee = "!git commit --allow-empty -m \"${1:-wip}\" #"
 	cc = "![[ $# -gt 0 ]] && cd \"${GIT_PREFIX-.}\" && git add \"$@\" || git add .; git commit -m wip #"
+	cu = "![[ $# -gt 0 ]] && cd \"${GIT_PREFIX-.}\" && git add -u \"$@\" || git add -u .; git commit -m wip #"
 	c = commit
 	a = add
+	au = add -u .
 	rs = restore
 	rb = rebase
 	fa = fetch --all
