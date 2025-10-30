@@ -1,6 +1,7 @@
 call plug#begin('~/.config/nvim/plugged')
 Plug 'Aura7988/anyline'
 Plug 'Aura7988/fzf.vim', {'branch': 'dev'}
+Plug 'Aura7988/vim-fugitive', {'branch': 'dev'}
 Plug 'sainnhe/edge'
 	let g:edge_style = 'aura' | let g:edge_better_performance = 1
 Plug 'danymat/neogen'
@@ -10,10 +11,6 @@ Plug 'kevinhwang91/nvim-bqf'
 Plug 'folke/flash.nvim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'hedyhli/outline.nvim'
-Plug 'tpope/vim-fugitive'
-Plug 'rbong/vim-flog'
-	let g:flog_enable_dynamic_commit_hl = 1
-	let g:flog_default_opts = {'max_count': 9999, 'format': '%h -%d %s %ad %an'}
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-repeat'
 Plug 'nvim-mini/mini.ai'
@@ -147,12 +144,13 @@ nnoremap <Leader>fk :KKBLines<CR>
 nnoremap <Leader>fl :KKLines<CR>
 nnoremap <Leader>fm :KKMarks<CR>
 nnoremap <Leader>fr :KKRegisters<CR>
+nnoremap <Leader>ga :GAnnotation<CR>
 nnoremap <Leader>gd :silent! lua MiniDiff.toggle_overlay()<CR>
 nnoremap <Leader>ge :lua vim.fn.setqflist(MiniDiff.export('qf'))<CR>:copen<CR>
 nnoremap <Leader>gg :silent! tab Git<CR>
-nnoremap <Leader>gk :Flog -path=%<Home>silent! <CR>
-nnoremap         gl :Flog<Home>silent! <CR>
-xnoremap         gl :Flog<Home>silent! <CR>
+nnoremap <Leader>gk :<C-u>Flog -- %:p:S<CR>
+nnoremap         gl :Flog<CR>
+xnoremap         gl :Flog<CR>
 nnoremap <Leader>tt :Outline<CR>
 nnoremap <Leader>ta :KKTags<CR>
 nnoremap <Leader>tb :KKBTags<CR>
@@ -167,8 +165,6 @@ hi FloatBorder ctermbg=NONE guibg=NONE
 hi MiniDiffSignAdd guifg=Green
 hi MiniDiffSignChange guifg=#ffcc33
 hi MiniDiffSignDelete guifg=Red
-hi flogHash guifg=Red
-hi flogDate guifg=#6B98DE
 
 lua <<EOF
 require('flash').setup {modes = {char = {enabled = false}}, prompt = {prefix = {{'卍', 'FlashPromptIcon'}}}}
