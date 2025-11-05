@@ -145,10 +145,10 @@ nnoremap <Leader>fl :KKLines<CR>
 nnoremap <Leader>fm :KKMarks<CR>
 nnoremap <Leader>fr :KKRegisters<CR>
 nnoremap <Leader>ga :GAnnotation<CR>
-nnoremap <Leader>gd :silent! lua MiniDiff.toggle_overlay()<CR>
+nnoremap <Leader>gd :lua MiniDiff.toggle_overlay()<CR>
 nnoremap <Leader>ge :lua vim.fn.setqflist(MiniDiff.export('qf'))<CR>:copen<CR>
-nnoremap <Leader>gg :silent! tab Git<CR>
-nnoremap <Leader>gk :<C-u>Flog -- %:p:S<CR>
+nnoremap <Leader>gg :tab Git<CR>
+nnoremap <Leader>gk :<C-u>Flog -- %<CR>
 nnoremap         gl :Flog<CR>
 xnoremap         gl :Flog<CR>
 nnoremap <Leader>tt :Outline<CR>
