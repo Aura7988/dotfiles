@@ -61,8 +61,8 @@ __fzf_select() {
 				echo "change-prompt(Directories> )+reload(fd -HE .git -td)" ||
 				echo "change-prompt(Files> )+reload(fd -HE .git -tf)"' \
 			--bind 'ctrl-o:execute:nvim {}' \
-			--preview '[[ $FZF_PROMPT =~ Files ]] && bat -p --color=always {} || tree -C -- {}' |
-		while read -r i; do printf ' %q' "$i"; done
+			--bind 'enter:become:printf " %q" {+}' \
+			--preview '[[ $FZF_PROMPT =~ Files ]] && bat -p --color=always {} || tree -C -- {}'
 	)
 	READLINE_LINE="${READLINE_LINE:0:$READLINE_POINT}$selected${READLINE_LINE:$READLINE_POINT}"
 	READLINE_POINT=$((READLINE_POINT + ${#selected}))
@@ -83,7 +83,7 @@ __fzf_git_branches() {
 			echo "change-prompt(AllBranches> )+reload(__fbr -a)"' \
 		--bind 'ctrl-o:execute:nvim "+G diff {1}|on"' \
 		--bind 'alt-h:become:__fzf_git_hashes {1}' \
-		--bind 'enter:become:echo {+1}' \
+		--bind 'enter:become:printf " %q" {+1}' \
 		--preview 'git l --color {1}'
 }
 
@@ -99,14 +99,13 @@ __fzf_git_each_ref() {
 }
 
 __fzf_git_files() {
-	# git 对文件名包含特殊符号的行为看起来好像不一致：git status 会对包含空格的文件名加双引号，但 git ls-files 不加；两个命令对文件名中含有单引号都不加双引号。暂时不处理特殊符号的问题。
 	git rev-parse HEAD &> /dev/null || return
-	(git status -s | sed -r 's/^(..)./[31m\1[m\t/'
-	git ls-files | grep -vxFf <(git status -s | grep '^[^?]' | cut -c4-; echo :) | sed 's/^/  \t/') |
-	fzf --prompt 'GFiles> ' -m --ansi -d "\t" --tabstop=1 \
+	(git status -zs | sed -zr 's/^(..)./[31m\1[m\t/'
+	git ls-files -z | grep -zvxFf <(git status -zs | sed -zrn 's/^[^?]..(.*)/\1\n/p'; echo :) | sed -z 's/^/  \t/') |
+	fzf --read0 --prompt 'GFiles> ' -m --ansi -d "\t" --tabstop=1 \
 		--bind 'ctrl-o:execute:nvim {2}' \
-		--bind 'alt-h:become(__fzf_git_hashes -- {+2})' \
-		--bind 'enter:become(echo {+2})' \
+		--bind 'alt-h:become:__fzf_git_hashes -- {+2}' \
+		--bind 'enter:become:printf " %q" {+2}' \
 		--preview 'git diff --no-ext-diff --color -- {2} | sed 1,4d; bat --style=header --color=always {2}'
 }
 
