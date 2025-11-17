@@ -20,19 +20,40 @@ rv() {
 
 dr() {
 	[[ ! -d "$1" || ! -d "$2" ]] && return
-	diff -raq "$@" |
-	sed -nr 's,^Only in (.*): (.*)$,S: \1/\2,p; s,^Files (.*) and (.*) differ$,D: \1 \2,p' |
-	fzf -m --prompt 'Diff> ' \
-		--bind "ctrl-o:execute:nvim -d {2} {3}" \
-		--preview 'bat -n --color=always {2}' |
-	cut -d' ' -f2-
+	diff -x .git -x .cache -raq "$@" |
+	awk -v old="${1%/}" -v new="${2%/}" '
+		BEGIN {lo = length(old); ln = length(new)}
+		{
+			if (match($0, /^Files (.*) and .* differ$/, fa)) {
+				print "M\t" substr(fa[1], lo + 2)
+				next
+			}
+			match($0, /^Only in (.*): (.*)$/, oa)
+			file = substr(oa[1], length(oa[1]), 1) == "/" ? oa[1] oa[2] : oa[1] "/" oa[2]
+			if (lo > ln) {
+				dir = substr(file, 1, lo)
+				if (dir != old) dir = substr(file, 1, ln)
+			} else {
+				dir = substr(file, 1, ln)
+				if (dir != new) dir = substr(file, 1, lo)
+			}
+			if (dir == new)
+				print "\033[32mA\033[m\t" substr(file, ln + 2)
+			else
+				print "\033[31mD\033[m\t" substr(file, lo + 2)
+		}' |
+	fzf --prompt 'Diff> ' -m --ansi -d "\t" \
+		--preview 'diff -Nu '"$(printf '{%q,%q}/{2}' "$1" "$2")" \
+		--bind 'ctrl-o:execute:nvim -d '"$(printf '{%q,%q}/{2}' "$1" "$2")" \
+		--bind 'enter:become:nvim {+f}'
 }
 
 __fzf_kill() {
 	local selected=$(
 		ps -fu $UID |
-		fzf -m --header-lines=1 --preview 'echo {}' --preview-window up,3 \
-			--bind 'enter:become(echo {+2}),alt-enter:become(kill -9 {+2} &> /dev/null)'
+		fzf -m --header-lines 1 --preview 'echo {}' --preview-window up,3 \
+			--bind 'enter:become:echo {+2}' \
+			--bind 'alt-enter:become:kill -9 {+2} &> /dev/null'
 	)
 	READLINE_LINE="${READLINE_LINE:0:$READLINE_POINT}$selected${READLINE_LINE:$READLINE_POINT}"
 	READLINE_POINT=$((READLINE_POINT + ${#selected}))
@@ -40,15 +61,16 @@ __fzf_kill() {
 
 __fzf_cd() {
 	fd -HE .git -td |
-	fzf --scheme=path --preview 'tree -C -- {}' \
-		--bind 'enter:become/printf "cd -- %q" {}/,alt-enter:become:printf "cd %q" "$(unset CDPATH && cd -- {} && pwd)"'
+	fzf --scheme path --preview 'tree -C -- {}' \
+		--bind 'enter:become:printf "cd -- %q" {}' \
+		--bind 'alt-enter:become:printf "cd %q" "$(unset CDPATH && cd -- {} && pwd)"'
 }
 
 __fzf_history() {
 	local h; h=$(
 		builtin fc -lnr -2147483648 |
 		awk '{sub(/^\t /, ""); if (!a[$0]++) print}' |
-		fzf --scheme=history --query "$READLINE_LINE"
+		fzf --scheme history --query "$READLINE_LINE"
 	) || return
 	READLINE_LINE=$h; READLINE_POINT=0
 }
@@ -56,7 +78,7 @@ __fzf_history() {
 __fzf_select() {
 	local selected=$(
 		fd -HE .git -tf |
-		fzf -m --scheme=path --prompt 'Files> ' --header '╱ CTRL-G: Switch between Files/Directories ╱' \
+		fzf -m --scheme path --prompt 'Files> ' --header '╱ CTRL-G: Switch between Files/Directories ╱' \
 			--bind 'ctrl-g:transform:[[ $FZF_PROMPT =~ Files ]] &&
 				echo "change-prompt(Directories> )+reload(fd -HE .git -td)" ||
 				echo "change-prompt(Files> )+reload(fd -HE .git -tf)"' \
@@ -100,9 +122,9 @@ __fzf_git_each_ref() {
 
 __fzf_git_files() {
 	git rev-parse HEAD &> /dev/null || return
-	(git status -zs | sed -zr 's/^(..)./[31m\1[m\t/'
-	git ls-files -z | grep -zvxFf <(git status -zs | sed -zrn 's/^[^?]..(.*)/\1\n/p'; echo :) | sed -z 's/^/  \t/') |
-	fzf --read0 --prompt 'GFiles> ' -m --ansi -d "\t" --tabstop=1 \
+	(git status -zs | sed -zrn 's/^[^RC]([^RC]) /[31m\1[m\t/p'
+	git ls-files -z | grep -zvxFf <(git status -zs | sed -zrn 's/^[^?]. (.*)/\1\n/p'; echo :) | sed -z 's/^/ \t/') |
+	fzf --read0 --prompt 'GFiles> ' -m --ansi -d "\t" \
 		--bind 'ctrl-o:execute:nvim {2}' \
 		--bind 'alt-h:become:__fzf_git_hashes -- {+2}' \
 		--bind 'enter:become:printf " %q" {+2}' \
