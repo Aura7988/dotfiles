@@ -7,7 +7,6 @@ Plug 'sainnhe/edge'
 Plug 'danymat/neogen'
 Plug 'mbbill/undotree'
 Plug 'nvim-treesitter/nvim-treesitter', {'branch': 'main', 'do': ':TSUpdate'}
-Plug 'kevinhwang91/nvim-bqf'
 Plug 'folke/flash.nvim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'hedyhli/outline.nvim'
@@ -62,7 +61,6 @@ set virtualedit=block
 " set lazyredraw
 set timeoutlen=900
 set pumblend=9
-set winblend=9
 set pumheight=9
 set tabclose=uselast
 

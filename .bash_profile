@@ -13,6 +13,6 @@ export EDITOR=nvim
 export MANPAGER='nvim +Man!'
 [[ -v MANPATH ]] && export MANPATH=$HOME/.local/share/man:$MANPATH || export MANPATH=$HOME/.local/share/man:
 export FZF_DEFAULT_COMMAND='fd --hidden --exclude .git'
-export FZF_DEFAULT_OPTS='--bind ctrl-/:toggle-preview,ctrl-l:clear-selection,ctrl-c:toggle-sort,ctrl-n:page-down,ctrl-p:page-up,ctrl-q:jump,alt-a:toggle-all,alt-j:preview-page-down,alt-k:preview-page-up,alt-w:toggle-preview-wrap --cycle --reverse --inline-info --tabstop 2 -0 --marker • --color light,hl:#6B98DE,hl+:#6B98DE:reverse --preview-window right,75%,wrap,hidden'
+export FZF_DEFAULT_OPTS='--bind ctrl-/:toggle-preview,ctrl-l:clear-selection,ctrl-c:toggle-sort,ctrl-n:half-page-down+offset-middle,ctrl-p:half-page-up+offset-middle,ctrl-q:jump,alt-a:toggle-all,alt-j:preview-page-down,alt-k:preview-page-up,alt-w:toggle-preview-wrap --cycle --reverse --inline-info --tabstop 2 -0 --marker • --color light,hl:#6B98DE,hl+:#6B98DE:reverse --preview-window border-left,right,75%,wrap,hidden'
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc
