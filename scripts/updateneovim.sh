@@ -27,3 +27,15 @@ until cp -r $dir/* ~/.local; do
 done
 rm -rf $dir
 echo 'new version installed'
+
+echo -e "\noutline-asciidoc-provider.nvim"
+cd ~/github/outline-asciidoc-provider.nvim
+git pl
+
+echo -e "\noutline-ctags-provider.nvim"
+cd ~/github/outline-ctags-provider.nvim
+git pl
+
+echo -e "\noutline-treesitter-provider.nvim"
+cd ~/github/outline-treesitter-provider.nvim
+git pl
