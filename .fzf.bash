@@ -72,7 +72,7 @@ __fzf_history() {
 		awk '{sub(/^\t /, ""); if (!a[$0]++) print}' |
 		fzf --scheme history --query "$READLINE_LINE"
 	) || return
-	READLINE_LINE=$h; READLINE_POINT=0
+	READLINE_LINE=$h; READLINE_POINT=0x7fffffff
 }
 
 __fzf_select() {
@@ -99,8 +99,8 @@ __fzf_git_branches() {
 	git rev-parse HEAD &> /dev/null || return
 	__fbr |
 	fzf -m --tiebreak begin --no-hscroll --ansi --prompt 'Branches> ' \
-		--header '╱ ALT-R: Toggle remote branches ╱' \
-		--bind 'alt-r:transform:[[ $FZF_PROMPT =~ All ]] &&
+		--header '╱ CTRL-R: Toggle remote branches ╱' \
+		--bind 'ctrl-r:transform:[[ $FZF_PROMPT =~ All ]] &&
 			echo "change-prompt(Branches> )+reload(__fbr)" ||
 			echo "change-prompt(AllBranches> )+reload(__fbr -a)"' \
 		--bind 'ctrl-o:execute:nvim "+G diff {1}|on"' \
@@ -174,12 +174,12 @@ __fzf_git_ups() {
 	cut -d$'\t' -f1
 }
 
-bind -m emacs-standard '"\ea": redraw-current-line'
-bind -m emacs-standard '"\ej": " \C-b\C-k \C-u`__fzf_cd`\e\C-e\ea\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d\C-y\ey\C-_"'
+bind -m emacs-standard '"\e\C-(": redraw-current-line'
+bind -m emacs-standard '"\ej": " \C-b\C-k \C-u`__fzf_cd`\e\C-e\e\C-(\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d\C-y\ey\C-_"'
 bind -m emacs-standard -x '"\C-q": __fzf_kill'
 bind -m emacs-standard -x '"\C-s": __fzf_select'
 bind -m emacs-standard -x '"\C-r": __fzf_history'
 
 for o in branches each_ref files hashes reflogs stashes tags ups; do
-	bind -m emacs-standard '"\C-g'${o:0:1}'": " \C-b\C-k \C-u`__fzf_git_'$o'`\e\C-e\ea\C-a\C-y\C-h\C-e\e \C-y\ey\C-x\C-x\C-d\C-y\ey\C-_"'
+	bind -m emacs-standard '"\C-g'${o:0:1}'": " \C-b\C-k \C-u`__fzf_git_'$o'`\e\C-e\e\C-(\C-a\C-y\C-h\C-e\e \C-y\ey\C-x\C-x\C-d\C-y\ey\C-_"'
 done
