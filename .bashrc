@@ -16,11 +16,11 @@ stty -ixon
 stty -ixoff
 # stty discard undef
 
-. ~/.prompt.sh
-. ~/.fzf.bash
 eval "$(lua ~/github/z.lua/z.lua --init bash enhanced once fzf)"
 eval "$(dircolors -b)"
 eval "$(~/github/lesspipe/lesspipe.sh)"
+. ~/.fzf.bash
+. ~/.prompt.sh
 
 if [[ -v SSH_AUTH_SOCK ]]; then
 	. /opt/homebrew/share/bash-completion/bash_completion || :
