@@ -3,7 +3,7 @@
 sf() { greenclip print | fzf -e | xargs -r -0 greenclip print; }
 
 rv() {
-	local RG='rg --column --line-number --with-filename --no-heading --color=always --smart-case'
+	local RG='rg --column --line-number --with-filename --no-heading --color=always --smart-case -. -g !.git'
 	$RG "${@:-""}" |
 	fzf -m --ansi --delimiter : --prompt 'Fzf> ' \
 		--header '╱ CTRL-G: Switch between Fzf/Ripgrep mode ╱' \
@@ -77,11 +77,11 @@ __fzf_history() {
 
 __fzf_select() {
 	local selected=$(
-		fd -HE .git -tf |
+		fd -HE .git -tf -tl |
 		fzf -m --scheme path --prompt 'Files> ' --header '╱ CTRL-G: Switch between Files/Directories ╱' \
 			--bind 'ctrl-g:transform:[[ $FZF_PROMPT =~ Files ]] &&
 				echo "change-prompt(Directories> )+reload(fd -HE .git -td)" ||
-				echo "change-prompt(Files> )+reload(fd -HE .git -tf)"' \
+				echo "change-prompt(Files> )+reload(fd -HE .git -tf -tl)"' \
 			--bind 'ctrl-o:execute:nvim {}' \
 			--bind 'enter:become:printf " %q" {+}' \
 			--preview '[[ $FZF_PROMPT =~ Files ]] && bat -p --color=always {} || tree -C -- {}'
