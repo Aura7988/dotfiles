@@ -44,21 +44,17 @@ set laststatus=2
 set fillchars=eob:\ 
 set shortmess+=WcC
 set updatetime=300
-" set undofile
 set noruler
 set noswapfile noautoread
 set nobackup nowritebackup
 set breakindent
 set showbreak=╰➤
-"set cpoptions+=n
 set list listchars=tab:│\ ,trail:•,extends:…,precedes:…,nbsp:␣
 set completeopt=menuone,noinsert,noselect,popup
 set splitkeep=screen
 set matchpairs+=<:>
 set jumpoptions=stack
-set signcolumn=auto:2
 set virtualedit=block
-" set lazyredraw
 set timeoutlen=900
 set pumblend=9
 set pumheight=9
@@ -78,8 +74,6 @@ nnoremap \v :set <C-R>=(&virtualedit =~# 'all') ? 'virtualedit-=all' : 'virtuale
 nnoremap \w :setlocal wrap!<CR>
 nnoremap \x :set <C-R>=(&cursorline && &cursorcolumn) ? 'nocursorline nocursorcolumn' : 'cursorline cursorcolumn'<CR><CR>
 
-nnoremap <C-n> 12<C-e>
-nnoremap <C-p> 12<C-y>
 tnoremap <A-[> <C-\><C-n>
 tnoremap <expr> <A-;> '<C-\><C-n>"'.nr2char(getchar()).'pi'
 nnoremap <C-w><C-s> :horizontal terminal<CR>
@@ -102,29 +96,26 @@ inoremap <expr> <CR> coc#pum#visible() ? coc#pum#confirm() : '<CR>'
 inoremap <expr> <C-z> coc#refresh()
 imap <C-l> <Plug>(coc-snippets-expand)
 vmap <C-j> <Plug>(coc-snippets-select)
-nmap <silent> <C-s><C-s> <Plug>(coc-range-select)
-xmap <silent> <C-s><C-s> <Plug>(coc-range-select)
 nmap <nowait> [d <Plug>(coc-diagnostic-prev)
 nmap <nowait> ]d <Plug>(coc-diagnostic-next)
 nmap <nowait> <Leader>j <Plug>(coc-definition)
 nmap <nowait> <Leader>r <Plug>(coc-references)
 nmap <nowait> <Leader>d <Plug>(coc-type-definition)
 nmap <nowait> <Leader>i <Plug>(coc-implementation)
-xmap <Leader>mf <Plug>(coc-format-selected)
-nmap <Leader>mf <Plug>(coc-format-selected)
-xmap <Leader>ma <Plug>(coc-codeaction-selected)
-nmap <Leader>ma <Plug>(coc-codeaction-selected)
-xmap <Leader>mr <Plug>(coc-codeaction-refactor-selected)
-nmap <Leader>mr <Plug>(coc-codeaction-refactor-selected)
-nmap <Leader>aa <Plug>(coc-codeaction)
-nmap <Leader>af <Plug>(coc-fix-current)
-nmap <Leader>an <Plug>(coc-rename)
-nmap <Leader>ac <Plug>(coc-codeaction-cursor)
-nmap <Leader>as <Plug>(coc-codeaction-source)
-nmap <Leader>ar <Plug>(coc-codeaction-refactor)
-nmap <Leader>al <Plug>(coc-codelens-action)
-nnoremap <Leader>mh :call CocActionAsync('doHover')<CR>
-nnoremap <Leader>ml :call CocActionAsync('highlight')<CR>
+xmap <C-s>f <Plug>(coc-format-selected)
+nmap <C-s>f <Plug>(coc-format-selected)
+xmap <C-s>a <Plug>(coc-codeaction-selected)
+nmap <C-s>a <Plug>(coc-codeaction-selected)
+xmap <C-s>r <Plug>(coc-codeaction-refactor-selected)
+nmap <C-s>r <Plug>(coc-codeaction-refactor-selected)
+nmap <C-s>e <Plug>(coc-codeaction-refactor)
+nmap <C-s>c <Plug>(coc-codeaction-cursor)
+nmap <C-s>i <Plug>(coc-codelens-action)
+nmap <C-s>d <Plug>(coc-fix-current)
+nmap <C-s>n <Plug>(coc-rename)
+nnoremap <C-s>z :call CocActionAsync('fold')<CR>
+nnoremap <C-s>h :call CocActionAsync('doHover')<CR>
+nnoremap <C-s>l :call CocActionAsync('highlight')<CR>
 nnoremap <Leader>b :KKBuffers<CR>
 nnoremap <Leader>c :KKHistory:<CR>
 nnoremap <Leader>/ :KKHistory/<CR>
@@ -144,7 +135,7 @@ nnoremap <Leader>fm :KKMarks<CR>
 nnoremap <Leader>fr :KKRegisters<CR>
 nnoremap <Leader>ga :GAnnotation<CR>
 nnoremap <Leader>gd :lua MiniDiff.toggle_overlay()<CR>
-nnoremap <Leader>ge :lua vim.fn.setqflist(MiniDiff.export('qf'))<CR>:copen<CR>
+nnoremap <Leader>ge :lua vim.fn.setloclist(0, MiniDiff.export('qf'))<CR>:lopen<CR>
 nnoremap <Leader>gg :tab Git<CR>
 nnoremap <Leader>gk :<C-u>Flog -- %<CR>
 nnoremap         gl :Flog<CR>
@@ -155,14 +146,12 @@ nnoremap <Leader>tb :KKBTags<CR>
 
 au BufReadPost * silent! normal g`"
 au BufEnter * set formatoptions=ql1j
-au TextYankPost * silent! lua vim.highlight.on_yank {higroup="Yanked", timeout=300}
+au TextPutPost,TextYankPost * silent! lua vim.hl.hl_op {higroup='Yanked', timeout=300}
 au FileType git set foldmethod=syntax
 hi Yanked cterm=underline ctermfg=Blue gui=underline guifg=Blue
-hi IncSearch ctermfg=230 ctermbg=160 guifg=#fdf6e3 guibg=#f85552
+hi IncSearch ctermfg=230 ctermbg=203 guifg=#fdf6e3 guibg=#f85552
+hi CocHighlightText ctermbg=221 guibg=#ffcc33
 hi FloatBorder ctermbg=NONE guibg=NONE
-hi MiniDiffSignAdd guifg=Green
-hi MiniDiffSignChange guifg=#ffcc33
-hi MiniDiffSignDelete guifg=Red
 
 lua <<EOF
 require('flash').setup {modes = {char = {enabled = false}}, prompt = {prefix = {{'卍', 'FlashPromptIcon'}}}}
