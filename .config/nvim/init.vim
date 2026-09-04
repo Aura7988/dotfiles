@@ -5,13 +5,10 @@ Plug 'Aura7988/vim-fugitive', {'branch': 'dev'}
 Plug 'sainnhe/edge'
 	let g:edge_style = 'aura' | let g:edge_better_performance = 1
 Plug 'danymat/neogen'
-Plug 'mbbill/undotree'
 Plug 'nvim-treesitter/nvim-treesitter', {'branch': 'main', 'do': ':TSUpdate'}
 Plug 'folke/flash.nvim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'hedyhli/outline.nvim'
-Plug 'tpope/vim-abolish'
-Plug 'tpope/vim-repeat'
 Plug 'nvim-mini/mini.ai'
 Plug 'nvim-mini/mini.align'
 Plug 'nvim-mini/mini.bracketed'
@@ -37,10 +34,6 @@ set cindent shiftwidth=4
 set tabstop=4
 set clipboard+=unnamedplus
 set ignorecase smartcase infercase
-set mouse=a
-set hidden
-set cmdheight=2
-set laststatus=2
 set fillchars=eob:\ 
 set shortmess+=WcC
 set updatetime=300
