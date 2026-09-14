@@ -16,7 +16,6 @@ Plug 'nvim-mini/mini.diff'
 Plug 'nvim-mini/mini.files'
 Plug 'nvim-mini/mini.move'
 Plug 'nvim-mini/mini.surround'
-Plug 'honza/vim-snippets'
 call plug#end()
 
 let mapleader = ' '
