@@ -6,7 +6,7 @@ rv() {
 	local RG='rg --column --line-number --with-filename --no-heading --color=always --smart-case -. -g !.git'
 	$RG "${@:-""}" |
 	fzf -m --ansi --delimiter : --prompt 'Fzf> ' \
-		--header '╱ CTRL-G: Switch between Fzf/Ripgrep mode ╱' \
+		--header '• CTRL-G: Toggle Fzf/Ripgrep mode' \
 		--bind "start:unbind(change)" \
 		--bind "change:reload(sleep 0.1; $RG {q} || true)" \
 		--bind "ctrl-g:transform:[[ \$FZF_PROMPT =~ Fzf ]] &&
@@ -51,7 +51,8 @@ dr() {
 __fzf_kill() {
 	local selected=$(
 		ps -fu $UID |
-		fzf -m --header-lines 1 --preview 'echo {}' --preview-window up,3 \
+		fzf -m --header-lines 1 --preview 'echo {8..}' --preview-window up,3 \
+			--bind 'ctrl-o:execute:nvim {+f}' \
 			--bind 'enter:become:echo {+2}' \
 			--bind 'alt-enter:become:kill -9 {+2} &> /dev/null'
 	)
@@ -78,7 +79,7 @@ __fzf_history() {
 __fzf_select() {
 	local selected=$(
 		fd -HE .git -tf -tl |
-		fzf -m --scheme path --prompt 'Files> ' --header '╱ CTRL-G: Switch between Files/Directories ╱' \
+		fzf -m --scheme path --prompt 'Files> ' --header '• CTRL-G: Toggle Files/Directories' \
 			--bind 'ctrl-g:transform:[[ $FZF_PROMPT =~ Files ]] &&
 				echo "change-prompt(Directories> )+reload(fd -HE .git -td)" ||
 				echo "change-prompt(Files> )+reload(fd -HE .git -tf -tl)"' \
@@ -99,8 +100,8 @@ __fzf_git_branches() {
 	git rev-parse HEAD &> /dev/null || return
 	__fbr |
 	fzf -m --tiebreak begin --no-hscroll --ansi --prompt 'Branches> ' \
-		--header '╱ CTRL-R: Toggle remote branches ╱' \
-		--bind 'ctrl-r:transform:[[ $FZF_PROMPT =~ All ]] &&
+		--header '• CTRL-G: Toggle Branches/AllBranches' \
+		--bind 'ctrl-g:transform:[[ $FZF_PROMPT =~ All ]] &&
 			echo "change-prompt(Branches> )+reload(__fbr)" ||
 			echo "change-prompt(AllBranches> )+reload(__fbr -a)"' \
 		--bind 'ctrl-o:execute:nvim "+G diff {1}|on"' \
@@ -121,14 +122,30 @@ __fzf_git_each_ref() {
 }
 
 __fzf_git_files() {
-	git rev-parse HEAD &> /dev/null || return
-	(git status -zs | sed -zrn 's/^[^RC]([^RC]) /[31m\1[m\t/p'
-	git ls-files -z | grep -zvxFf <(git status -zs | sed -zrn 's/^[^?]. (.*)/\1\n/p'; echo :) | sed -z 's/^/ \t/') |
-	fzf --read0 --prompt 'GFiles> ' -m --ansi -d "\t" \
-		--bind 'ctrl-o:execute:nvim {2}' \
-		--bind 'alt-h:become:__fzf_git_hashes -- {+2}' \
-		--bind 'enter:become:printf " %q" {+2}' \
-		--preview 'git diff --no-ext-diff --color -- {2} | sed 1,4d; bat --style=header --color=always {2}'
+	local root wd
+	root=$(git rev-parse --show-toplevel 2> /dev/null)
+	[[ -z "$root" ]] && return
+	wd="$PWD"
+	cmd() {
+		fd -HE .git -tf -tl |
+		fzf -m --scheme path --prompt 'GFiles> ' --header '• ALT-H: Show commits • CTRL-G: Toggle GFiles/GStatus' \
+			--bind 'ctrl-g:transform:[[ $FZF_PROMPT =~ Files ]] &&
+				echo "change-prompt(Gstatus> )+reload(git status -sz | tr \"\\0\" \"\\n\" | sed -rn \"h;s/^...(.*)/\1/p;x;/^[RC]/n\")" ||
+				echo "change-prompt(GFiles> )+reload(fd -HE .git -tf -tl)"' \
+			--bind 'ctrl-o:execute:nvim {}' \
+			--bind 'alt-h:become:__fzf_git_hashes -- {+}' \
+			--preview 'git -c color.status=always status -s -- {}; git l --color --follow --no-graph -- {}' "$@"
+	}
+	# [[ "$root" == "$wd" ]] && cmd --bind 'enter:become:printf " %q" {+}' || {
+	# 	cd -- "$root"
+	# 	cmd | while read -r i; do printf ' %q' "$(realpath --relative-to="$wd" "$i")"; done
+	# }
+	if [[ "$root" == "$wd" ]]; then
+		cmd --bind 'enter:become:printf " %q" {+}'
+	else
+		cd -- "$root"
+		cmd | while read -r i; do printf ' %q' "$(realpath --relative-to="$wd" "$i")"; done
+	fi
 }
 
 __fzf_git_hashes() {
@@ -151,7 +168,7 @@ __fzf_git_reflogs() {
 __fzf_git_stashes() {
 	git rev-parse HEAD &> /dev/null || return
 	git stash list |
-	fzf -d: --prompt 'Stashes> ' --header '╱ CTRL-X: Drop selected stash entry ╱' \
+	fzf -d: --prompt 'Stashes> ' --header '• CTRL-X: Drop entry' \
 		--bind 'ctrl-o:execute:nvim "+G stash show -p {1}|on"' \
 		--bind 'ctrl-x:execute-silent(git stash drop {1})+reload(git stash list)' \
 		--preview-window 'up,25%' --preview 'git -c color.ui=always stash show {1}' |
