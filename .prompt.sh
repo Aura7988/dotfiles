@@ -42,7 +42,7 @@ function __promptline {
 	local y_sep_fg='\[\e[38;5;236m\]'
 	local slice_prefix slice_empty_prefix slice_suffix is_prompt_empty=1
 	((code)) && local es=" $code" || local es=""
-	local ps1="\[\e[38;5;249m\]$es \t  \w\n$reset"
+	local ps1="\[\e[38;5;166m\]\t  \w $es\n$reset"
 
 	# slice_prefix="${c_bg}${sep}${c_fg}${c_bg}${space}"
 	# slice_suffix="$space${c_sep_fg}"

@@ -10,6 +10,10 @@
 [diff]
 	tool = nvimdiff
 	context = 1
+	algorithm = histogram
+	; colorMoved = plain
+	; mnemonicPrefix = true
+	; renames = true
 [difftool "nvimdiff"]
 	cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
 	; path = nvim
@@ -84,4 +88,4 @@
 ; 	file-decoration-style = none
 
 [init]
-	defaultBranch = master
+	defaultBranch = main
