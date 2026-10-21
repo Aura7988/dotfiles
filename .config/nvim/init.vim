@@ -11,10 +11,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'hedyhli/outline.nvim'
 Plug 'nvim-mini/mini.ai'
 Plug 'nvim-mini/mini.align'
-Plug 'nvim-mini/mini.bracketed'
 Plug 'nvim-mini/mini.diff'
 Plug 'nvim-mini/mini.files'
-Plug 'nvim-mini/mini.move'
 Plug 'nvim-mini/mini.surround'
 call plug#end()
 
@@ -165,10 +163,8 @@ vim.api.nvim_create_autocmd('FileType', {
 require('outline').setup {providers = {priority = {'lsp', 'coc', 'markdown', 'norg', 'man', 'asciidoc', 'treesitter', 'ctags'}}}
 require('mini.ai').setup {}
 require('mini.align').setup {mappings = {start = 'gb', start_with_preview = 'gB'}}
-require('mini.bracketed').setup {comment = {suffix = 'a'}, diagnostic = {suffix = ''}, oldfile = {suffix = ''}}
 require('mini.diff').setup {options = {wrap_goto = true}}
 require('mini.files').setup {mappings = {go_in = '.', go_in_plus = 'g.', go_out = ',', go_out_plus = 'g,'}}
-require('mini.move').setup {}
 require('mini.surround').setup {}
 require('neogen').setup {}
 EOF

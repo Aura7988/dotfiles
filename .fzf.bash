@@ -51,7 +51,10 @@ dr() {
 __fzf_kill() {
 	local selected=$(
 		ps -fu $UID |
-		fzf -m --header-lines 1 --preview 'echo {8..}' --preview-window up,3 \
+		fzf -m --header-lines 1 --preview 'echo {8..}' --preview-window up,3 --prompt "$UID> " \
+			--bind "ctrl-g:transform:[[ \$FZF_PROMPT =~ All ]] &&
+				echo 'change-prompt($UID> )+reload(ps -fu $UID)' ||
+				echo 'change-prompt(All> )+reload(ps -fe)'" \
 			--bind 'ctrl-o:execute:nvim {+f}' \
 			--bind 'enter:become:echo {+2}' \
 			--bind 'alt-enter:become:kill -9 {+2} &> /dev/null'
